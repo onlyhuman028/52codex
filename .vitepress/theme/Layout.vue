@@ -114,7 +114,13 @@ watch(
   <div class="site-shell">
     <nav class="nav" @mouseenter="cancelDropdownClose" @mouseleave="scheduleDropdownClose">
       <div class="nav-inner">
-        <a href="/" class="nav-logo" aria-label="我爱CodeX 首页"><span>我爱</span><span>CodeX</span></a>
+        <a href="/" class="nav-logo" aria-label="我爱CodeX 首页">
+          <svg class="nav-logo-mark" viewBox="0 0 36 36" aria-hidden="true">
+            <circle cx="18" cy="18" r="18" />
+            <path d="M21.5 10.4c-7.1 0-12 5.1-12 12.6s5 12.6 12.2 12.6c4.3 0 7.7-1.6 9.8-4.6l-4.4-3.4c-1.3 1.7-3.1 2.6-5.3 2.6-3.8 0-6.2-2.9-6.2-7.2s2.5-7.1 6.1-7.1c2.2 0 3.9.8 5.2 2.5l4.4-3.4c-2.1-3.1-5.5-4.7-9.8-4.7z" />
+          </svg>
+          <span>我爱</span><span>CodeX</span>
+        </a>
 
         <div class="nav-links">
           <div
@@ -203,7 +209,13 @@ watch(
 
     <div class="mobile-overlay" :class="{ open: mobileOpen }">
       <div class="mobile-header">
-        <a href="/" class="nav-logo" @click="closeMobile"><span>我爱</span><span>CodeX</span></a>
+        <a href="/" class="nav-logo" @click="closeMobile">
+          <svg class="nav-logo-mark" viewBox="0 0 36 36" aria-hidden="true">
+            <circle cx="18" cy="18" r="18" />
+            <path d="M21.5 10.4c-7.1 0-12 5.1-12 12.6s5 12.6 12.2 12.6c4.3 0 7.7-1.6 9.8-4.6l-4.4-3.4c-1.3 1.7-3.1 2.6-5.3 2.6-3.8 0-6.2-2.9-6.2-7.2s2.5-7.1 6.1-7.1c2.2 0 3.9.8 5.2 2.5l4.4-3.4c-2.1-3.1-5.5-4.7-9.8-4.7z" />
+          </svg>
+          <span>我爱</span><span>CodeX</span>
+        </a>
         <button class="mobile-close" type="button" aria-label="关闭导航菜单" @click="closeMobile">×</button>
       </div>
       <div class="mobile-body">

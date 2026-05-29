@@ -99,15 +99,32 @@ select {
 .nav-logo {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
   color: var(--ink);
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 22px;
+  font-weight: 700;
   line-height: 1;
+}
+
+.nav-logo-mark {
+  width: 32px;
+  height: 32px;
+  margin-right: 5px;
+  flex: 0 0 auto;
+}
+
+.nav-logo-mark circle {
+  fill: var(--ink);
+}
+
+.nav-logo-mark path {
+  fill: var(--primary);
 }
 
 .nav-logo span:last-child {
   color: var(--primary);
+  font-size: 23px;
+  font-weight: 750;
 }
 
 .nav-links {
