@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>自动搜集公众号热帖 — 我爱CodeX</title>
+  <meta name="description" content="用 Codex 的 Computer Use 控制微信搜一搜，定时抓取关键词热帖，自动整理成报告。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #171717; background: #fff; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+
+    :root {
+      --primary: #3ecf8e; --primary-deep: #24b47e;
+      --ink: #171717; --ink-mute: #707070; --ink-mute-2: #9a9a9a; --ink-faint: #b2b2b2;
+      --canvas: #fff; --canvas-soft: #fafafa; --canvas-night: #1c1c1c;
+      --hairline: #dfdfdf; --hairline-cool: #ededed; --hairline-strong: #c7c7c7;
+      --radius-sm: 6px; --radius-lg: 12px; --max-w: 1280px;
+      --mono: ui-monospace, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
+    }
+
+    /* ===== NAV (same as index) ===== */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--hairline-cool); }
+    .nav-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; height: 60px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { display: flex; align-items: center; gap: 4px; font-size: 20px; font-weight: 600; }
+    .nav-logo span:first-child { color: var(--ink); }
+    .nav-logo span:last-child { color: var(--primary); }
+    .nav-links { display: flex; align-items: center; gap: 4px; }
+    .nav-item { position: relative; padding: 8px 14px; font-size: 14px; font-weight: 500; color: var(--ink-mute); border-radius: var(--radius-sm); cursor: pointer; transition: color 0.15s, background 0.15s; }
+    .nav-item:hover { color: var(--ink); background: var(--canvas-soft); }
+    .nav-item.has-dropdown::after { content: ''; display: inline-block; width: 0; height: 0; margin-left: 5px; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 4px solid currentColor; vertical-align: middle; }
+    .nav-dropdown { display: none; position: absolute; top: calc(100% + 8px); left: 0; background: var(--canvas); border: 1px solid var(--hairline); border-radius: var(--radius-lg); padding: 8px 0; min-width: 260px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    .nav-item:hover .nav-dropdown { display: block; }
+    .nav-dropdown a { display: block; padding: 8px 20px; font-size: 13px; color: var(--ink); transition: background 0.1s; }
+    .nav-dropdown a:hover { background: var(--canvas-soft); color: var(--primary-deep); }
+    .nav-dropdown .dd-divider { padding: 6px 20px 4px; font-size: 11px; font-weight: 500; color: var(--ink-faint); letter-spacing: 0.5px; }
+    .nav-hamburger { display: none; width: 40px; height: 40px; border: none; background: none; cursor: pointer; flex-direction: column; align-items: center; justify-content: center; gap: 5px; }
+    .nav-hamburger span { display: block; width: 18px; height: 1.5px; background: var(--ink); }
+    @media (max-width: 900px) { .nav-links { display: none; } .nav-hamburger { display: flex; } }
+
+    /* ===== ARTICLE LAYOUT ===== */
+    .article-wrapper { max-width: 720px; margin: 0 auto; padding: 100px 24px 64px; }
+
+    /* Breadcrumb */
+    .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-mute); margin-bottom: 32px; flex-wrap: wrap; }
+    .breadcrumb a { color: var(--ink-mute); transition: color 0.15s; }
+    .breadcrumb a:hover { color: var(--ink); }
+    .breadcrumb .sep { color: var(--ink-faint); }
+    .breadcrumb .current { color: var(--ink-mute-2); }
+
+    /* Title area */
+    .article-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+    .lv { font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 9999px; }
+    .lv1 { background: #e8faf0; color: #24b47e; }
+    .lv2 { background: #eef0ff; color: #644fc1; }
+    .lv3 { background: #fff3e0; color: #c37d0d; }
+    .tag-pill { font-size: 11px; padding: 2px 8px; border-radius: 9999px; background: var(--canvas-soft); color: var(--ink-mute); border: 1px solid var(--hairline-cool); }
+
+    .article-wrapper h1 {
+      font-size: 42px; font-weight: 500; letter-spacing: -1.44px; line-height: 1.1;
+      color: var(--ink); margin-bottom: 16px;
+    }
+    .article-lead { font-size: 17px; color: var(--ink-mute); line-height: 1.6; margin-bottom: 16px; }
+    .article-meta { display: flex; flex-wrap: wrap; gap: 12px; font-size: 13px; color: var(--ink-mute-2); margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--hairline-cool); }
+
+    /* Cover */
+    .article-cover { border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--hairline-cool); margin-bottom: 40px; }
+    .article-cover-inner { height: 280px; background: var(--canvas-night); display: flex; align-items: center; justify-content: center; color: var(--ink-faint); font-size: 13px; }
+
+    /* ===== PROSE ===== */
+    .prose h2 { font-size: 26px; font-weight: 500; letter-spacing: -0.42px; line-height: 1.2; margin-top: 48px; margin-bottom: 16px; color: var(--ink); }
+    .prose h3 { font-size: 20px; font-weight: 500; line-height: 1.25; margin-top: 36px; margin-bottom: 10px; color: var(--ink); }
+    .prose p { font-size: 16px; line-height: 1.7; margin-bottom: 16px; color: #212121; }
+    .prose ul, .prose ol { margin-bottom: 16px; padding-left: 22px; }
+    .prose li { font-size: 16px; line-height: 1.7; margin-bottom: 6px; color: #212121; }
+    .prose ul li { list-style: disc; }
+    .prose ol li { list-style: decimal; }
+    .prose strong { font-weight: 500; color: var(--ink); }
+    .prose a { text-decoration: underline; text-underline-offset: 2px; }
+    .prose a:hover { color: var(--primary-deep); }
+    .prose img { border-radius: var(--radius-lg); border: 1px solid var(--hairline-cool); margin: 24px 0; }
+    .prose blockquote { border-left: 3px solid var(--primary); padding-left: 16px; margin: 24px 0; color: var(--ink-mute); font-style: italic; }
+    .prose hr { border: none; border-top: 1px solid var(--hairline-cool); margin: 36px 0; }
+
+    /* Inline code */
+    .prose code {
+      font-family: var(--mono); font-size: 13px;
+      background: var(--canvas-soft); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--hairline-cool);
+    }
+    /* Code block */
+    .prose pre {
+      background: var(--canvas-night); color: #e0e0e0;
+      font-family: var(--mono); font-size: 14px; line-height: 1.6;
+      padding: 18px 20px; border-radius: var(--radius-sm); margin: 24px 0; overflow-x: auto;
+    }
+    .prose pre code { background: none; padding: 0; border: none; color: inherit; font-size: inherit; }
+
+    /* ===== PROMPT BOX ===== */
+    .prompt-box {
+      position: relative; background: var(--canvas-night); border: 1px solid #333;
+      border-radius: var(--radius-sm); padding: 24px 20px 20px; margin: 28px 0;
+    }
+    .prompt-label {
+      position: absolute; top: -11px; left: 16px;
+      background: var(--primary); color: var(--ink); font-size: 11px; font-weight: 500;
+      padding: 2px 10px; border-radius: 9999px;
+    }
+    .prompt-box pre {
+      background: transparent; color: #e0e0e0; padding: 0; margin: 0; border-radius: 0;
+      white-space: pre-wrap; word-break: break-word;
+    }
+    .prompt-copy {
+      position: absolute; top: 10px; right: 12px;
+      background: rgba(255,255,255,0.08); color: var(--ink-faint); border: 1px solid rgba(255,255,255,0.12);
+      font-size: 12px; padding: 4px 10px; border-radius: 4px; cursor: pointer; transition: 0.15s;
+      font-family: inherit;
+    }
+    .prompt-copy:hover { background: rgba(255,255,255,0.16); color: #fff; }
+
+    /* ===== RELATED ===== */
+    .related { padding: 56px 24px; background: var(--canvas-soft); border-top: 1px solid var(--hairline-cool); }
+    .related-inner { max-width: 720px; margin: 0 auto; }
+    .related h3 { font-size: 18px; font-weight: 500; color: var(--ink); margin-bottom: 20px; }
+    .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .related-card {
+      padding: 16px; border: 1px solid var(--hairline); border-radius: var(--radius-lg);
+      background: var(--canvas); transition: box-shadow 0.2s, transform 0.2s; display: block;
+    }
+    .related-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
+    .related-card .r-tags { display: flex; gap: 4px; margin-bottom: 8px; }
+    .related-card h4 { font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.4; }
+
+    @media (max-width: 640px) { .related-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) {
+      .article-wrapper { padding: 88px 16px 48px; }
+      .article-wrapper h1 { font-size: 30px; letter-spacing: -0.72px; }
+    }
+
+    /* ===== FOOTER ===== */
+    .footer { border-top: 1px solid var(--hairline-cool); padding: 64px 24px; }
+    .footer-inner { max-width: var(--max-w); margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 48px; }
+    .footer-brand p { font-size: 13px; color: var(--ink-mute); line-height: 1.6; margin-bottom: 12px; }
+    .footer-brand .disclaimer { font-size: 12px; color: var(--ink-mute-2); }
+    .footer h4 { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 16px; }
+    .footer-links { display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { font-size: 13px; color: var(--ink-mute); transition: color 0.15s; }
+    .footer-links a:hover { color: var(--ink); }
+    @media (max-width: 768px) { .footer-inner { grid-template-columns: 1fr; gap: 32px; } }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><span>我爱</span><span>CodeX</span></a>
+    <div class="nav-links">
+      <div class="nav-item has-dropdown">实战案例
+        <div class="nav-dropdown">
+          <a href="/cases/">案例总览</a>
+          <div class="dd-divider">Lv.1 入门</div>
+          <a href="/cases/build-company-site">半天做一个公司网站</a>
+          <a href="/cases/batch-image-ppt">批量生图做 PPT</a>
+          <div class="dd-divider">Lv.2 进阶</div>
+          <a href="/cases/auto-collect-posts">自动搜集公众号热帖</a>
+          <a href="/cases/install-openclaw">用 Computer Use 安装龙虾</a>
+          <div class="dd-divider">Lv.3 系统</div>
+          <a href="/cases/investment-system">从零搭建投资管理系统</a>
+          <a href="/cases/hr-system">搭建招聘管理系统</a>
+        </div>
+      </div>
+      <div class="nav-item has-dropdown">新手指南
+        <div class="nav-dropdown">
+          <a href="/guide/">学习路线图</a>
+          <a href="/guide/what-is-vibe-coding">什么是 Vibe Coding</a>
+          <a href="/guide/register">注册与订阅</a>
+          <a href="/guide/install">下载安装 App</a>
+        </div>
+      </div>
+      <div class="nav-item has-dropdown">高频技巧
+        <div class="nav-dropdown">
+          <a href="/tips/">技巧总览</a>
+          <a href="/tips/make-codex-better">让 Codex 越用越顺手</a>
+          <a href="/tips/agents-md">AGENTS.md 怎么写</a>
+          <a href="/tips/goals">Goals 拆解术</a>
+        </div>
+      </div>
+      <div class="nav-item has-dropdown">插件精选
+        <div class="nav-dropdown">
+          <a href="/plugins/">插件总览</a>
+          <a href="/plugins/computer-use">Computer Use</a>
+          <a href="/plugins/automations">Automations</a>
+        </div>
+      </div>
+      <a href="/resources/" class="nav-item">资源集锦</a>
+      <a href="/#faq" class="nav-item">FAQ</a>
+    </div>
+    <button class="nav-hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ARTICLE -->
+<article class="article-wrapper">
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="/">首页</a><span class="sep">/</span>
+    <a href="/cases/">实战案例</a><span class="sep">/</span>
+    <span class="current">自动搜集公众号热帖</span>
+  </div>
+
+  <!-- Title -->
+  <div class="article-tags">
+    <span class="lv lv2">Lv.2</span>
+    <span class="tag-pill">自动化</span>
+    <span class="tag-pill">Computer Use</span>
+  </div>
+  <h1>自动搜集公众号热帖</h1>
+  <p class="article-lead">用 Codex 的 Computer Use 控制微信搜一搜，定时抓取关键词热帖，自动整理成报告。全程不写一行代码。</p>
+  <div class="article-meta">
+    <span>2026-05-28</span>
+    <span>·</span>
+    <span>阅读约 8 分钟</span>
+    <span>·</span>
+    <span>额度消耗 ≈ 30%</span>
+  </div>
+
+  <!-- Cover -->
+  <div class="article-cover">
+    <div class="article-cover-inner">封面图</div>
+  </div>
+
+  <!-- Content -->
+  <div class="prose">
+
+    <h2>背景</h2>
+    <p>做运营的同事每天要手动在微信搜一搜里搜"Codex"、"AI 编程"等关键词，浏览几十篇文章，筛选出有价值的内容整理成日报发到群里。每天重复操作至少 30 分钟。</p>
+    <p>这种<strong>高频、重复、有固定流程</strong>的任务，正是 Codex Computer Use 最擅长的场景。</p>
+
+    <h2>成果</h2>
+    <p>配置完成后，Codex 每天早上 9 点自动执行：打开微信 → 进入搜一搜 → 输入关键词 → 抓取前 10 条结果 → 整理成 Markdown 日报 → 保存到指定文件夹。</p>
+
+    <h2>操作路径</h2>
+
+    <h3>Step 1：安装 Computer Use 插件</h3>
+    <p>打开 Codex 桌面 App，进入设置 → 电脑使用，安装 Computer Use 插件。安装完成后需要给 Codex 屏幕录制和辅助功能权限。</p>
+
+    <h3>Step 2：创建项目和线程</h3>
+    <p>新建一个项目（比如叫"每日热帖"），选一个本地文件夹存放输出文件。然后新建一个线程，开始对话。</p>
+
+    <h3>Step 3：输入 Prompt</h3>
+
+    <div class="prompt-box">
+      <span class="prompt-label">Prompt</span>
+      <button class="prompt-copy" onclick="copyPrompt(this)">复制</button>
+      <pre>使用 computer use，打开微信搜一搜，查找过去 1 天关键字"codex"相关的热帖。
+
+请搜集前 10 条结果，记录每条的：
+1. 标题
+2. 来源公众号
+3. 发布时间
+4. 链接
+
+整理成 Markdown 格式，保存到项目文件夹的 daily-report.md 文件中。</pre>
+    </div>
+
+    <h3>Step 4：授权和等待</h3>
+    <p>如果你选的是默认权限，Codex 每一步操作都会找你确认。建议改成"自动审查"模式，让它自主判断权限需求。整个过程大约需要 5-10 分钟。</p>
+    <p>Codex 会虚拟一个鼠标，像人一样操作——打开微信、点击搜一搜、输入文字、滚动页面、截取信息。全程可以在 Codex 界面看到它的操作画面。</p>
+
+    <h3>Step 5：设置定时任务</h3>
+    <p>在 Codex 的 Automations 功能中创建一个定时任务，设置为每天早上 9:00 执行。这样每天醒来就有一份整理好的热帖日报等着你。</p>
+
+    <h2>进阶 Prompt</h2>
+
+    <div class="prompt-box">
+      <span class="prompt-label">Prompt · 进阶</span>
+      <button class="prompt-copy" onclick="copyPrompt(this)">复制</button>
+      <pre>使用 computer use，执行以下任务：
+
+1. 打开微信，进入"搜一搜"
+2. 分别搜索关键词：codex, AI编程, vibe coding
+3. 每个关键词取前 5 条结果
+4. 去重（按标题判断）
+5. 按发布时间倒序排列
+6. 输出格式：
+   ## yyyy-MM-dd Codex 每日热帖
+   | 序号 | 标题 | 来源 | 时间 |
+   每条附带链接
+7. 保存为 reports/yyyy-MM-dd.md
+8. 如果搜索过程中遇到弹窗或异常，截图保存到 errors/ 文件夹</pre>
+    </div>
+
+    <h2>踩过的坑</h2>
+
+    <h3>1. 微信搜一搜加载慢</h3>
+    <p>Codex 有时候操作太快，页面还没加载完就开始点击。解决方案：在 Prompt 里加一句"每次操作后等待 3 秒再进行下一步"。</p>
+
+    <h3>2. 额度消耗比预期高</h3>
+    <p>Computer Use 因为要做屏幕识别，额度消耗大约是普通对话的 3-5 倍。建议用 Pro 账号，或者把搜索关键词减少到 1-2 个。</p>
+
+    <h3>3. 微信偶尔弹广告弹窗</h3>
+    <p>在 Prompt 里加上异常处理指令：<code>如果遇到弹窗，先关闭弹窗再继续操作</code>。Codex 能识别并处理大多数弹窗。</p>
+
+    <h2>可复用的 Skill</h2>
+    <p>你可以把这个流程封装成一个 Skill：</p>
+    <pre><code>{
+  "name": "daily-hot-posts",
+  "description": "搜集微信搜一搜热帖并生成日报",
+  "triggers": ["每日热帖", "搜集热帖"],
+  "requires": ["computer-use"],
+  "steps": "见上方进阶 Prompt"
+}</code></pre>
+
+    <h2>下一步扩展</h2>
+    <ul>
+      <li>把搜集范围扩展到 X、知乎、B站（每个平台一个 Skill）</li>
+      <li>加上 AI 摘要功能——搜集完后让 Codex 给每篇文章写一句话摘要</li>
+      <li>输出到飞书文档（结合飞书 MCP 插件）</li>
+      <li>做一个简单的 Web 页面展示历史日报（这又是一个 Lv.1 案例）</li>
+    </ul>
+
+  </div>
+</article>
+
+<!-- RELATED -->
+<section class="related">
+  <div class="related-inner">
+    <h3>相关推荐</h3>
+    <div class="related-grid">
+      <a href="/cases/auto-video-edit" class="related-card">
+        <div class="r-tags"><span class="lv lv2" style="font-size:10px;padding:1px 6px;">Lv.2</span><span style="font-size:11px;color:var(--ink-mute-2);">自动化</span></div>
+        <h4>自动剪辑视频全流程</h4>
+      </a>
+      <a href="/cases/install-openclaw" class="related-card">
+        <div class="r-tags"><span class="lv lv2" style="font-size:10px;padding:1px 6px;">Lv.2</span><span style="font-size:11px;color:var(--ink-mute-2);">环境搭建</span></div>
+        <h4>用 Computer Use 安装龙虾</h4>
+      </a>
+      <a href="/tips/make-codex-better" class="related-card">
+        <div class="r-tags"><span style="font-size:11px;color:var(--ink-mute-2);">高频技巧</span></div>
+        <h4>怎么让 Codex 越用越顺手</h4>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="nav-logo" style="margin-bottom:16px;"><span>我爱</span><span>CodeX</span></div>
+      <p>非程序员的 Codex 实战站。从编程神器到全能助手，用真实案例和经验帮你进化。</p>
+      <p class="disclaimer">52codex.site 是独立第三方站点，非 OpenAI 官方产品。</p>
+      <p class="disclaimer" style="margin-top:6px;">© 2026 我爱CodeX</p>
+    </div>
+    <div>
+      <h4>资源</h4>
+      <div class="footer-links">
+        <a href="https://openai.com/codex" target="_blank">Codex 官网</a>
+        <a href="https://codexguide.ai" target="_blank">CodexGuide（苍何）</a>
+        <a href="https://www.91openclaw.site" target="_blank">OpenClaw 中文站</a>
+      </div>
+    </div>
+    <div>
+      <h4>社区</h4>
+      <div class="footer-links">
+        <a href="#">公众号</a>
+        <a href="#">微信交流群</a>
+        <a href="#">GitHub</a>
+        <a href="mailto:hello@52codex.site">联系邮箱</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+function copyPrompt(btn) {
+  const pre = btn.closest('.prompt-box').querySelector('pre');
+  navigator.clipboard.writeText(pre.textContent).then(() => {
+    btn.textContent = '已复制 ✓';
+    setTimeout(() => { btn.textContent = '复制'; }, 2000);
+  });
+}
+</script>
+</body>
+</html>

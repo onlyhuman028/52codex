@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我爱CodeX — 非程序员的 Codex 实战站</title>
+  <meta name="description" content="从编程神器到全能助手，非程序员的 Codex 实战站。不教你写代码，教你用 Codex 把业务经验变成真正能用的工具。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ==================== RESET & BASE ==================== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      color: #171717;
+      background: #ffffff;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ==================== DESIGN TOKENS ==================== */
+    :root {
+      --primary: #3ecf8e;
+      --primary-deep: #24b47e;
+      --ink: #171717;
+      --ink-mute: #707070;
+      --ink-mute-2: #9a9a9a;
+      --ink-faint: #b2b2b2;
+      --canvas: #ffffff;
+      --canvas-soft: #fafafa;
+      --canvas-night: #1c1c1c;
+      --hairline: #dfdfdf;
+      --hairline-strong: #c7c7c7;
+      --hairline-cool: #ededed;
+      --radius-sm: 6px;
+      --radius-lg: 12px;
+      --max-w: 1280px;
+      --mono: ui-monospace, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
+    }
+
+    /* ==================== NAV ==================== */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--hairline-cool);
+    }
+    .nav-inner {
+      max-width: var(--max-w); margin: 0 auto; padding: 0 24px;
+      height: 60px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 4px; font-size: 20px; font-weight: 600; }
+    .nav-logo span:first-child { color: var(--ink); }
+    .nav-logo span:last-child { color: var(--primary); }
+
+    /* Desktop nav items */
+    .nav-links { display: flex; align-items: center; gap: 4px; }
+    .nav-item {
+      position: relative; padding: 8px 14px; font-size: 14px; font-weight: 500;
+      color: var(--ink-mute); border-radius: var(--radius-sm); cursor: pointer;
+      transition: color 0.15s, background 0.15s;
+    }
+    .nav-item:hover { color: var(--ink); background: var(--canvas-soft); }
+    .nav-item.has-dropdown::after {
+      content: ''; display: inline-block; width: 0; height: 0; margin-left: 5px;
+      border-left: 4px solid transparent; border-right: 4px solid transparent;
+      border-top: 4px solid currentColor; vertical-align: middle;
+    }
+
+    /* Dropdown */
+    .nav-dropdown {
+      display: none; position: absolute; top: calc(100% + 8px); left: 0;
+      background: var(--canvas); border: 1px solid var(--hairline);
+      border-radius: var(--radius-lg); padding: 8px 0; min-width: 260px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+    .nav-item:hover .nav-dropdown { display: block; }
+    .nav-dropdown a {
+      display: block; padding: 8px 20px; font-size: 13px; font-weight: 400;
+      color: var(--ink); transition: background 0.1s;
+    }
+    .nav-dropdown a:hover { background: var(--canvas-soft); color: var(--primary-deep); }
+    .nav-dropdown .dd-divider {
+      padding: 6px 20px 4px; font-size: 11px; font-weight: 500;
+      color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.5px;
+    }
+
+    /* Mobile hamburger */
+    .nav-hamburger {
+      display: none; width: 40px; height: 40px; border: none; background: none;
+      cursor: pointer; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+    }
+    .nav-hamburger span { display: block; width: 18px; height: 1.5px; background: var(--ink); transition: 0.2s; }
+
+    /* Mobile menu */
+    .mobile-overlay {
+      display: none; position: fixed; inset: 0; z-index: 200; background: var(--canvas);
+      flex-direction: column; overflow-y: auto;
+    }
+    .mobile-overlay.open { display: flex; }
+    .mobile-header {
+      height: 60px; padding: 0 24px; display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--hairline-cool);
+    }
+    .mobile-close { width: 40px; height: 40px; border: none; background: none; cursor: pointer; font-size: 22px; color: var(--ink); }
+    .mobile-body { padding: 24px; }
+    .mobile-body a { display: block; padding: 14px 0; font-size: 16px; font-weight: 500; color: var(--ink); border-bottom: 1px solid var(--hairline-cool); }
+    .mobile-body .sub-link { padding-left: 16px; font-weight: 400; font-size: 14px; color: var(--ink-mute); }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+    }
+
+    /* ==================== HERO ==================== */
+    .hero { padding: 140px 24px 80px; text-align: center; }
+    .hero-inner { max-width: 760px; margin: 0 auto; }
+    .hero-badge {
+      display: inline-block; font-size: 13px; font-weight: 500; color: var(--primary);
+      background: rgba(62,207,142,0.08); padding: 4px 14px; border-radius: 9999px; margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: 60px; font-weight: 500; letter-spacing: -1.92px; line-height: 1.08;
+      color: var(--ink); margin-bottom: 20px;
+    }
+    .hero p { font-size: 18px; color: var(--ink-mute); line-height: 1.6; margin-bottom: 36px; }
+    .hero-actions { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-flex; align-items: center; padding: 10px 20px;
+      font-size: 14px; font-weight: 500; border-radius: var(--radius-sm);
+      transition: all 0.15s; cursor: pointer; border: none;
+    }
+    .btn-primary { background: var(--primary); color: var(--ink); }
+    .btn-primary:hover { background: var(--primary-deep); }
+    .btn-secondary { background: var(--canvas); color: var(--ink); border: 1px solid var(--hairline-strong); }
+    .btn-secondary:hover { border-color: var(--ink); }
+
+    @media (max-width: 768px) {
+      .hero { padding: 110px 16px 56px; }
+      .hero h1 { font-size: 36px; letter-spacing: -0.72px; }
+      .hero p { font-size: 16px; }
+    }
+
+    /* ==================== SECTIONS ==================== */
+    .section { padding: 72px 24px; }
+    .section-soft { background: var(--canvas-soft); }
+    .section-inner { max-width: var(--max-w); margin: 0 auto; }
+    .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px; }
+    .section-title { font-size: 32px; font-weight: 500; letter-spacing: -0.72px; line-height: 1.15; }
+    .section-desc { font-size: 14px; color: var(--ink-mute); margin-top: 6px; }
+    .section-link { font-size: 14px; font-weight: 500; color: var(--ink); }
+    .section-link:hover { color: var(--primary-deep); }
+    .section-hint { font-size: 12px; color: var(--ink-mute-2); }
+
+    @media (max-width: 768px) {
+      .section { padding: 48px 16px; }
+      .section-title { font-size: 26px; letter-spacing: -0.42px; }
+      .section-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .section-hint { display: none; }
+    }
+
+    /* ==================== HOT POSTS ==================== */
+    .hot-list { display: flex; flex-direction: column; gap: 6px; }
+    .hot-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 14px 18px; background: var(--canvas); border: 1px solid var(--hairline);
+      border-radius: var(--radius-lg); transition: border-color 0.15s;
+    }
+    .hot-item:hover { border-color: var(--hairline-strong); }
+    .hot-item:hover .hot-title { color: var(--primary-deep); }
+    .source-tag {
+      flex-shrink: 0; font-size: 11px; font-weight: 500; padding: 3px 8px;
+      border-radius: 9999px; color: #fff; margin-top: 2px; white-space: nowrap;
+    }
+    .s-official { background: var(--primary); color: var(--ink); }
+    .s-x { background: #0f1419; }
+    .s-reddit { background: #ff4500; }
+    .s-github { background: #24292f; }
+    .s-bilibili { background: #00a1d6; }
+    .s-youtube { background: #ff0000; }
+    .hot-title { font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.5; transition: color 0.15s; }
+    .hot-time { font-size: 12px; color: var(--ink-mute-2); margin-top: 4px; }
+
+    /* ==================== CASE CARDS ==================== */
+    .case-filters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+    .filter-tag {
+      padding: 5px 14px; font-size: 12px; font-weight: 500; border-radius: 9999px;
+      border: 1px solid var(--hairline-cool); background: var(--canvas-soft);
+      color: var(--ink); cursor: pointer; transition: all 0.15s;
+    }
+    .filter-tag:hover { border-color: var(--hairline-strong); }
+    .filter-tag.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+    .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .card {
+      border: 1px solid var(--hairline); border-radius: var(--radius-lg);
+      overflow: hidden; transition: box-shadow 0.2s, transform 0.2s; display: block;
+    }
+    .card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
+    .card-cover {
+      height: 164px; background: var(--canvas-night);
+      display: flex; align-items: center; justify-content: center; color: var(--ink-faint); font-size: 13px;
+    }
+    .card-body { padding: 20px; }
+    .card-tags { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+    .lv { font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 9999px; }
+    .lv1 { background: #e8faf0; color: #24b47e; }
+    .lv2 { background: #eef0ff; color: #644fc1; }
+    .lv3 { background: #fff3e0; color: #c37d0d; }
+    .tag-pill { font-size: 11px; padding: 2px 8px; border-radius: 9999px; background: var(--canvas-soft); color: var(--ink-mute); border: 1px solid var(--hairline-cool); }
+    .card-body h3 { font-size: 17px; font-weight: 500; color: var(--ink); line-height: 1.4; margin-bottom: 8px; }
+    .card-body p { font-size: 14px; color: var(--ink-mute); line-height: 1.55; }
+
+    @media (max-width: 1024px) { .card-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) { .card-grid { grid-template-columns: 1fr; } }
+
+    /* ==================== GUIDE CARDS ==================== */
+    .guide-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 32px; }
+    .guide-card {
+      padding: 24px; border: 1px solid var(--hairline); border-radius: var(--radius-lg);
+      transition: box-shadow 0.2s, transform 0.2s; display: block;
+    }
+    .guide-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
+    .guide-num {
+      width: 40px; height: 40px; border-radius: 8px; background: rgba(62,207,142,0.1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 500; color: var(--primary); margin-bottom: 16px;
+    }
+    .guide-card h3 { font-size: 16px; font-weight: 500; color: var(--ink); margin-bottom: 8px; }
+    .guide-card p { font-size: 13px; color: var(--ink-mute); line-height: 1.55; }
+    .guide-more { text-align: center; margin-top: 28px; }
+
+    @media (max-width: 1024px) { .guide-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) { .guide-grid { grid-template-columns: 1fr; } }
+
+    /* ==================== TIPS / PLUGIN CARDS ==================== */
+    .tip-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 32px; }
+    .tip-card {
+      padding: 24px; border: 1px solid var(--hairline); border-radius: var(--radius-lg);
+      transition: box-shadow 0.2s, transform 0.2s; display: block;
+    }
+    .tip-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
+    .tip-card h3 { font-size: 16px; font-weight: 500; color: var(--ink); margin-bottom: 8px; }
+    .tip-card p { font-size: 13px; color: var(--ink-mute); line-height: 1.55; }
+
+    .plugin-icon {
+      width: 40px; height: 40px; background: var(--canvas-night); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 12px; font-family: var(--mono); margin-bottom: 14px;
+    }
+    .plugin-sub { font-size: 12px; color: var(--ink-mute-2); margin-bottom: 8px; }
+    .plugin-stars { font-size: 12px; color: var(--primary); }
+
+    @media (max-width: 1024px) { .tip-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) { .tip-grid { grid-template-columns: 1fr; } }
+
+    /* ==================== FAQ ==================== */
+    .faq-section { max-width: 720px; margin: 0 auto; }
+    .faq-section h2 { text-align: center; margin-bottom: 32px; }
+    .faq-list { display: flex; flex-direction: column; gap: 6px; }
+    .faq-item { border: 1px solid var(--hairline); border-radius: var(--radius-lg); overflow: hidden; }
+    .faq-item summary {
+      padding: 18px 20px; font-size: 15px; font-weight: 500; color: var(--ink);
+      cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center;
+    }
+    .faq-item summary::after { content: '▾'; font-size: 13px; color: var(--ink-mute-2); transition: transform 0.2s; }
+    .faq-item[open] summary::after { transform: rotate(180deg); }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item .faq-body { padding: 0 20px 18px; font-size: 14px; color: var(--ink-mute); line-height: 1.65; }
+
+    /* ==================== FOOTER ==================== */
+    .footer { border-top: 1px solid var(--hairline-cool); padding: 64px 24px; }
+    .footer-inner { max-width: var(--max-w); margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 48px; }
+    .footer-brand .nav-logo { margin-bottom: 16px; }
+    .footer-brand p { font-size: 13px; color: var(--ink-mute); line-height: 1.6; margin-bottom: 12px; }
+    .footer-brand .disclaimer { font-size: 12px; color: var(--ink-mute-2); }
+    .footer h4 { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 16px; }
+    .footer-links { display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { font-size: 13px; color: var(--ink-mute); transition: color 0.15s; }
+    .footer-links a:hover { color: var(--ink); }
+
+    @media (max-width: 768px) {
+      .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+    }
+
+    /* ==================== ANIMATIONS ==================== */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-up { animation: fadeUp 0.5s ease forwards; }
+    .fade-up-d1 { animation-delay: 0.08s; opacity: 0; }
+    .fade-up-d2 { animation-delay: 0.16s; opacity: 0; }
+    .fade-up-d3 { animation-delay: 0.24s; opacity: 0; }
+  </style>
+</head>
+<body>
+
+<!-- ==================== NAV ==================== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><span>我爱</span><span>CodeX</span></a>
+
+    <div class="nav-links">
+      <!-- 实战案例 下拉 -->
+      <div class="nav-item has-dropdown">
+        实战案例
+        <div class="nav-dropdown">
+          <a href="/cases/">案例总览</a>
+          <div class="dd-divider">Lv.1 入门</div>
+          <a href="/cases/build-company-site">半天做一个公司网站</a>
+          <a href="/cases/batch-image-ppt">批量生图做 PPT</a>
+          <div class="dd-divider">Lv.2 进阶</div>
+          <a href="/cases/auto-collect-posts">自动搜集公众号热帖</a>
+          <a href="/cases/install-openclaw">用 Computer Use 安装龙虾</a>
+          <a href="/cases/auto-video-edit">自动剪辑视频</a>
+          <div class="dd-divider">Lv.3 系统</div>
+          <a href="/cases/investment-system">从零搭建投资管理系统</a>
+          <a href="/cases/hr-system">搭建招聘管理系统</a>
+        </div>
+      </div>
+
+      <!-- 新手指南 下拉 -->
+      <div class="nav-item has-dropdown">
+        新手指南
+        <div class="nav-dropdown">
+          <a href="/guide/">学习路线图</a>
+          <a href="/guide/what-is-vibe-coding">什么是 Vibe Coding</a>
+          <a href="/guide/register">注册与订阅</a>
+          <a href="/guide/install">下载安装 App</a>
+          <a href="/guide/interface">界面全览</a>
+          <a href="/guide/first-project">第一个项目</a>
+        </div>
+      </div>
+
+      <!-- 高频技巧 下拉 -->
+      <div class="nav-item has-dropdown">
+        高频技巧
+        <div class="nav-dropdown">
+          <a href="/tips/">技巧总览</a>
+          <a href="/tips/make-codex-better">让 Codex 越用越顺手</a>
+          <a href="/tips/agents-md">AGENTS.md 怎么写</a>
+          <a href="/tips/goals">Goals 拆解术</a>
+          <a href="/tips/save-quota">额度怎么省</a>
+        </div>
+      </div>
+
+      <!-- 插件精选 下拉 -->
+      <div class="nav-item has-dropdown">
+        插件精选
+        <div class="nav-dropdown">
+          <a href="/plugins/">插件总览</a>
+          <a href="/plugins/computer-use">Computer Use</a>
+          <a href="/plugins/playwright">Playwright MCP</a>
+          <a href="/plugins/automations">Automations</a>
+          <a href="/plugins/feishu">飞书 MCP</a>
+          <a href="/plugins/custom-skill">自定义 Skill</a>
+        </div>
+      </div>
+
+      <a href="/resources/" class="nav-item">资源集锦</a>
+      <a href="#faq" class="nav-item">FAQ</a>
+    </div>
+
+    <button class="nav-hamburger" onclick="document.getElementById('mobileMenu').classList.add('open')">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobileMenu" class="mobile-overlay">
+  <div class="mobile-header">
+    <a href="/" class="nav-logo"><span>我爱</span><span>CodeX</span></a>
+    <button class="mobile-close" onclick="document.getElementById('mobileMenu').classList.remove('open')">✕</button>
+  </div>
+  <div class="mobile-body">
+    <a href="/cases/">实战案例</a>
+    <a href="/cases/auto-collect-posts" class="sub-link">自动搜集公众号热帖</a>
+    <a href="/cases/investment-system" class="sub-link">从零搭建投资管理系统</a>
+    <a href="/guide/">新手指南</a>
+    <a href="/guide/what-is-vibe-coding" class="sub-link">什么是 Vibe Coding</a>
+    <a href="/tips/">高频技巧</a>
+    <a href="/plugins/">插件精选</a>
+    <a href="/resources/">资源集锦</a>
+    <a href="#faq" onclick="document.getElementById('mobileMenu').classList.remove('open')">FAQ</a>
+  </div>
+</div>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-badge fade-up">从编程神器到全能助手</span>
+    <h1 class="fade-up fade-up-d1">今天大家又用 Codex<br>做了什么？</h1>
+    <p class="fade-up fade-up-d2">非程序员的 Codex 实战站。不教你写代码，教你用 Codex 把业务经验变成真正能用的工具。</p>
+    <div class="hero-actions fade-up fade-up-d3">
+      <a href="/cases/" class="btn btn-primary">查看案例</a>
+      <a href="/guide/" class="btn btn-secondary">开始学习</a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 网络热帖 ==================== -->
+<section class="section section-soft">
+  <div class="section-inner">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">网络热帖</h2>
+        <p class="section-desc">今天 Codex 圈子里有什么值得看</p>
+      </div>
+      <span class="section-hint">点击直接跳转原文 ↗</span>
+    </div>
+    <div class="hot-list">
+      <a href="#" target="_blank" class="hot-item">
+        <span class="source-tag s-official">官方</span>
+        <div>
+          <div class="hot-title">Codex 发布 Computer Use 2.0：支持多显示器、拖拽操作和实时屏幕感知</div>
+          <div class="hot-time">2 小时前</div>
+        </div>
+      </a>
+      <a href="#" target="_blank" class="hot-item">
+        <span class="source-tag s-x">X</span>
+        <div>
+          <div class="hot-title">有人用 Codex 三天搭了一个完整的 SaaS，从注册到支付全部跑通</div>
+          <div class="hot-time">5 小时前</div>
+        </div>
+      </a>
+      <a href="#" target="_blank" class="hot-item">
+        <span class="source-tag s-github">GitHub</span>
+        <div>
+          <div class="hot-title">awesome-codex-skills：社区精选 50 个高质量 Skill 合集，Star 破 2k</div>
+          <div class="hot-time">8 小时前</div>
+        </div>
+      </a>
+      <a href="#" target="_blank" class="hot-item">
+        <span class="source-tag s-bilibili">B站</span>
+        <div>
+          <div class="hot-title">保姆级教程：用 Codex 自动剪辑视频，从素材到成片全自动 | 播放量 12w</div>
+          <div class="hot-time">1 天前</div>
+        </div>
+      </a>
+      <a href="#" target="_blank" class="hot-item">
+        <span class="source-tag s-reddit">Reddit</span>
+        <div>
+          <div class="hot-title">I replaced my entire internal tooling with Codex in one weekend. Here's how.</div>
+          <div class="hot-time">1 天前</div>
+        </div>
+      </a>
+      <a href="#" target="_blank" class="hot-item">
+        <span class="source-tag s-youtube">YouTube</span>
+        <div>
+          <div class="hot-title">Codex vs Claude Code: Real-world coding comparison (2026 edition)</div>
+          <div class="hot-time">2 天前</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 实战案例 ==================== -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">实战案例</h2>
+        <p class="section-desc">本站原创拆解，完整工作流 + Prompt + 踩坑记录</p>
+      </div>
+      <a href="/cases/" class="section-link">查看全部 →</a>
+    </div>
+    <div class="case-filters">
+      <span class="filter-tag active">全部</span>
+      <span class="filter-tag">做网站</span>
+      <span class="filter-tag">自动化</span>
+      <span class="filter-tag">建系统</span>
+      <span class="filter-tag">内容创作</span>
+      <span class="filter-tag">数据处理</span>
+      <span class="filter-tag">环境搭建</span>
+    </div>
+    <div class="card-grid">
+      <a href="/cases/build-company-site" class="card">
+        <div class="card-cover">封面图</div>
+        <div class="card-body">
+          <div class="card-tags"><span class="lv lv1">Lv.1</span><span class="tag-pill">做网站</span></div>
+          <h3>半天做一个公司介绍网站</h3>
+          <p>不会写代码的运营，用 Codex 从零搭出了一个响应式公司官网。</p>
+        </div>
+      </a>
+      <a href="/cases/auto-collect-posts" class="card">
+        <div class="card-cover">封面图</div>
+        <div class="card-body">
+          <div class="card-tags"><span class="lv lv2">Lv.2</span><span class="tag-pill">自动化</span></div>
+          <h3>自动搜集公众号热帖</h3>
+          <p>用 Computer Use 控制微信搜一搜，定时抓取关键词热帖。</p>
+        </div>
+      </a>
+      <a href="/cases/install-openclaw" class="card">
+        <div class="card-cover">封面图</div>
+        <div class="card-body">
+          <div class="card-tags"><span class="lv lv2">Lv.2</span><span class="tag-pill">环境搭建</span></div>
+          <h3>用 Computer Use 安装龙虾</h3>
+          <p>让 Codex 自动安装 OpenClaw、配置 API Key、启动 Web UI。</p>
+        </div>
+      </a>
+      <a href="/cases/investment-system" class="card">
+        <div class="card-cover">封面图</div>
+        <div class="card-body">
+          <div class="card-tags"><span class="lv lv3">Lv.3</span><span class="tag-pill">建系统</span></div>
+          <h3>从零搭建投资管理系统</h3>
+          <p>用 AGENTS.md + DESIGN.md 规范 Codex 行为，完成全栈开发。</p>
+        </div>
+      </a>
+      <a href="/cases/batch-image-ppt" class="card">
+        <div class="card-cover">封面图</div>
+        <div class="card-body">
+          <div class="card-tags"><span class="lv lv1">Lv.1</span><span class="tag-pill">内容创作</span></div>
+          <h3>批量生图做 PPT</h3>
+          <p>结合 gpt-image 批量生成配图，自动排版成演示文稿。</p>
+        </div>
+      </a>
+      <a href="/cases/hr-system" class="card">
+        <div class="card-cover">封面图</div>
+        <div class="card-body">
+          <div class="card-tags"><span class="lv lv3">Lv.3</span><span class="tag-pill">建系统</span></div>
+          <h3>搭建招聘管理系统</h3>
+          <p>HR 从业务需求出发，完成简历收集、筛选、面试安排全流程。</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 新手指南 ==================== -->
+<section class="section section-soft">
+  <div class="section-inner">
+    <h2 class="section-title">新手指南</h2>
+    <p class="section-desc">面向完全不会 Codex 的用户，告诉你从哪里开始</p>
+    <div class="guide-grid">
+      <a href="/guide/what-is-vibe-coding" class="guide-card">
+        <div class="guide-num">01</div>
+        <h3>什么是 Vibe Coding</h3>
+        <p>理解 AI 编程的核心概念，搞清楚 Codex 在整个体系里的位置。</p>
+      </a>
+      <a href="/guide/register" class="guide-card">
+        <div class="guide-num">02</div>
+        <h3>注册、订阅与安装</h3>
+        <p>账号申请、Plus/Pro 选择、桌面 App 安装，国内方案全覆盖。</p>
+      </a>
+      <a href="/guide/interface" class="guide-card">
+        <div class="guide-num">03</div>
+        <h3>界面与基本操作</h3>
+        <p>对话区、项目区、权限设置、额度策略、批注功能全览。</p>
+      </a>
+      <a href="/guide/first-project" class="guide-card">
+        <div class="guide-num">04</div>
+        <h3>第一个项目实战</h3>
+        <p>从第一次对话到完成一个网页，走通完整闭环。</p>
+      </a>
+    </div>
+    <div class="guide-more">
+      <a href="/guide/" class="section-link">查看完整学习路线 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 高频技巧 ==================== -->
+<section class="section">
+  <div class="section-inner">
+    <h2 class="section-title">高频技巧</h2>
+    <p class="section-desc">真实使用经验，解决你用 Codex 最常遇到的问题</p>
+    <div class="tip-grid">
+      <a href="/tips/make-codex-better" class="tip-card">
+        <h3>怎么让 Codex 越用越顺手</h3>
+        <p>记忆管理、偏好设置、项目规范——让 Codex 越来越懂你的习惯。</p>
+      </a>
+      <a href="/tips/agents-md" class="tip-card">
+        <h3>AGENTS.md 怎么写</h3>
+        <p>从实战模板出发，手把手教你写好项目规范文档。</p>
+      </a>
+      <a href="/tips/goals" class="tip-card">
+        <h3>长任务和 Goals 怎么拆</h3>
+        <p>大项目不能一句话搞定，学会用 Goals 拆成 Codex 能执行的子任务。</p>
+      </a>
+      <a href="/tips/prevent-bad-edits" class="tip-card">
+        <h3>怎么防止 Codex 乱改代码</h3>
+        <p>用 AGENTS.md 划定行为边界，让 Codex 只改该改的地方。</p>
+      </a>
+      <a href="/tips/self-evolution" class="tip-card">
+        <h3>怎么让 Codex 自我进化</h3>
+        <p>让 Codex 自己总结经验、优化 Prompt、建立可复用的工作流。</p>
+      </a>
+      <a href="/tips/save-quota" class="tip-card">
+        <h3>额度怎么省</h3>
+        <p>5 小时滚动重置、时段策略、智能等级选择，让每分额度花在刀刃上。</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 插件精选 ==================== -->
+<section class="section section-soft">
+  <div class="section-inner">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">插件精选</h2>
+        <p class="section-desc">扩展 Codex 能力边界——Skill、插件、Agent 工具、自动化</p>
+      </div>
+      <a href="/plugins/" class="section-link">查看全部 →</a>
+    </div>
+    <div class="tip-grid">
+      <a href="/plugins/computer-use" class="tip-card">
+        <div class="plugin-icon">CU</div>
+        <h3>Computer Use</h3>
+        <p class="plugin-sub">桌面控制 · 官方插件 <span class="plugin-stars">★★★★★</span></p>
+        <p>控制 Mac 应用、点击、输入、截图——让 Codex 像人一样操作你的电脑。</p>
+      </a>
+      <a href="/plugins/playwright" class="tip-card">
+        <div class="plugin-icon">PW</div>
+        <h3>Playwright MCP</h3>
+        <p class="plugin-sub">浏览器自动化 · 社区插件 <span class="plugin-stars">★★★★☆</span></p>
+        <p>网页自动化、数据抓取、表单填写，精准的浏览器控制。</p>
+      </a>
+      <a href="/plugins/automations" class="tip-card">
+        <div class="plugin-icon">AT</div>
+        <h3>Automations</h3>
+        <p class="plugin-sub">定时任务 · 官方功能 <span class="plugin-stars">★★★★★</span></p>
+        <p>设定 Cron 定时任务，让 Codex 每天自动执行工作流。</p>
+      </a>
+      <a href="/plugins/custom-skill" class="tip-card">
+        <div class="plugin-icon">SK</div>
+        <h3>自定义 Skill</h3>
+        <p class="plugin-sub">能力扩展 · 自建 <span class="plugin-stars">★★★★★</span></p>
+        <p>把重复操作封装成可复用的 Skill，一次配置永久调用。</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FAQ ==================== -->
+<section id="faq" class="section">
+  <div class="faq-section">
+    <h2 class="section-title">常见问题</h2>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>Codex 是什么？</summary>
+        <div class="faq-body">Codex 是 OpenAI 推出的 AI 编程助手，2025 年 10 月上线。它可以根据自然语言指令编写代码、操作电脑、执行自动化任务。你不需要会编程，只需要能清楚描述你要做什么。</div>
+      </details>
+      <details class="faq-item">
+        <summary>不会编程能不能用？</summary>
+        <div class="faq-body">完全可以。Codex 的核心理念就是 Vibe Coding——你用自然语言描述需求，Codex 帮你写代码。你需要的是"说清楚你要什么"的能力，不是编程能力。本站大量案例都来自不会编程的业务人员。</div>
+      </details>
+      <details class="faq-item">
+        <summary>Codex 和 ChatGPT 有什么区别？</summary>
+        <div class="faq-body">ChatGPT 是对话聊天工具，Codex 是项目级编程助手。Codex 按项目管理代码，有文件系统访问权限，可以直接操作你的电脑，支持插件和自动化任务。简单说：ChatGPT 帮你回答问题，Codex 帮你做事情。</div>
+      </details>
+      <details class="faq-item">
+        <summary>为什么 Codex 会改错代码？</summary>
+        <div class="faq-body">通常是因为缺少项目上下文。Codex 不知道你的项目规则和边界，就会按自己的理解改。解决方案是写好 AGENTS.md，告诉它哪些能改、哪些不能改。本站"高频技巧"板块有详细教程。</div>
+      </details>
+      <details class="faq-item">
+        <summary>如何正确使用 Codex？</summary>
+        <div class="faq-body">从"新手指南"开始，跟着学习路线走。核心原则：先想清楚你要什么（业务场景），再用自然语言精确描述（Prompt），最后用 AGENTS.md 和 Goals 管理大项目。别急着做大系统，从一个小网页开始。</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="nav-logo"><span>我爱</span><span>CodeX</span></div>
+      <p>非程序员的 Codex 实战站。从编程神器到全能助手，用真实案例和经验帮你进化。</p>
+      <p class="disclaimer">52codex.site 是独立第三方站点，非 OpenAI 官方产品。</p>
+      <p class="disclaimer" style="margin-top: 6px;">© 2026 我爱CodeX</p>
+    </div>
+    <div>
+      <h4>资源</h4>
+      <div class="footer-links">
+        <a href="https://openai.com/codex" target="_blank">Codex 官网</a>
+        <a href="https://platform.openai.com/docs" target="_blank">Codex 官方文档</a>
+        <a href="https://codexguide.ai" target="_blank">CodexGuide（苍何）</a>
+        <a href="https://github.com/VoltAgent/awesome-design-md" target="_blank">awesome-design-md</a>
+        <a href="https://www.91openclaw.site" target="_blank">OpenClaw 中文站</a>
+      </div>
+    </div>
+    <div>
+      <h4>社区</h4>
+      <div class="footer-links">
+        <a href="#">公众号</a>
+        <a href="#">微信交流群</a>
+        <a href="#" target="_blank">GitHub</a>
+        <a href="mailto:hello@52codex.site">联系邮箱</a>
+        <a href="#">投稿</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

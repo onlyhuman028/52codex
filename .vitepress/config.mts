@@ -1,0 +1,20 @@
+import { defineConfig } from 'vitepress'
+
+export default defineConfig({
+  title: '我爱CodeX',
+  description: '非程序员的 Codex 实战站。从编程神器到全能助手。',
+  lang: 'zh-CN',
+  cleanUrls: true,
+  srcExclude: ['AGENTS.md', 'DESIGN.md'],
+  head: [
+    ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
+    ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
+    ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap' }]
+  ],
+  markdown: {
+    theme: {
+      light: 'github-light',
+      dark: 'github-dark'
+    }
+  }
+})

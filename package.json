@@ -1,0 +1,13 @@
+{
+  "name": "52codex",
+  "version": "1.0.0",
+  "description": "我爱CodeX — 非程序员的 Codex 实战站",
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "preview": "vitepress preview"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.0"
+  }
+}
