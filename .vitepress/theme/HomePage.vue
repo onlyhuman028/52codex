@@ -24,8 +24,11 @@
         <div class="hot-list">
           <div v-for="group in hotGroups" :key="group.source" class="hot-platform">
             <div class="hot-platform-header">
-              <span :class="['source-tag', group.tagClass]">{{ group.source }}</span>
-              <span class="hot-keyword">搜索词：{{ group.keyword }}</span>
+              <div class="hot-platform-meta">
+                <span :class="['source-tag', group.tagClass]">{{ group.source }}</span>
+                <span class="hot-keyword">搜索词：{{ group.keyword }}</span>
+              </div>
+              <a :href="group.moreHref" target="_blank" class="hot-more" rel="noreferrer">更多案例</a>
             </div>
             <div class="hot-row">
               <a v-for="item in group.items" :key="item.href" :href="item.href" target="_blank" class="hot-item" rel="noreferrer">
@@ -279,21 +282,22 @@ const hotGroups = [
     source: 'X',
     tagClass: 's-x',
     keyword: 'codex 案例',
+    moreHref: 'https://x.com/search?q=codex%20%E6%A1%88%E4%BE%8B&src=typed_query&f=live',
     items: [
       {
-        title: '宝玉：造过 Codex 的人，为什么每天用 Claude Code',
-        meta: '访谈整理 · 158k views',
-        href: 'https://x.com/dotey/status/2020253312105476273'
+        title: 'Kafka 卡夫卡：最近看到 Codex 在国内终于火起来了，推荐 Codex Academy 学习网站',
+        meta: '5月28日 · 6,393 views',
+        href: 'https://x.com/kfk_ai'
       },
       {
-        title: '宝玉：GPT-5.3 Codex 与 Claude Opus 4.6 对知识工作的冲击',
-        meta: '长帖翻译 · 5.1 万 views',
-        href: 'https://x.com/dotey/status/2021477874411225256'
+        title: 'Smartpig 聪明猪：Codex 实战指南来了，全中文免费开放',
+        meta: '18 小时前 · 中文实战指南',
+        href: 'https://x.com/Smartpigai'
       },
       {
-        title: '继续看 X 上的 codex 案例实时结果',
-        meta: '平台搜索 · codex 案例',
-        href: 'https://x.com/search?q=codex%20%E6%A1%88%E4%BE%8B&src=typed_query&f=live'
+        title: 'X 中文社区：继续查看 Codex 案例热门帖',
+        meta: '实时搜索 · 热门排序',
+        href: 'https://x.com/search?q=Codex%20%E6%A1%88%E4%BE%8B&src=typed_query'
       }
     ]
   },
@@ -301,21 +305,22 @@ const hotGroups = [
     source: 'GitHub',
     tagClass: 's-github',
     keyword: 'codex 案例',
+    moreHref: 'https://github.com/search?q=codex+%E6%A1%88%E4%BE%8B&type=repositories&s=updated&o=desc',
     items: [
       {
         title: 'xianyu110/gpt-codex：写给 Codex 小白用户的完整教程',
-        meta: '教程站源码 · 上月发布',
+        meta: '中文教程 · OpenAI Codex',
         href: 'https://github.com/xianyu110/gpt-codex'
       },
       {
-        title: 'CloudBase AI ToolKit：从 AI prompt 到应用上线的部署案例',
-        meta: '工具仓库 · 支持 OpenAI Codex CLI',
-        href: 'https://github.com/TencentCloudBase/CloudBase-AI-ToolKit'
+        title: 'Ivesfsy/Codex：云原生 Codex CLI 快速入门指南',
+        meta: '安装配置 · Codex CLI 教程',
+        href: 'https://github.com/Ivesfsy/Codex'
       },
       {
-        title: 'openclaw-skills：适配 Codex 的 Skill 与 Agent 插件集合',
-        meta: 'GitHub Topic · 今日更新',
-        href: 'https://github.com/topics/openclaw-skills'
+        title: 'OpenAI Cookbook：用 Codex SDK 构建代码审查工作流',
+        meta: '官方案例 · Codex SDK',
+        href: 'https://github.com/openai/openai-cookbook/blob/main/examples/codex/build_code_review_with_codex_sdk.md'
       }
     ]
   },
@@ -323,6 +328,7 @@ const hotGroups = [
     source: 'B站',
     tagClass: 's-bilibili',
     keyword: 'codex 案例',
+    moreHref: 'https://search.bilibili.com/all?keyword=codex%20%E6%A1%88%E4%BE%8B',
     items: [
       {
         title: 'Codex 零基础实战教程：15 种玩法带你速通',
@@ -345,20 +351,21 @@ const hotGroups = [
     source: 'Reddit',
     tagClass: 's-reddit',
     keyword: 'OpenAI Codex case / build',
+    moreHref: 'https://www.reddit.com/r/codex/search/?q=build%20OR%20case&restrict_sr=1&sort=new',
     items: [
       {
-        title: 'what have you built so far using codex?',
-        meta: 'r/codex · 2 周前',
+        title: '你目前用 Codex 做出了哪些东西？',
+        meta: 'r/codex · 2 周前 · 原题已翻译',
         href: 'https://www.reddit.com/r/codex/comments/1tcgyu7/what_have_you_built_so_far_using_codex/'
       },
       {
-        title: 'What is the biggest thing you build with codex?',
-        meta: 'r/codex · 上月',
+        title: '你用 Codex 做过最大、最复杂的项目是什么？',
+        meta: 'r/codex · 上月 · 原题已翻译',
         href: 'https://www.reddit.com/r/codex/comments/1sx8dg4/what_is_the_biggest_thing_you_build_with_codex/'
       },
       {
-        title: 'OpenAI is removing GPT-5.2 and GPT-5.3-Codex from ChatGPT login',
-        meta: 'r/codex · 社区热议',
+        title: '社区热议：ChatGPT 登录的 Codex 可能移除 GPT-5.2 和 GPT-5.3-Codex',
+        meta: 'r/codex · 社区热议 · 原题已翻译',
         href: 'https://www.reddit.com/r/codex/comments/1tp8ujz/openai_is_removing_gpt52_and_gpt53codex_from/'
       }
     ]
@@ -367,6 +374,7 @@ const hotGroups = [
     source: 'YouTube',
     tagClass: 's-youtube',
     keyword: 'codex 案例',
+    moreHref: 'https://www.youtube.com/results?search_query=codex+%E6%A1%88%E4%BE%8B',
     items: [
       {
         title: 'Codex Tutorial for Beginners：完整入门课程',

@@ -121,8 +121,8 @@ select {
   padding: 8px 14px;
   color: var(--ink-mute);
   border-radius: var(--radius-sm);
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 15px;
+  font-weight: 600;
   line-height: 1.4;
   cursor: pointer;
   transition: color 0.15s, background 0.15s;
@@ -160,7 +160,7 @@ select {
   top: calc(100% + 8px);
   left: 0;
   display: none;
-  min-width: 260px;
+  min-width: 240px;
   padding: 8px 0;
   background: var(--canvas);
   border: 1px solid var(--hairline);
@@ -176,7 +176,7 @@ select {
 
 .nav-dropdown a {
   display: block;
-  padding: 8px 20px;
+  padding: 8px 18px;
   color: var(--ink);
   font-size: 13px;
   font-weight: 400;
@@ -190,7 +190,7 @@ select {
 }
 
 .nav-dropdown .dd-divider {
-  padding: 6px 20px 4px;
+  padding: 6px 18px 4px;
   color: var(--ink-faint);
   font-size: 11px;
   font-weight: 500;
@@ -287,11 +287,11 @@ select {
 .hero-badge {
   display: inline-block;
   margin-bottom: 20px;
-  padding: 4px 14px;
+  padding: 6px 18px;
   color: var(--primary);
   background: rgba(62, 207, 142, 0.08);
   border-radius: 9999px;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 500;
 }
 
@@ -417,13 +417,33 @@ select {
 .hot-platform-header {
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: space-between;
+  gap: 16px;
   min-height: 26px;
+}
+
+.hot-platform-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
 }
 
 .hot-keyword {
   color: var(--ink-mute-2);
   font-size: 12px;
+}
+
+.hot-more {
+  flex-shrink: 0;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 500;
+  transition: color 0.15s;
+}
+
+.hot-more:hover {
+  color: var(--primary-deep);
 }
 
 .hot-row {
