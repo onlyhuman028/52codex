@@ -39,16 +39,6 @@ const displayDate = computed(() => {
   const text = String(value)
   return text.includes('T') ? text.slice(0, 10) : text
 })
-const guidePages = Object.entries(import.meta.glob('/guide/*.md', { eager: true, query: '?raw', import: 'default' }))
-  .filter(([path]) => !path.endsWith('/index.md'))
-  .sort(([a], [b]) => a.localeCompare(b, 'zh-CN', { numeric: true }))
-  .map(([path, content]) => {
-    const title = String(content).match(/^title:\s*(.+)$/m)?.[1]?.trim() || path.split('/').pop()?.replace(/^\d+-/, '').replace(/\.md$/, '').replaceAll('-', ' ')
-    return {
-      text: title || '',
-      link: path.replace(/\.md$/, '')
-    }
-  })
 
 function closeMobile() {
   mobileOpen.value = false
@@ -164,7 +154,11 @@ watch(
             新手指南
             <div class="nav-dropdown" @mouseenter="openDropdown('guide')">
               <a href="/guide/">学习路线图</a>
-              <a v-for="page in guidePages" :key="page.link" :href="page.link">{{ page.text }}</a>
+              <a href="/guide/01-what-is-vibe-coding">什么是 Vibe Coding</a>
+              <a href="/guide/register">注册与订阅</a>
+              <a href="/guide/install">下载安装 App</a>
+              <a href="/guide/interface">界面全览</a>
+              <a href="/guide/first-project">第一个项目</a>
             </div>
           </div>
 
@@ -230,7 +224,8 @@ watch(
         <a href="/cases/auto-collect-posts" class="sub-link" @click="closeMobile">自动搜集公众号热帖</a>
         <a href="/cases/investment-system" class="sub-link" @click="closeMobile">从零搭建投资管理系统</a>
         <a href="/guide/" @click="closeMobile">新手指南</a>
-        <a v-for="page in guidePages" :key="`mobile-${page.link}`" :href="page.link" class="sub-link" @click="closeMobile">{{ page.text }}</a>
+        <a href="/guide/01-what-is-vibe-coding" class="sub-link" @click="closeMobile">什么是 Vibe Coding</a>
+        <a href="/guide/first-project" class="sub-link" @click="closeMobile">第一个项目</a>
         <a href="/tips/" @click="closeMobile">高频技巧</a>
         <a href="/tips/agents-md" class="sub-link" @click="closeMobile">AGENTS.md 怎么写</a>
         <a href="/plugins/" @click="closeMobile">插件精选</a>
