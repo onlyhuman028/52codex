@@ -274,19 +274,19 @@ const hotGroups = [
     moreHref: 'https://x.com/search?q=codex%20%E6%A1%88%E4%BE%8B&src=typed_query&f=live',
     items: [
       {
-        title: 'Kafka 卡夫卡：最近看到 Codex 在国内终于火起来了，推荐 Codex Academy 学习网站',
-        meta: '5月28日 · 6,393 views',
-        href: 'https://x.com/kfk_ai'
+        title: 'Arlan：把整个 Web 变成文件系统，让 Codex 直接读取文档',
+        meta: 'X 原帖 · 185.4K views',
+        href: 'https://x.com/arlanr/status/2041215978957389908'
       },
       {
-        title: 'Smartpig 聪明猪：Codex 实战指南来了，全中文免费开放',
-        meta: '18 小时前 · 中文实战指南',
-        href: 'https://x.com/Smartpigai'
+        title: 'GitHub：GPT-5.2-Codex 已在 GitHub Copilot 中推出',
+        meta: 'X 原帖 · 174.4K views',
+        href: 'https://x.com/github/status/2011501527991546066'
       },
       {
-        title: 'X 中文社区：继续查看 Codex 案例热门帖',
-        meta: '实时搜索 · 热门排序',
-        href: 'https://x.com/search?q=Codex%20%E6%A1%88%E4%BE%8B&src=typed_query'
+        title: 'Vaibhav：介绍 Claude Code 工作流里的 Codex Plugin',
+        meta: 'X 原帖 · 44.6K views',
+        href: 'https://x.com/reach_vb/status/2039251986357338257'
       }
     ]
   },
