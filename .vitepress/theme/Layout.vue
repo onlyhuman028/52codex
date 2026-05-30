@@ -2,6 +2,7 @@
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { useData, useRoute } from 'vitepress'
 import { Content } from 'vitepress/dist/client/app/components/Content.js'
+import { guidePages } from './guidePages'
 
 const route = useRoute()
 const { frontmatter } = useData()
@@ -39,17 +40,6 @@ const displayDate = computed(() => {
   const text = String(value)
   return text.includes('T') ? text.slice(0, 10) : text
 })
-const guidePages = Object.entries(import.meta.glob('/guide/*.md', { eager: true, query: '?raw', import: 'default' }))
-  .filter(([path]) => !path.endsWith('/index.md'))
-  .sort(([a], [b]) => a.localeCompare(b, 'zh-CN', { numeric: true }))
-  .map(([path, content]) => {
-    const title = String(content).match(/^title:\s*(.+)$/m)?.[1]?.trim() || path.split('/').pop()?.replace(/^\d+-/, '').replace(/\.md$/, '').replaceAll('-', ' ')
-    return {
-      text: title || '',
-      link: path.replace(/\.md$/, '')
-    }
-  })
-
 function closeMobile() {
   mobileOpen.value = false
 }

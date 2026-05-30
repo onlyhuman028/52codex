@@ -117,25 +117,10 @@
         <h2 class="section-title">新手指南</h2>
         <p class="section-desc">面向完全不会 Codex 的用户，告诉你从哪里开始</p>
         <div class="guide-grid">
-          <a href="/guide/01-what-is-vibe-coding" class="guide-card">
-            <div class="guide-num">01</div>
-            <h3>什么是 Vibe Coding</h3>
-            <p>理解 AI 编程的核心概念，搞清楚 Codex 在整个体系里的位置。</p>
-          </a>
-          <a href="/guide/03-register" class="guide-card">
-            <div class="guide-num">02</div>
-            <h3>注册、订阅与安装</h3>
-            <p>账号申请、Plus/Pro 选择、桌面 App 安装，国内方案全覆盖。</p>
-          </a>
-          <a href="/guide/05-interface" class="guide-card">
-            <div class="guide-num">03</div>
-            <h3>界面与基本操作</h3>
-            <p>对话区、项目区、权限设置、额度策略、批注功能全览。</p>
-          </a>
-          <a href="/guide/06-first-project" class="guide-card">
-            <div class="guide-num">04</div>
-            <h3>第一个项目实战</h3>
-            <p>从第一次对话到完成一个网页，走通完整闭环。</p>
+          <a v-for="page in featuredGuidePages" :key="page.link" :href="page.link" class="guide-card">
+            <div class="guide-num">{{ String(page.order).padStart(2, '0') }}</div>
+            <h3>{{ page.text }}</h3>
+            <p>{{ page.description || '这篇内容正在整理中，先占位到学习路线里。' }}</p>
           </a>
         </div>
         <div class="guide-more">
@@ -277,6 +262,10 @@
 </template>
 
 <script setup>
+import { guidePages } from './guidePages'
+
+const featuredGuidePages = guidePages.slice(0, 4)
+
 const hotGroups = [
   {
     source: 'X',

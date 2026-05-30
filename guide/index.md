@@ -2,6 +2,10 @@
 title: 新手指南 — 学习路线图
 ---
 
+<script setup>
+import { guidePages } from '../.vitepress/theme/guidePages'
+</script>
+
 # 新手指南
 
 面向完全不会 Codex 的用户。从 0 开始，一步步走到能独立做项目。
@@ -22,14 +26,22 @@ Phase 4  工程化落地      AGENTS.md → DESIGN.md → Goals → 完整系统
 
 ## 按顺序学习
 
-| 序号 | 主题 | 你会学到 |
-|------|------|----------|
-| 01 | [什么是 Vibe Coding](/guide/01-what-is-vibe-coding) | AI 编程的核心概念，Codex 在体系里的位置 |
-| 08 | [Codex 手机版来了](/guide/08-codex-mobile) | 用手机里的 ChatGPT 连接桌面 Codex |
-| 03 | [注册与订阅](/guide/03-register) | GPT 注册、Plus/Pro 选择、国内开通方案 |
-| 04 | [下载安装 App](/guide/04-install) | Codex 桌面版安装、首次登录 |
-| 05 | [界面全览](/guide/05-interface) | 对话区、项目区、权限、额度、批注 |
-| 06 | [第一个项目](/guide/06-first-project) | 从第一次对话到完成一个网页 |
+<table>
+  <thead>
+    <tr>
+      <th>序号</th>
+      <th>主题</th>
+      <th>你会学到</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="page in guidePages" :key="page.link">
+      <td>{{ String(page.order).padStart(2, '0') }}</td>
+      <td><a :href="page.link">{{ page.text }}</a></td>
+      <td>{{ page.description || '内容正在整理中' }}</td>
+    </tr>
+  </tbody>
+</table>
 
 ::: tip 不用从头看
 如果你已经装好了 Codex，直接跳到你需要的章节。每篇都是独立的。
