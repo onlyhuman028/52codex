@@ -1,5 +1,5 @@
 ---
-title: 注册与订阅
+title: 04 注册与订阅
 ---
 
 <script setup>
