@@ -317,23 +317,13 @@ const fallbackHotGroups = [
   {
     source: 'B站',
     tagClass: 's-bilibili',
-    keyword: 'codex 案例',
-    moreHref: 'https://search.bilibili.com/all?keyword=codex%20%E6%A1%88%E4%BE%8B',
+    keyword: 'codex',
+    moreHref: 'https://search.bilibili.com/all?keyword=codex&from_source=web_search&spm_id_from=333.788&search_source=5&order=stow',
     items: [
       {
-        title: 'Codex 零基础实战教程：15 种玩法带你速通',
-        meta: '4 天前 · 17.4 万播放',
-        href: 'https://www.bilibili.com/video/BV1eNGR6rETx/'
-      },
-      {
-        title: 'OpenAI 使用 Codex 的实践与案例',
-        meta: '案例讲解 · 69 播放',
-        href: 'https://www.bilibili.com/video/BV1qPnczwE4W/'
-      },
-      {
-        title: 'CodeX 驱动 Abaqus 全自动完成 CAE 仿真教程',
-        meta: '上月 · 1.8 万播放',
-        href: 'https://www.bilibili.com/video/BV1AC96B9Eqv/'
+        title: 'B站：查看 Codex 收藏排序搜索结果',
+        meta: '按收藏排序 · 点击查看最新结果',
+        href: 'https://search.bilibili.com/all?keyword=codex&from_source=web_search&spm_id_from=333.788&search_source=5&order=stow'
       }
     ]
   },
