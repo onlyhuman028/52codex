@@ -12,7 +12,7 @@
       </div>
     </section>
 
-    <section class="section section-soft">
+    <section id="hot-posts" class="section section-soft">
       <div class="section-inner">
         <div class="section-header">
           <div>
@@ -262,11 +262,12 @@
 </template>
 
 <script setup>
+import { onMounted, ref } from 'vue'
 import { guidePages } from './guidePages'
 
 const featuredGuidePages = guidePages.slice(0, 4)
 
-const hotGroups = [
+const fallbackHotGroups = [
   {
     source: 'X',
     tagClass: 's-x',
@@ -383,4 +384,42 @@ const hotGroups = [
     ]
   }
 ]
+
+const hotGroups = ref(fallbackHotGroups)
+
+onMounted(async () => {
+  try {
+    const response = await fetch('/api/hot-posts')
+
+    if (!response.ok) {
+      return
+    }
+
+    const data = await response.json()
+
+    if (isValidHotGroups(data.groups)) {
+      hotGroups.value = data.groups
+    }
+  } catch {
+    hotGroups.value = fallbackHotGroups
+  }
+})
+
+function isValidHotGroups(groups) {
+  return Array.isArray(groups) && groups.every((group) => {
+    return group
+      && typeof group.source === 'string'
+      && typeof group.tagClass === 'string'
+      && typeof group.keyword === 'string'
+      && typeof group.moreHref === 'string'
+      && Array.isArray(group.items)
+      && group.items.length > 0
+      && group.items.every((item) => {
+        return item
+          && typeof item.title === 'string'
+          && typeof item.meta === 'string'
+          && typeof item.href === 'string'
+      })
+  })
+}
 </script>

@@ -13,6 +13,7 @@ let dropdownCloseTimer: ReturnType<typeof window.setTimeout> | undefined
 const isHome = computed(() => route.path === '/')
 const isCasePost = computed(() => route.path.startsWith('/cases/') && route.path !== '/cases/')
 const sectionTitle = computed(() => {
+  if (route.path === '/plugins/computer-use') return 'Computer use'
   if (route.path.startsWith('/cases/')) return '实战案例'
   if (route.path.startsWith('/guide/')) return '新手指南'
   if (route.path.startsWith('/tips/')) return '高频技巧'
@@ -22,6 +23,7 @@ const sectionTitle = computed(() => {
   return ''
 })
 const sectionHref = computed(() => {
+  if (route.path === '/plugins/computer-use') return '/plugins/computer-use'
   if (route.path.startsWith('/cases/')) return '/cases/'
   if (route.path.startsWith('/guide/')) return '/guide/'
   if (route.path.startsWith('/tips/')) return '/tips/'
@@ -123,6 +125,21 @@ watch(
         </a>
 
         <div class="nav-links">
+          <a href="/#hot-posts" class="nav-item">网络热帖</a>
+
+          <div
+            class="nav-item has-dropdown"
+            :class="{ open: activeDropdown === 'guide' }"
+            @mouseenter="openDropdown('guide')"
+            @click="toggleDropdown('guide')"
+          >
+            新手指南
+            <div class="nav-dropdown" @mouseenter="openDropdown('guide')">
+              <a href="/guide/">学习路线图</a>
+              <a v-for="page in guidePages" :key="page.link" :href="page.link">{{ page.text }}</a>
+            </div>
+          </div>
+
           <div
             class="nav-item has-dropdown"
             :class="{ open: activeDropdown === 'cases' }"
@@ -147,16 +164,22 @@ watch(
 
           <div
             class="nav-item has-dropdown"
-            :class="{ open: activeDropdown === 'guide' }"
-            @mouseenter="openDropdown('guide')"
-            @click="toggleDropdown('guide')"
+            :class="{ open: activeDropdown === 'plugins' }"
+            @mouseenter="openDropdown('plugins')"
+            @click="toggleDropdown('plugins')"
           >
-            新手指南
-            <div class="nav-dropdown" @mouseenter="openDropdown('guide')">
-              <a href="/guide/">学习路线图</a>
-              <a v-for="page in guidePages" :key="page.link" :href="page.link">{{ page.text }}</a>
+            插件精选
+            <div class="nav-dropdown" @mouseenter="openDropdown('plugins')">
+              <a href="/plugins/">插件总览</a>
+              <a href="/plugins/computer-use">Computer Use</a>
+              <a href="/plugins/playwright">Playwright MCP</a>
+              <a href="/plugins/automations">Automations</a>
+              <a href="/plugins/feishu">飞书 MCP</a>
+              <a href="/plugins/custom-skill">自定义 Skill</a>
             </div>
           </div>
+
+          <a href="/plugins/computer-use" class="nav-item">Computer use</a>
 
           <div
             class="nav-item has-dropdown"
@@ -176,25 +199,8 @@ watch(
             </div>
           </div>
 
-          <div
-            class="nav-item has-dropdown"
-            :class="{ open: activeDropdown === 'plugins' }"
-            @mouseenter="openDropdown('plugins')"
-            @click="toggleDropdown('plugins')"
-          >
-            插件精选
-            <div class="nav-dropdown" @mouseenter="openDropdown('plugins')">
-              <a href="/plugins/">插件总览</a>
-              <a href="/plugins/computer-use">Computer Use</a>
-              <a href="/plugins/playwright">Playwright MCP</a>
-              <a href="/plugins/automations">Automations</a>
-              <a href="/plugins/feishu">飞书 MCP</a>
-              <a href="/plugins/custom-skill">自定义 Skill</a>
-            </div>
-          </div>
-
           <a href="/resources/" class="nav-item">资源集锦</a>
-          <a href="/#faq" class="nav-item">FAQ</a>
+          <a href="/faq" class="nav-item">FAQ</a>
         </div>
 
         <button class="nav-hamburger" type="button" aria-label="打开导航菜单" @click="mobileOpen = true">
@@ -215,18 +221,19 @@ watch(
         <button class="mobile-close" type="button" aria-label="关闭导航菜单" @click="closeMobile">×</button>
       </div>
       <div class="mobile-body">
+        <a href="/#hot-posts" @click="closeMobile">网络热帖</a>
+        <a href="/guide/" @click="closeMobile">新手指南</a>
+        <a v-for="page in guidePages" :key="`mobile-${page.link}`" :href="page.link" class="sub-link" @click="closeMobile">{{ page.text }}</a>
         <a href="/cases/" @click="closeMobile">实战案例</a>
         <a href="/cases/build-company-site" class="sub-link" @click="closeMobile">半天做一个公司网站</a>
         <a href="/cases/auto-collect-posts" class="sub-link" @click="closeMobile">自动搜集公众号热帖</a>
         <a href="/cases/investment-system" class="sub-link" @click="closeMobile">从零搭建投资管理系统</a>
-        <a href="/guide/" @click="closeMobile">新手指南</a>
-        <a v-for="page in guidePages" :key="`mobile-${page.link}`" :href="page.link" class="sub-link" @click="closeMobile">{{ page.text }}</a>
+        <a href="/plugins/" @click="closeMobile">插件精选</a>
+        <a href="/plugins/computer-use" @click="closeMobile">Computer use</a>
         <a href="/tips/" @click="closeMobile">高频技巧</a>
         <a href="/tips/agents-md" class="sub-link" @click="closeMobile">AGENTS.md 怎么写</a>
-        <a href="/plugins/" @click="closeMobile">插件精选</a>
-        <a href="/plugins/computer-use" class="sub-link" @click="closeMobile">Computer Use</a>
         <a href="/resources/" @click="closeMobile">资源集锦</a>
-        <a href="/#faq" @click="closeMobile">FAQ</a>
+        <a href="/faq" @click="closeMobile">FAQ</a>
       </div>
     </div>
 
