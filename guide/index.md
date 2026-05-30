@@ -25,7 +25,7 @@ Phase 4  工程化落地      AGENTS.md → DESIGN.md → Goals → 完整系统
 | 序号 | 主题 | 你会学到 |
 |------|------|----------|
 | 01 | [什么是 Vibe Coding](/guide/01-what-is-vibe-coding) | AI 编程的核心概念，Codex 在体系里的位置 |
-| 02 | [Codex 手机版来了](/guide/02-codex-mobile) | 用手机里的 ChatGPT 连接桌面 Codex |
+| 08 | [Codex 手机版来了](/guide/08-codex-mobile) | 用手机里的 ChatGPT 连接桌面 Codex |
 | 03 | [注册与订阅](/guide/03-register) | GPT 注册、Plus/Pro 选择、国内开通方案 |
 | 04 | [下载安装 App](/guide/04-install) | Codex 桌面版安装、首次登录 |
 | 05 | [界面全览](/guide/05-interface) | 对话区、项目区、权限、额度、批注 |
