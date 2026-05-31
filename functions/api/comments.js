@@ -5,7 +5,7 @@ export async function onRequestGet({ request, env }) {
   const store = getStore(env)
 
   if (!store) {
-    return jsonResponse({ comments: [], error: '留言服务未配置：请绑定 COMMENTS_KV' }, 503)
+    return jsonResponse({ comments: [], error: '留言服务未配置：请在 Cloudflare Pages 绑定 COMMENTS_KV' }, 503)
   }
 
   const url = new URL(request.url)
@@ -23,7 +23,7 @@ export async function onRequestPost({ request, env }) {
   const store = getStore(env)
 
   if (!store) {
-    return jsonResponse({ error: '留言服务未配置：请绑定 COMMENTS_KV' }, 503)
+    return jsonResponse({ error: '留言服务未配置：请在 Cloudflare Pages 绑定 COMMENTS_KV' }, 503)
   }
 
   const ip = request.headers.get('CF-Connecting-IP') || 'unknown'
@@ -80,7 +80,7 @@ export async function onRequestPost({ request, env }) {
 }
 
 function getStore(env) {
-  return env.COMMENTS_KV
+  return env.COMMENTS_KV || env.KV
 }
 
 async function readComments(store, path) {
