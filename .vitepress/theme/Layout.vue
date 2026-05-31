@@ -309,6 +309,7 @@ watch(
           <p>技术小白的Codex 实践站。不用写代码，把脑子里的想法变成能用的工具。</p>
           <p class="disclaimer">52codex.site 是独立第三方站点，非 OpenAI 官方产品。</p>
           <p class="disclaimer copyright">© 2026 我爱CodeX</p>
+          <a class="footer-hidden-link" href="/resources/comment-admin" aria-label="留言管理">.</a>
         </div>
         <div>
           <h4>资源</h4>

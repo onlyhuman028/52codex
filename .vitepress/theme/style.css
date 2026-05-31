@@ -1349,6 +1349,111 @@ select {
   transform: translateY(-1px);
 }
 
+.comment-admin {
+  margin-top: 28px;
+}
+
+.comment-admin-panel {
+  display: grid;
+  grid-template-columns: 1fr 180px auto;
+  gap: 14px;
+  align-items: end;
+  margin-bottom: 20px;
+  padding: 18px;
+  background: var(--canvas-soft);
+  border: 1px solid var(--hairline-cool);
+  border-radius: var(--radius-lg);
+}
+
+.comment-field select {
+  width: 100%;
+  height: 42px;
+  padding: 0 12px;
+  color: var(--ink);
+  background: var(--canvas);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  outline: none;
+}
+
+.comment-admin-panel button,
+.comment-admin-actions button {
+  height: 38px;
+  padding: 0 14px;
+  color: var(--ink);
+  background: var(--primary);
+  border: 0;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+}
+
+.comment-admin-panel button:hover:not(:disabled),
+.comment-admin-actions button:hover {
+  background: var(--primary-deep);
+}
+
+.comment-admin-panel button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.comment-admin-list {
+  display: grid;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.comment-admin-item {
+  padding: 16px;
+  border: 1px solid var(--hairline-cool);
+  border-radius: var(--radius-lg);
+}
+
+.comment-admin-status {
+  padding: 2px 8px;
+  color: var(--ink-mute);
+  background: var(--canvas-soft);
+  border: 1px solid var(--hairline-cool);
+  border-radius: 9999px;
+  font-size: 12px;
+}
+
+.comment-admin-path {
+  display: inline-flex;
+  margin-bottom: 10px;
+  color: var(--ink-mute);
+  font-size: 13px;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.comment-admin-item p {
+  margin: 0 0 14px;
+  color: #212121;
+  font-size: 15px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+.comment-admin-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.comment-admin-actions button.danger {
+  color: #ffffff;
+  background: #b42318;
+}
+
+.comment-admin-actions button.danger:hover {
+  background: #912018;
+}
+
 .footer {
   padding: 64px 24px;
   border-top: 1px solid var(--hairline-cool);
@@ -1380,6 +1485,21 @@ select {
 
 .footer-brand .copyright {
   margin-top: 6px;
+}
+
+.footer-hidden-link {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  color: transparent;
+  font-size: 10px;
+  line-height: 10px;
+}
+
+.footer-hidden-link:focus {
+  color: var(--ink-mute-2);
+  outline: 1px solid var(--hairline);
+  outline-offset: 3px;
 }
 
 .footer h4 {
@@ -1528,6 +1648,10 @@ select {
   .comment-fab {
     right: 16px;
     bottom: 16px;
+  }
+
+  .comment-admin-panel {
+    grid-template-columns: 1fr;
   }
 }
 

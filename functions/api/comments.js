@@ -16,7 +16,7 @@ export async function onRequestGet({ request, env }) {
   }
 
   const comments = await readComments(store, path)
-  return jsonResponse({ comments })
+  return jsonResponse({ comments: comments.filter(isApprovedComment) })
 }
 
 export async function onRequestPost({ request, env }) {
@@ -68,6 +68,7 @@ export async function onRequestPost({ request, env }) {
     title,
     name,
     message,
+    status: 'pending',
     createdAt: new Date().toISOString()
   }
   const comments = await readComments(store, path)
@@ -76,7 +77,11 @@ export async function onRequestPost({ request, env }) {
   await store.put(commentKey(path), JSON.stringify(nextComments))
   await store.put(rateKey, '1', { expirationTtl: RATE_LIMIT_SECONDS })
 
-  return jsonResponse({ ok: true, comments: nextComments, message: '留言已发布' }, 201)
+  return jsonResponse({
+    ok: true,
+    comments: nextComments.filter(isApprovedComment),
+    message: '留言已提交，审核通过后会显示'
+  }, 201)
 }
 
 function getStore(env) {
@@ -91,6 +96,10 @@ async function readComments(store, path) {
 
 function commentKey(path) {
   return `comments:${path}`
+}
+
+function isApprovedComment(comment) {
+  return !comment.status || comment.status === 'approved'
 }
 
 function normalizePath(value) {
