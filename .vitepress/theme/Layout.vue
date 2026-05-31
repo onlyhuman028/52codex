@@ -2,6 +2,7 @@
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { useData, useRoute } from 'vitepress'
 import { Content } from 'vitepress/dist/client/app/components/Content.js'
+import Comments from './Comments.vue'
 import { guidePages } from './guidePages'
 
 const route = useRoute()
@@ -12,12 +13,13 @@ let dropdownCloseTimer: ReturnType<typeof window.setTimeout> | undefined
 
 const isHome = computed(() => route.path === '/')
 const isCasePost = computed(() => route.path.startsWith('/cases/') && route.path !== '/cases/')
+const showComments = computed(() => !isHome.value && route.path !== '/coming-soon' && !route.path.endsWith('/'))
 const sectionTitle = computed(() => {
   if (route.path === '/plugins/computer-use') return 'Computer use'
   if (route.path.startsWith('/cases/')) return '实战案例'
   if (route.path.startsWith('/guide/')) return '新手指南'
-  if (route.path.startsWith('/tips/')) return '高频技巧'
-  if (route.path.startsWith('/plugins/')) return '插件精选'
+  if (route.path.startsWith('/tips/')) return '实用技巧'
+  if (route.path.startsWith('/plugins/')) return '插件与技能'
   if (route.path.startsWith('/resources/')) return '资源集锦'
   if (route.path === '/faq') return 'FAQ'
   return ''
@@ -44,6 +46,10 @@ const displayDate = computed(() => {
 })
 function closeMobile() {
   mobileOpen.value = false
+}
+
+function closeDropdown() {
+  activeDropdown.value = ''
 }
 
 function cancelDropdownClose() {
@@ -106,6 +112,7 @@ watch(
   () => route.path,
   async () => {
     closeMobile()
+    closeDropdown()
     await nextTick()
     decoratePromptBlocks()
   }
@@ -131,12 +138,30 @@ watch(
             class="nav-item has-dropdown"
             :class="{ open: activeDropdown === 'guide' }"
             @mouseenter="openDropdown('guide')"
-            @click="toggleDropdown('guide')"
+            @click.self="toggleDropdown('guide')"
           >
             新手指南
             <div class="nav-dropdown" @mouseenter="openDropdown('guide')">
-              <a href="/guide/">学习路线图</a>
-              <a v-for="page in guidePages" :key="page.link" :href="page.link">{{ page.text }}</a>
+              <a href="/guide/" @click="closeDropdown">学习路线图</a>
+              <a v-for="page in guidePages" :key="page.link" :href="page.link" @click="closeDropdown">{{ page.text }}</a>
+            </div>
+          </div>
+
+          <div
+            class="nav-item has-dropdown"
+            :class="{ open: activeDropdown === 'tips' }"
+            @mouseenter="openDropdown('tips')"
+            @click.self="toggleDropdown('tips')"
+          >
+            实用技巧
+            <div class="nav-dropdown" @mouseenter="openDropdown('tips')">
+              <a href="/tips/" @click="closeDropdown">技巧总览</a>
+              <a href="/tips/make-codex-better" @click="closeDropdown">让 Codex 越用越顺手</a>
+              <a href="/tips/agents-md" @click="closeDropdown">AGENTS.md 怎么写</a>
+              <a href="/tips/goals" @click="closeDropdown">Goals 拆解术</a>
+              <a href="/tips/prevent-bad-edits" @click="closeDropdown">防止乱改代码</a>
+              <a href="/tips/self-evolution" @click="closeDropdown">让 Codex 自我进化</a>
+              <a href="/tips/save-quota" @click="closeDropdown">额度怎么省</a>
             </div>
           </div>
 
@@ -144,21 +169,21 @@ watch(
             class="nav-item has-dropdown"
             :class="{ open: activeDropdown === 'cases' }"
             @mouseenter="openDropdown('cases')"
-            @click="toggleDropdown('cases')"
+            @click.self="toggleDropdown('cases')"
           >
             实战案例
             <div class="nav-dropdown" @mouseenter="openDropdown('cases')">
-              <a href="/cases/">案例总览</a>
+              <a href="/cases/" @click="closeDropdown">案例总览</a>
               <div class="dd-divider">Lv.1 入门</div>
-              <a href="/cases/build-company-site">半天做一个公司网站</a>
-              <a href="/cases/batch-image-ppt">批量生图做 PPT</a>
+              <a href="/cases/build-company-site" @click="closeDropdown">半天做一个公司网站</a>
+              <a href="/cases/batch-image-ppt" @click="closeDropdown">批量生图做 PPT</a>
               <div class="dd-divider">Lv.2 进阶</div>
-              <a href="/cases/auto-collect-posts">自动搜集公众号热帖</a>
-              <a href="/cases/install-openclaw">用 Computer Use 安装龙虾</a>
-              <a href="/cases/auto-video-edit">自动剪辑视频</a>
+              <a href="/cases/auto-collect-posts" @click="closeDropdown">自动搜集公众号热帖</a>
+              <a href="/cases/install-openclaw" @click="closeDropdown">用 Computer Use 安装龙虾</a>
+              <a href="/cases/auto-video-edit" @click="closeDropdown">自动剪辑视频</a>
               <div class="dd-divider">Lv.3 系统</div>
-              <a href="/cases/investment-system">从零搭建投资管理系统</a>
-              <a href="/cases/hr-system">搭建招聘管理系统</a>
+              <a href="/cases/investment-system" @click="closeDropdown">从零搭建投资管理系统</a>
+              <a href="/cases/hr-system" @click="closeDropdown">搭建招聘管理系统</a>
             </div>
           </div>
 
@@ -166,41 +191,37 @@ watch(
             class="nav-item has-dropdown"
             :class="{ open: activeDropdown === 'plugins' }"
             @mouseenter="openDropdown('plugins')"
-            @click="toggleDropdown('plugins')"
+            @click.self="toggleDropdown('plugins')"
           >
-            插件精选
+            插件与技能
             <div class="nav-dropdown" @mouseenter="openDropdown('plugins')">
-              <a href="/plugins/">插件总览</a>
-              <a href="/plugins/computer-use">Computer Use</a>
-              <a href="/plugins/playwright">Playwright MCP</a>
-              <a href="/plugins/automations">Automations</a>
-              <a href="/plugins/feishu">飞书 MCP</a>
-              <a href="/plugins/custom-skill">自定义 Skill</a>
+              <a href="/plugins/" @click="closeDropdown">插件总览</a>
+              <a href="/plugins/computer-use" @click="closeDropdown">Computer Use</a>
+              <a href="/plugins/playwright" @click="closeDropdown">Playwright MCP</a>
+              <a href="/plugins/automations" @click="closeDropdown">Automations</a>
+              <a href="/plugins/feishu" @click="closeDropdown">飞书 MCP</a>
+              <a href="/plugins/custom-skill" @click="closeDropdown">自定义 Skill</a>
             </div>
           </div>
 
-          <a href="/plugins/computer-use" class="nav-item">Computer use</a>
+          <a href="/plugins/computer-use" class="nav-item" @click="closeDropdown">Computer use</a>
 
           <div
             class="nav-item has-dropdown"
-            :class="{ open: activeDropdown === 'tips' }"
-            @mouseenter="openDropdown('tips')"
-            @click="toggleDropdown('tips')"
+            :class="{ open: activeDropdown === 'resources' }"
+            @mouseenter="openDropdown('resources')"
+            @click.self="toggleDropdown('resources')"
           >
-            高频技巧
-            <div class="nav-dropdown" @mouseenter="openDropdown('tips')">
-              <a href="/tips/">技巧总览</a>
-              <a href="/tips/make-codex-better">让 Codex 越用越顺手</a>
-              <a href="/tips/agents-md">AGENTS.md 怎么写</a>
-              <a href="/tips/goals">Goals 拆解术</a>
-              <a href="/tips/prevent-bad-edits">防止乱改代码</a>
-              <a href="/tips/self-evolution">让 Codex 自我进化</a>
-              <a href="/tips/save-quota">额度怎么省</a>
+            资源集锦
+            <div class="nav-dropdown" @mouseenter="openDropdown('resources')">
+              <a href="/resources/#官方资源" @click="closeDropdown">官方资源</a>
+              <a href="/resources/#社区项目" @click="closeDropdown">社区资源</a>
+              <a href="/resources/#工具推荐" @click="closeDropdown">推荐工具</a>
+              <a href="/resources/#学习资料" @click="closeDropdown">学习资料</a>
             </div>
           </div>
 
-          <a href="/resources/" class="nav-item">资源集锦</a>
-          <a href="/faq" class="nav-item">FAQ</a>
+          <a href="/faq" class="nav-item" @click="closeDropdown">FAQ</a>
         </div>
 
         <button class="nav-hamburger" type="button" aria-label="打开导航菜单" @click="mobileOpen = true">
@@ -224,15 +245,19 @@ watch(
         <a href="/#hot-posts" @click="closeMobile">网络热帖</a>
         <a href="/guide/" @click="closeMobile">新手指南</a>
         <a v-for="page in guidePages" :key="`mobile-${page.link}`" :href="page.link" class="sub-link" @click="closeMobile">{{ page.text }}</a>
+        <a href="/tips/" @click="closeMobile">实用技巧</a>
+        <a href="/tips/agents-md" class="sub-link" @click="closeMobile">AGENTS.md 怎么写</a>
         <a href="/cases/" @click="closeMobile">实战案例</a>
         <a href="/cases/build-company-site" class="sub-link" @click="closeMobile">半天做一个公司网站</a>
         <a href="/cases/auto-collect-posts" class="sub-link" @click="closeMobile">自动搜集公众号热帖</a>
         <a href="/cases/investment-system" class="sub-link" @click="closeMobile">从零搭建投资管理系统</a>
-        <a href="/plugins/" @click="closeMobile">插件精选</a>
+        <a href="/plugins/" @click="closeMobile">插件与技能</a>
         <a href="/plugins/computer-use" @click="closeMobile">Computer use</a>
-        <a href="/tips/" @click="closeMobile">高频技巧</a>
-        <a href="/tips/agents-md" class="sub-link" @click="closeMobile">AGENTS.md 怎么写</a>
         <a href="/resources/" @click="closeMobile">资源集锦</a>
+        <a href="/resources/#官方资源" class="sub-link" @click="closeMobile">官方资源</a>
+        <a href="/resources/#社区项目" class="sub-link" @click="closeMobile">社区资源</a>
+        <a href="/resources/#工具推荐" class="sub-link" @click="closeMobile">推荐工具</a>
+        <a href="/resources/#学习资料" class="sub-link" @click="closeMobile">学习资料</a>
         <a href="/faq" @click="closeMobile">FAQ</a>
       </div>
     </div>
@@ -256,6 +281,9 @@ watch(
 
         <h1 class="article-title">{{ frontmatter.title }}</h1>
         <p v-if="frontmatter.description" class="article-lead">{{ frontmatter.description }}</p>
+        <div v-if="showComments" class="article-actions">
+          <a href="#comments">去留言</a>
+        </div>
         <div v-if="isCasePost" class="article-meta">
           <span>{{ displayDate }}</span>
           <span>·</span>
@@ -270,6 +298,7 @@ watch(
         <div class="article-content">
           <Content />
         </div>
+        <Comments v-if="showComments" />
       </article>
     </main>
 
@@ -277,7 +306,7 @@ watch(
       <div class="footer-inner">
         <div class="footer-brand">
           <div class="nav-logo"><span>我爱</span><span>CodeX</span></div>
-          <p>非程序员的 Codex 实战站。从编程神器到全能助手，用真实案例和经验帮你进化。</p>
+          <p>技术小白的Codex 实践站。不用写代码，把脑子里的想法变成能用的工具。</p>
           <p class="disclaimer">52codex.site 是独立第三方站点，非 OpenAI 官方产品。</p>
           <p class="disclaimer copyright">© 2026 我爱CodeX</p>
         </div>
@@ -301,5 +330,7 @@ watch(
         </div>
       </div>
     </footer>
+
+    <a v-if="showComments" class="comment-fab" href="#comments">留言</a>
   </div>
 </template>

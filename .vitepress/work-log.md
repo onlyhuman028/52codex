@@ -74,3 +74,34 @@
 - 先决定是否继续接入自动侧边栏插件；若不使用，回退依赖变更，避免无效包进入仓库。
 - 清理或忽略 `.vitepress/config.mts.timestamp-*` 这类临时文件，减少工作区噪音。
 - 如果首页样式方向基本稳定，下一步可以补一次移动端导航和首页模块的人工验收，确保视觉调整没有引入回归。
+
+## 2026-05-30
+
+### 自动回顾
+
+- 今日已完成的项目修改：
+  - 提交记录显示，今天继续围绕首页与导航做调整，涉及 [`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/HomePage.vue`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/HomePage.vue)、[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/Layout.vue`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/Layout.vue)、[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/guidePages.ts`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/guidePages.ts) 与 [`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/functions/api/hot-posts.js`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/functions/api/hot-posts.js)。
+  - 今天新增了热帖接口兜底数据与 GitHub 标题裁剪逻辑，并把 B 站兜底卡片从搜索入口替换成 3 条可直达的视频链接。
+  - 首页热帖卡片样式补了标题三行截断，降低长标题把卡片撑高的风险。
+  - 导航与指南目录今天也做过一次结构调整：二级菜单排序逻辑继续修正，同时有一篇 `cases/` 新增稿和多篇 `guide/` 文件排序/命名调整记录出现在提交历史中。
+  - 当前工作区仍有未提交改动：[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/HomePage.vue`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/HomePage.vue)、[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/style.css`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/style.css)、[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/functions/api/hot-posts.js`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/functions/api/hot-posts.js)。
+
+### 验证情况
+
+- `npm run build`
+  - 结果：通过
+  - 时间：2026-05-30
+  - 耗时：约 0.92s
+- 今日自动回顾未看到新的浏览器人工验收记录；目前能确认的是静态构建链路正常。
+
+### 遗留问题
+
+- 热帖区当前依然混合了远程接口与本地兜底数据，后续需要确认线上抓取失败时的展示是否足够稳定。
+- B 站与 GitHub 卡片内容今天虽已修订，但还没有看到对应的页面人工验收截图或移动端检查记录。
+- 今天的工作区改动还未提交，回顾日志只记录当前状态，不代表这些修改已经入库。
+
+### 明天建议
+
+- 先在本地打开首页，重点验收「网络热帖」模块的桌面端与移动端卡片高度、标题截断和链接可用性。
+- 如果热帖接口方案会继续保留，下一步应把平台兜底数据和格式化逻辑再收束，减少 `HomePage.vue` 与 API 文件之间的重复配置。
+- 指南页如果还要持续按序号排序，建议顺手检查重命名后的链接与导航下拉是否都已指向正确页面。

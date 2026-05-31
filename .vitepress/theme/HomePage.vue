@@ -3,8 +3,8 @@
     <section class="hero">
       <div class="hero-inner">
         <span class="hero-badge fade-up">从编程神器到全能助手</span>
-        <h1 class="fade-up fade-up-d1">今天大家又用 Codex<br>做了什么？</h1>
-        <p class="fade-up fade-up-d2">非程序员的 Codex 实战站。不教你写代码，教你用 Codex 把业务经验变成真正能用的工具。</p>
+        <h1 class="fade-up fade-up-d1">大家在用 Codex<br>做什么<span class="hero-accent">好玩的</span>？</h1>
+        <p class="fade-up fade-up-d2">技术小白的Codex 实践站。不用写代码，把脑子里的想法变成能用的工具。</p>
         <div class="hero-actions fade-up fade-up-d3">
           <a href="/cases/" class="btn btn-primary">查看案例</a>
           <a href="/guide/" class="btn btn-secondary">开始学习</a>
@@ -131,7 +131,7 @@
 
     <section class="section">
       <div class="section-inner">
-        <h2 class="section-title">高频技巧</h2>
+        <h2 class="section-title">实用技巧</h2>
         <p class="section-desc">真实使用经验，解决你用 Codex 最常遇到的问题</p>
         <div class="tip-grid">
           <a href="/tips/make-codex-better" class="tip-card">
@@ -166,7 +166,7 @@
       <div class="section-inner">
         <div class="section-header">
           <div>
-            <h2 class="section-title">插件精选</h2>
+            <h2 class="section-title">插件与技能</h2>
             <p class="section-desc">扩展 Codex 能力边界，Skill、插件、Agent 工具、自动化</p>
           </div>
           <a href="/plugins/" class="section-link">查看全部</a>
@@ -218,7 +218,7 @@
           </details>
           <details class="faq-item">
             <summary>为什么 Codex 会改错代码？</summary>
-            <div class="faq-body">通常是因为缺少项目上下文。Codex 不知道你的项目规则和边界，就会按自己的理解改。解决方案是写好 AGENTS.md，告诉它哪些能改、哪些不能改。本站高频技巧板块有详细教程。</div>
+            <div class="faq-body">通常是因为缺少项目上下文。Codex 不知道你的项目规则和边界，就会按自己的理解改。解决方案是写好 AGENTS.md，告诉它哪些能改、哪些不能改。本站实用技巧板块有详细教程。</div>
           </details>
           <details class="faq-item">
             <summary>如何正确使用 Codex？</summary>
@@ -232,7 +232,7 @@
       <div class="footer-inner">
         <div class="footer-brand">
           <div class="nav-logo"><span>我爱</span><span>CodeX</span></div>
-          <p>非程序员的 Codex 实战站。从编程神器到全能助手，用真实案例和经验帮你进化。</p>
+          <p>技术小白的Codex 实践站。不用写代码，把脑子里的想法变成能用的工具。</p>
           <p class="disclaimer">52codex.site 是独立第三方站点，非 OpenAI 官方产品。</p>
           <p class="disclaimer copyright">© 2026 我爱CodeX</p>
         </div>
@@ -321,9 +321,19 @@ const fallbackHotGroups = [
     moreHref: 'https://search.bilibili.com/all?keyword=codex&from_source=web_search&spm_id_from=333.788&search_source=5&order=stow',
     items: [
       {
-        title: 'B站：查看 Codex 收藏排序搜索结果',
-        meta: '按收藏排序 · 点击查看最新结果',
-        href: 'https://search.bilibili.com/all?keyword=codex&from_source=web_search&spm_id_from=333.788&search_source=5&order=stow'
+        title: 'Codex (APP) 保姆级全攻略，海量实战教程，一期精通 Codex',
+        meta: '2026-04-28 · 75.6 万播放',
+        href: 'https://www.bilibili.com/video/BV1Kk9kBAEJv/'
+      },
+      {
+        title: '全网最全！40 分钟全面掌握 Codex【附完整文档】',
+        meta: '2026-05-16 · 46.6 万播放',
+        href: 'https://www.bilibili.com/video/BV1Nd596vEyU/'
+      },
+      {
+        title: 'Codex APP 保姆级使用教程，实战项目全流程讲解',
+        meta: '2026-03-03 · 20.2 万播放',
+        href: 'https://www.bilibili.com/video/BV1oJAoz2Emf/'
       }
     ]
   },

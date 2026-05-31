@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress'
 
 export default defineConfig({
   title: '我爱CodeX',
-  description: '非程序员的 Codex 实战站。从编程神器到全能助手。',
+  description: '技术小白的Codex 实践站。不用写代码，把脑子里的想法变成能用的工具。',
   lang: 'zh-CN',
   cleanUrls: true,
   srcExclude: ['AGENTS.md', 'DESIGN.md'],

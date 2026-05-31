@@ -54,9 +54,19 @@ const fallbackGroups = [
     moreHref: 'https://search.bilibili.com/all?keyword=codex&from_source=web_search&spm_id_from=333.788&search_source=5&order=stow',
     items: [
       {
-        title: 'B站：查看 Codex 收藏排序搜索结果',
-        meta: '按收藏排序 · 点击查看最新结果',
-        href: 'https://search.bilibili.com/all?keyword=codex&from_source=web_search&spm_id_from=333.788&search_source=5&order=stow'
+        title: 'Codex (APP) 保姆级全攻略，海量实战教程，一期精通 Codex',
+        meta: '2026-04-28 · 75.6 万播放',
+        href: 'https://www.bilibili.com/video/BV1Kk9kBAEJv/'
+      },
+      {
+        title: '全网最全！40 分钟全面掌握 Codex【附完整文档】',
+        meta: '2026-05-16 · 46.6 万播放',
+        href: 'https://www.bilibili.com/video/BV1Nd596vEyU/'
+      },
+      {
+        title: 'Codex APP 保姆级使用教程，实战项目全流程讲解',
+        meta: '2026-03-03 · 20.2 万播放',
+        href: 'https://www.bilibili.com/video/BV1oJAoz2Emf/'
       }
     ]
   },
@@ -222,7 +232,7 @@ async function buildGitHubGroup(env) {
       }
     })
     const items = (data.items || []).slice(0, 3).map((repo) => ({
-      title: `${repo.full_name}：${repo.description || 'Codex 相关项目'}`,
+      title: formatGitHubTitle(repo.full_name),
       meta: `GitHub · ${formatNumber(repo.stargazers_count)} stars`,
       href: repo.html_url
     }))
@@ -338,6 +348,16 @@ function cleanTweetText(text) {
     .replace(/\s+/g, ' ')
     .trim()
     .slice(0, 70)
+}
+
+function formatGitHubTitle(fullName) {
+  const text = String(fullName || '').trim()
+
+  if (text.length <= 42) {
+    return text
+  }
+
+  return `${text.slice(0, 39)}...`
 }
 
 function formatNumber(value) {

@@ -14,4 +14,4 @@ title: 即将上线
 
 ---
 
-> 52codex.site — 非程序员的 Codex 实战站
+> 52codex.site — 技术小白的Codex 实践站

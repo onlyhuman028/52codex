@@ -32,7 +32,7 @@
     </g>
     <text x="934" y="46" class="small">实战案例</text>
     <text x="1042" y="46" class="small">新手指南</text>
-    <text x="1150" y="46" class="small">高频技巧</text>
+    <text x="1150" y="46" class="small">实用技巧</text>
   </g>
 
   <g transform="translate(80 274)">
@@ -76,7 +76,7 @@
       <path d="M83 27h20v42H83z" fill="#3ecf8e"/>
       <text x="154" y="45" style="font:800 44px Inter,Arial,sans-serif;fill:#171717">52</text>
       <text x="209" y="45" class="nav-en" style="font-size:49px">CodeX</text>
-      <text x="156" y="91" class="cn" style="font-size:20px;font-weight:500;fill:#707070">非程序员的 Codex 实战站</text>
+      <text x="156" y="91" class="cn" style="font-size:20px;font-weight:500;fill:#707070">技术小白的Codex 实践站</text>
     </g>
     <text x="32" y="274" class="micro">感觉：更像课程/社区品牌。若未来做产品矩阵，这个方向更耐用。</text>
   </g>
@@ -89,7 +89,7 @@
       <text x="0" y="52" style="font:750 48px Inter,'PingFang SC','Microsoft YaHei',Arial,sans-serif;fill:#171717;letter-spacing:.2px">我爱</text>
       <text x="113" y="52" style="font:800 55px Inter,Arial,sans-serif;fill:#3ecf8e">CodeX</text>
       <rect x="113" y="69" width="145" height="5" rx="2.5" fill="#3ecf8e" opacity=".28"/>
-      <text x="0" y="103" class="cn" style="font-size:19px;font-weight:500;fill:#707070">非程序员的 Codex 实战站</text>
+      <text x="0" y="103" class="cn" style="font-size:19px;font-weight:500;fill:#707070">技术小白的Codex 实践站</text>
     </g>
     <text x="32" y="274" class="micro">感觉：最稳、最内容站。缺点是缺少可独立传播的符号。</text>
   </g>
