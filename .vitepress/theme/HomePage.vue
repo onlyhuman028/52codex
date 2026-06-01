@@ -114,7 +114,7 @@
 
     <section class="section section-soft">
       <div class="section-inner">
-        <h2 class="section-title">新手指南</h2>
+        <h2 class="section-title">上手指南</h2>
         <p class="section-desc">面向完全不会 Codex 的用户，告诉你从哪里开始</p>
         <div class="guide-grid">
           <a v-for="page in featuredGuidePages" :key="page.link" :href="page.link" class="guide-card">
@@ -222,7 +222,7 @@
           </details>
           <details class="faq-item">
             <summary>如何正确使用 Codex？</summary>
-            <div class="faq-body">从新手指南开始，跟着学习路线走。核心原则：先想清楚你要什么，再用自然语言精确描述，最后用 AGENTS.md 和 Goals 管理大项目。别急着做大系统，从一个小网页开始。</div>
+            <div class="faq-body">从上手指南开始，跟着学习路线走。核心原则：先想清楚你要什么，再用自然语言精确描述，最后用 AGENTS.md 和 Goals 管理大项目。别急着做大系统，从一个小网页开始。</div>
           </details>
         </div>
       </div>

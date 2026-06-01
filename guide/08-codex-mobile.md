@@ -1,6 +1,9 @@
 ---
-title: Codex 手机版来了
+title: 手机端操控桌面 APP
 description: 了解如何用手机里的 ChatGPT 连接桌面 Codex，在手机上查看进度、批准操作和切换方向。
+tags: [Codex, 手机端, 桌面 App]
+order: 15
+level: 0
 date: 2026-05-29
 ---
 

@@ -1,8 +1,8 @@
 ---
-title: GPT 注册与订阅
-description: 注册 ChatGPT 账号，理解 Plus / Pro 等订阅差异，并完成 Codex 使用前的账号准备。
-tags: [ChatGPT, Codex, 注册订阅]
-order: 4
+title: 技能与插件
+description: 理解 Codex 的 Skill 与插件体系，知道什么时候用内置能力、什么时候调用扩展工具。
+tags: [Codex, Skill, 插件]
+order: 7
 level: 0
 ---
 

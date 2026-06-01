@@ -178,7 +178,11 @@ select {
   left: 0;
   display: none;
   min-width: 240px;
+  max-height: calc(100vh - 84px);
   padding: 8px 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
   background: var(--canvas);
   border: 1px solid var(--hairline);
   border-radius: var(--radius-lg);
@@ -862,28 +866,6 @@ select {
   color: var(--ink-mute);
   font-size: 17px;
   line-height: 1.6;
-}
-
-.article-actions {
-  display: flex;
-  margin: 0 0 18px;
-}
-
-.article-actions a {
-  display: inline-flex;
-  align-items: center;
-  height: 36px;
-  padding: 0 14px;
-  color: var(--ink);
-  background: var(--primary);
-  border-radius: var(--radius-sm);
-  font-size: 14px;
-  font-weight: 600;
-  transition: background 0.15s;
-}
-
-.article-actions a:hover {
-  background: var(--primary-deep);
 }
 
 .article-meta {

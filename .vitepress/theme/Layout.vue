@@ -17,7 +17,7 @@ const showComments = computed(() => !isHome.value && route.path !== '/coming-soo
 const sectionTitle = computed(() => {
   if (route.path === '/plugins/computer-use') return 'Computer use'
   if (route.path.startsWith('/cases/')) return '实战案例'
-  if (route.path.startsWith('/guide/')) return '新手指南'
+  if (route.path.startsWith('/guide/')) return '上手指南'
   if (route.path.startsWith('/tips/')) return '实用技巧'
   if (route.path.startsWith('/plugins/')) return '插件与技能'
   if (route.path.startsWith('/resources/')) return '资源集锦'
@@ -140,9 +140,9 @@ watch(
             @mouseenter="openDropdown('guide')"
             @click.self="toggleDropdown('guide')"
           >
-            新手指南
+            上手指南
             <div class="nav-dropdown" @mouseenter="openDropdown('guide')">
-              <a href="/guide/" @click="closeDropdown">学习路线图</a>
+              <a href="/guide/" @click="closeDropdown">01 学习路线图</a>
               <a v-for="page in guidePages" :key="page.link" :href="page.link" @click="closeDropdown">{{ page.text }}</a>
             </div>
           </div>
@@ -243,7 +243,7 @@ watch(
       </div>
       <div class="mobile-body">
         <a href="/#hot-posts" @click="closeMobile">网络热帖</a>
-        <a href="/guide/" @click="closeMobile">新手指南</a>
+        <a href="/guide/" @click="closeMobile">上手指南</a>
         <a v-for="page in guidePages" :key="`mobile-${page.link}`" :href="page.link" class="sub-link" @click="closeMobile">{{ page.text }}</a>
         <a href="/tips/" @click="closeMobile">实用技巧</a>
         <a href="/tips/agents-md" class="sub-link" @click="closeMobile">AGENTS.md 怎么写</a>
@@ -281,9 +281,6 @@ watch(
 
         <h1 class="article-title">{{ frontmatter.title }}</h1>
         <p v-if="frontmatter.description" class="article-lead">{{ frontmatter.description }}</p>
-        <div v-if="showComments" class="article-actions">
-          <a href="#comments">去留言</a>
-        </div>
         <div v-if="isCasePost" class="article-meta">
           <span>{{ displayDate }}</span>
           <span>·</span>

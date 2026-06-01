@@ -1,8 +1,8 @@
 ---
-title: GPT 注册与订阅
-description: 注册 ChatGPT 账号，理解 Plus / Pro 等订阅差异，并完成 Codex 使用前的账号准备。
-tags: [ChatGPT, Codex, 注册订阅]
-order: 4
+title: 项目与对话
+description: 学会新建第一个 Codex 项目，设置文件夹，理解搜索、项目、对话和置顶的关系。
+tags: [Codex, 项目, 对话]
+order: 8
 level: 0
 ---
 

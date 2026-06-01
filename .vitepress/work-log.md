@@ -1,5 +1,36 @@
 # 52codex Work Log
 
+## 2026-05-31
+
+### 自动回顾
+
+- 今日已完成的项目修改：
+  - 今天已有 3 个提交落在主分支，分别是 `修改定位语调整版面增加留言`、`新增留言`、`激活后台留言管理员审核`，重点集中在首页定位文案、留言功能接入和后台审核链路。
+  - 提交记录涉及 [`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/HomePage.vue`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/HomePage.vue)、[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/Layout.vue`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/Layout.vue)、[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/Comments.vue`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/Comments.vue)、[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/CommentAdmin.vue`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/CommentAdmin.vue) 和 [`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/functions/api/comments.js`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/functions/api/comments.js)、[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/functions/api/comments-admin.js`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/functions/api/comments-admin.js)。
+  - 当前工作区还有一批未提交改动，主要是把「新手指南」整体改成「上手指南」，并重排学习路线：[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/guidePages.ts`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/guidePages.ts) 新增按 frontmatter `order`/`hidden` 控制导航顺序与隐藏逻辑，[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/guide/index.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/guide/index.md) 与 [`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/faq.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/faq.md) 的文案已同步改名。
+  - 今天还新增了 7 个未跟踪的指南占位页，均会跳转到 [`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/coming-soon.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/coming-soon.md)，包括 [`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/guide/04-what-is-codex.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/guide/04-what-is-codex.md)、[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/guide/07-skills-and-plugins.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/guide/07-skills-and-plugins.md)、[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/guide/08-projects-and-chats.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/guide/08-projects-and-chats.md)、[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/guide/10-improve-old-project.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/guide/10-improve-old-project.md)、[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/guide/11-skill-ppt.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/guide/11-skill-ppt.md)、[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/guide/13-goal-mode-project.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/guide/13-goal-mode-project.md)、[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/guide/14-publish-project.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/guide/14-publish-project.md)。
+  - 样式层面，[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/style.css`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/style.css) 给导航下拉加了最大高度和滚动处理，同时移除了文章页顶部的“去留言”按钮样式；这说明今天也在收束导航和详情页交互。
+
+### 验证情况
+
+- `npm run build`
+  - 结果：通过
+  - 时间：2026-05-31
+  - 耗时：约 1.00s
+- 今日自动回顾没有发现新的浏览器人工验收记录；目前能确认的是 VitePress 静态构建链路正常。
+
+### 遗留问题
+
+- 指南体系仍处于重排中：当前既有多篇已改名改序号的页面，也有 7 个未跟踪的占位页，提交前需要统一确认最终文件名、导航顺序和是否全部纳入版本控制。
+- [`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/guide/09-codex-mobile.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/guide/09-codex-mobile.md) 被标记为 `hidden: true`，同时 [`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/guide/08-codex-mobile.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/guide/08-codex-mobile.md) 还保留相近主题，需要确认这是迁移过渡还是重复内容。
+- 今天主分支上的留言功能已经连续提交，但当前自动回顾没有看到前台留言提交流程或后台审核页的人工操作验证记录。
+
+### 明天建议
+
+- 先在本地完整点一遍导航下拉和 `guide/` 列表，确认「上手指南」改名后所有链接、排序和隐藏页行为都符合预期。
+- 如果指南重构方向已经确定，下一步应把新增占位页和已修改的 frontmatter 一起整理提交，避免工作区长期混合“已上线留言功能”和“未提交课程重排”两类改动。
+- 给留言功能补一次最小人工验收：前台提交一条留言，后台审核一次，再确认首页和文章页的评论展示没有回归。
+
 ## 2026-05-30
 
 ### 后续规划
