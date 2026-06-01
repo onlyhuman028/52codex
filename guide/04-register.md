@@ -71,13 +71,13 @@ ChatGPT 和 Codex 都属于 OpenAI 账号体系。你只要注册一个 ChatGPT 
 
 点击页面上的“免费注册”按钮。
 
-![](./assets/04-register/signup-button.png)
+![](./assets/04-register/signup-button.png){#screenshot}
 
 进入注册页面后，输入你的邮箱。
 
 系统会给你的邮箱发送一封验证邮件。
 
-![](./assets/04-register/email-code.png)
+![](./assets/04-register/email-code.png){#screenshot}
 
 取得验证码后，贴回注册页面。
 
@@ -85,7 +85,7 @@ ChatGPT 和 Codex 都属于 OpenAI 账号体系。你只要注册一个 ChatGPT 
 
 完成后，会进入 ChatGPT 界面。
 
-![](./assets/04-register/chatgpt-home.png)
+![](./assets/04-register/chatgpt-home.png){#screenshot}
 
 如果注册前或使用过程中弹出手机验证，不要输入国内手机号。可以先更换网络节点，重新打开浏览器再试。
 
@@ -97,7 +97,7 @@ ChatGPT 和 Codex 都属于 OpenAI 账号体系。你只要注册一个 ChatGPT 
 
 看头像附近是否显示 Free 或“免费”标志。
 
-![](./assets/04-register/free-status.png)
+![](./assets/04-register/free-status.png){#screenshot}
 
 如果你已经是 Plus 状态，续费前要注意：有些充值方式可能不是延长会员时间，而是覆盖当前会员周期，这样不划算。
 
@@ -156,11 +156,11 @@ ChatGPT 和 Codex 都属于 OpenAI 账号体系。你只要注册一个 ChatGPT 
 
 选择商品时，找类似“ChatGPT Plus 官网会员一个月”的选项。
 
-![](./assets/04-register/buy-card-product.png)
+![](./assets/04-register/buy-card-product.png){#screenshot}
 
 填好联系方式后，选择微信或支付宝付款。
 
-![](./assets/04-register/payment-confirm.png)
+![](./assets/04-register/payment-confirm.png){#screenshot}
 
 ### 第三步：复制卡密
 
@@ -170,7 +170,7 @@ ChatGPT 和 Codex 都属于 OpenAI 账号体系。你只要注册一个 ChatGPT 
 
 如果第一次没有复制，也可以点击网站左上方的“订单查询”，输入预留联系方式查询订单。
 
-![](./assets/04-register/copy-card-code.png)
+![](./assets/04-register/copy-card-code.png){#screenshot}
 
 ### 第四步：进入充值网站
 
@@ -210,6 +210,6 @@ ChatGPT 和 Codex 都属于 OpenAI 账号体系。你只要注册一个 ChatGPT 
 
 - [什么是 AI 编程](/guide/02-what-is-vibe-coding)
 - [Codex 是什么？新手能用它做什么](/guide/03-what-is-codex)
-- [下载与安装](/guide/04-install)
+- [下载与安装](/guide/05-install)
 
  

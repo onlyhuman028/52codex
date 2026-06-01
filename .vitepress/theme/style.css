@@ -974,6 +974,12 @@ select {
   border-radius: var(--radius-lg);
 }
 
+.article-content img#screenshot {
+  width: min(100%, 520px);
+  margin-right: auto;
+  margin-left: auto;
+}
+
 .article-content blockquote {
   margin: 24px 0;
   padding-left: 16px;

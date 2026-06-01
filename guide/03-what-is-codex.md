@@ -160,8 +160,6 @@ Codex 会自己虚拟一个鼠标，像人一样打开微信、打开搜一搜�
 ## 相关阅读
 
 - [什么是 AI 编程](/guide/02-what-is-vibe-coding)
-- [下载与安装](/guide/04-install)
-- [界面全览](/guide/05-interface)
+- [下载与安装](/guide/05-install)
+- [界面全览](/guide/06-interface)
 - [上手项目1：新建一个贪吃蛇游戏](/guide/06-first-project)
-
-
