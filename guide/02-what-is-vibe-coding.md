@@ -47,7 +47,7 @@ AI 就可以根据你的描述，帮你生成代码、修改页面、运行项�
 下面这个本地运行 gpt-image2 和 seedance2 的网站（[www.91banana.site](https://www.91banana.site)），就是我用 Codex 半天搞定的。结合第三方APi，4分一张的gpt images，比官网便宜的Seedance2.0 真人版，完全实现了做图、做视频自由。
 
 
-![](./assets/01-what-is-vibe-coding/banana-site.png)
+![](./assets/02-what-is-vibe-coding/banana-site.png)
 
 ## 你能做出什么
 
@@ -82,7 +82,7 @@ AI 就可以根据你的描述，帮你生成代码、修改页面、运行项�
 过10分钟，你得到一个网站：
 
 
-![](./assets/01-what-is-vibe-coding/dog-adoption-site.jpg)
+![](./assets/02-what-is-vibe-coding/dog-adoption-site.jpg)
 
 你是投资负责人，投了很多项目，但项目资料太多太杂，你想做一个信息系统，把项目的投融管退资料都管起来，要求比Excle方便，比专业系统轻。于是你对AI说：
 
@@ -91,7 +91,7 @@ AI 就可以根据你的描述，帮你生成代码、修改页面、运行项�
 发出提示的同时，你可以传一份完整的投资制度给AI，再加上一点点设计提示，你就得到这个系统：
 
 
-![](./assets/01-what-is-vibe-coding/investment-system.png)
+![](./assets/02-what-is-vibe-coding/investment-system.png)
 
 
 看，只要你能说清楚你的需求，AI就可以帮你实现你的想法和目的。说不清楚也没关系，你可以告诉AI，让它一步一步帮你分析。
