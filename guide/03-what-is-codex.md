@@ -25,7 +25,7 @@ date: 2026-06-01
 
 Codex 是 OpenAI 于 2025 年 10 月上线的一款 AI 助手。早期它主要定位为 AI 编程工具，现在正在往 AI 全能助手转型。
 
-![](https://files.mdnice.com/user/67011/cb298993-d244-4890-a622-69ef90649d85.png)
+![](./assets/03-what-is-codex/codex-overview.png)
 
 新版 Codex 正在脱离“代码生成器”的单一定位。目前，Codex 已经上线了本地电脑控制、定时任务等功能。
 
@@ -46,20 +46,20 @@ Codex 和 Claude Code 都是非常优秀的 AI 编程和智能体工具。
 
 下面这张图是一个简单对比：
 
-![](https://files.mdnice.com/user/67011/104e5a1e-b148-46bd-9c79-c9e8080c0310.png)
+![](./assets/03-what-is-codex/codex-claude-compare.png)
 
 原文观点认为，随着 GPT-5.5 能力超过 Opus 4.7，目前 Codex 的口碑开始超过 Claude Code。
 
 原因不只是模型能力，也和使用体验有关。原文里提到，OpenAI 对中国用户更友好：额度经常重置，账号使用限制相对少；而 Anthropic 更贵，也更容易遇到封号、KYC 等问题。
 
-![](https://files.mdnice.com/user/67011/986dc29c-31f6-44d9-b75e-6f7e2786841f.png)
+![](./assets/03-what-is-codex/codex-user-friendly.png)
 
 不过很多高手会组合使用：
 
 - Claude Code 用来做规划、做前端，因为审美和表达比较好
 - Codex 用来执行任务，因为额度多、发挥稳定
 
-![](https://files.mdnice.com/user/67011/13510f6d-8503-44e3-82a3-355eeec31aca.png)
+![](./assets/03-what-is-codex/codex-claude-workflow.png)
 
 ## Codex 能做什么
 
@@ -79,7 +79,7 @@ Codex 最成熟的功能还是 AI 编程。
 帮我结合射雕英雄传，生成一个基于 Web 的对话式回合制剧情闯关游戏，按照原著进程，整体风格要符合和电视剧审美。
 :::
 
-![](https://files.mdnice.com/user/67011/039bc0b6-d77d-4dbf-a083-f963553916a1.jpg)
+![](./assets/03-what-is-codex/web-game-demo.jpg)
 
 更多编程案例，详见：[什么是 AI 编程](/guide/02-what-is-vibe-coding)
 
@@ -111,11 +111,11 @@ Codex 现在可以在后台控制电脑上的应用。
 
 Codex 用了 28 分钟完成安装。
 
-![image](https://files.mdnice.com/user/67011/f420ccb8-e9db-4a51-a5c6-ddfabdd6fd5f.png)
+![image](./assets/03-what-is-codex/hermes-installed.png)
 
 我给了它一个 Kimi Code 的 key，Codex 直接帮我配置进去，然后打开了 Web UI 管理界面。
 
-![image](https://files.mdnice.com/user/67011/1fcb268e-9b0e-49af-b107-bf99ba24581c.png)
+![image](./assets/03-what-is-codex/hermes-web-ui.png)
 
 这类场景里，Codex 可以自动检测和修复电脑配置、网络配置，省掉很多重复操作。
 
@@ -133,13 +133,13 @@ Codex 用了 28 分钟完成安装。
 
 Codex 会自己虚拟一个鼠标，像人一样打开微信、打开搜一搜、输入文字，然后开始搜索。
 
-![](https://files.mdnice.com/user/67011/faff0e31-34b6-4e91-b698-91654d1067b9.png)
+![](./assets/03-what-is-codex/wechat-search.png)
 
 整个过程会在 Codex 界面里呈现。搜索完成后，Codex 会把结果整理给你看。
 
 如果再结合自动定时，这个功能会非常有用。
 
-![](https://files.mdnice.com/user/67011/43bbee76-d48a-42ba-ad75-307b49d4cc19.png)
+![](./assets/03-what-is-codex/wechat-results.png)
 
 ## 常见问题
 
@@ -157,15 +157,11 @@ Codex 会自己虚拟一个鼠标，像人一样打开微信、打开搜一搜�
 
 如果你已经熟悉 AI 编程，也可以把 Claude Code 和 Codex 组合使用：一个负责规划和审美，一个负责执行和落地。
 
-## 下一步推荐阅读
+## 相关阅读
 
 - [什么是 AI 编程](/guide/02-what-is-vibe-coding)
 - [下载与安装](/guide/04-install)
 - [界面全览](/guide/05-interface)
 - [上手项目1：新建一个贪吃蛇游戏](/guide/06-first-project)
 
-## 待补充
 
-- Codex 和 Claude Code 对比图里的具体维度说明
-- Computer Use 的开通条件和权限设置步骤
-- Automations 定时任务的完整示例
