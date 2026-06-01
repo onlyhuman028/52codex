@@ -13,7 +13,11 @@ let dropdownCloseTimer: ReturnType<typeof window.setTimeout> | undefined
 
 const isHome = computed(() => route.path === '/')
 const isCasePost = computed(() => route.path.startsWith('/cases/') && route.path !== '/cases/')
-const showComments = computed(() => !isHome.value && route.path !== '/coming-soon' && !route.path.endsWith('/'))
+const showComments = computed(() => {
+  if (isHome.value || route.path === '/coming-soon' || route.path === '/resources/comment-admin') return false
+
+  return route.path === '/guide/' || !route.path.endsWith('/')
+})
 const sectionTitle = computed(() => {
   if (route.path === '/plugins/computer-use') return 'Computer use'
   if (route.path.startsWith('/cases/')) return '实战案例'

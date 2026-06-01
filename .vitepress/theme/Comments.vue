@@ -7,6 +7,11 @@ type CommentItem = {
   name: string
   message: string
   createdAt: string
+  reply?: {
+    message: string
+    href?: string
+    createdAt: string
+  }
 }
 
 const route = useRoute()
@@ -128,7 +133,7 @@ watch(
     <div class="comments-head">
       <div>
         <p class="comments-kicker">留言</p>
-        <h2 id="comments-title">一起补充经验</h2>
+        <h2 id="comments-title">元芳，你怎么看？</h2>
       </div>
       <span class="comments-count">{{ comments.length }} 条</span>
     </div>
@@ -169,6 +174,11 @@ watch(
           <time :datetime="comment.createdAt">{{ formatDate(comment.createdAt) }}</time>
         </div>
         <p>{{ comment.message }}</p>
+        <div v-if="comment.reply" class="comment-reply">
+          <div class="comment-reply-label">站长回复</div>
+          <p>{{ comment.reply.message }}</p>
+          <a v-if="comment.reply.href" :href="comment.reply.href" target="_blank" rel="noreferrer">查看链接</a>
+        </div>
       </li>
     </ol>
   </section>

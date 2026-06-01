@@ -9,6 +9,11 @@ type AdminComment = {
   message: string
   status: string
   createdAt: string
+  reply?: {
+    message: string
+    href?: string
+    createdAt: string
+  }
 }
 
 const token = ref('')
@@ -17,6 +22,7 @@ const comments = ref<AdminComment[]>([])
 const loading = ref(false)
 const error = ref('')
 const notice = ref('')
+const replyDrafts = ref<Record<string, { message: string; href: string }>>({})
 
 const canLoad = computed(() => token.value.trim().length > 0 && !loading.value)
 
@@ -56,9 +62,21 @@ async function fetchComments() {
   }
 }
 
-async function updateComment(comment: AdminComment, action: 'approve' | 'delete') {
+function getReplyDraft(comment: AdminComment) {
+  if (!replyDrafts.value[comment.id]) {
+    replyDrafts.value[comment.id] = {
+      message: comment.reply?.message || '',
+      href: comment.reply?.href || ''
+    }
+  }
+
+  return replyDrafts.value[comment.id]
+}
+
+async function updateComment(comment: AdminComment, action: 'approve' | 'delete' | 'reply' | 'clearReply') {
   error.value = ''
   notice.value = ''
+  const draft = getReplyDraft(comment)
 
   try {
     const response = await fetch('/api/comments-admin', {
@@ -70,7 +88,9 @@ async function updateComment(comment: AdminComment, action: 'approve' | 'delete'
       body: JSON.stringify({
         action,
         id: comment.id,
-        path: comment.path
+        path: comment.path,
+        replyMessage: draft.message,
+        replyHref: draft.href
       })
     })
     const data = await response.json().catch(() => ({}))
@@ -79,7 +99,14 @@ async function updateComment(comment: AdminComment, action: 'approve' | 'delete'
       throw new Error(data.error || '操作失败')
     }
 
-    notice.value = action === 'approve' ? '已通过留言' : '已删除留言'
+    const noticeMap = {
+      approve: '已通过留言',
+      delete: '已删除留言',
+      reply: '已保存回复',
+      clearReply: '已清除回复'
+    }
+
+    notice.value = noticeMap[action]
     await fetchComments()
   } catch (err) {
     error.value = err instanceof Error ? err.message : '操作失败'
@@ -124,8 +151,25 @@ async function updateComment(comment: AdminComment, action: 'approve' | 'delete'
           {{ comment.title || comment.path }}
         </a>
         <p>{{ comment.message }}</p>
+        <div v-if="comment.reply" class="comment-reply">
+          <div class="comment-reply-label">当前回复</div>
+          <p>{{ comment.reply.message }}</p>
+          <a v-if="comment.reply.href" :href="comment.reply.href" target="_blank" rel="noreferrer">查看链接</a>
+        </div>
+        <div class="comment-admin-reply">
+          <label class="comment-field">
+            <span>回复文字</span>
+            <textarea v-model="getReplyDraft(comment).message" rows="3" maxlength="500" placeholder="写给这条留言的回复"></textarea>
+          </label>
+          <label class="comment-field">
+            <span>回复链接（可选）</span>
+            <input v-model="getReplyDraft(comment).href" type="url" placeholder="https://example.com" />
+          </label>
+        </div>
         <div class="comment-admin-actions">
           <button v-if="comment.status !== 'approved'" type="button" @click="updateComment(comment, 'approve')">通过</button>
+          <button type="button" @click="updateComment(comment, 'reply')">保存回复</button>
+          <button v-if="comment.reply" type="button" @click="updateComment(comment, 'clearReply')">清除回复</button>
           <button type="button" class="danger" @click="updateComment(comment, 'delete')">删除</button>
         </div>
       </li>

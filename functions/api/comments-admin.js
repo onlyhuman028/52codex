@@ -53,6 +53,30 @@ export async function onRequestPost({ request, env }) {
       status: 'approved',
       approvedAt: new Date().toISOString()
     }
+  } else if (action === 'reply') {
+    const message = cleanText(body.replyMessage, 500)
+    const href = cleanUrl(body.replyHref)
+
+    if (!message) {
+      return jsonResponse({ error: '回复文字不能为空' }, 400)
+    }
+
+    if (String(body.replyHref || '').trim() && !href) {
+      return jsonResponse({ error: '回复链接必须以 http:// 或 https:// 开头' }, 400)
+    }
+
+    comments[index] = {
+      ...comments[index],
+      reply: {
+        message,
+        href,
+        createdAt: new Date().toISOString()
+      }
+    }
+  } else if (action === 'clearReply') {
+    const nextComment = { ...comments[index] }
+    delete nextComment.reply
+    comments[index] = nextComment
   } else if (action === 'delete') {
     comments.splice(index, 1)
   } else {
@@ -121,6 +145,33 @@ function normalizePath(value) {
   }
 
   return path
+}
+
+function cleanText(value, maxLength) {
+  return String(value || '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, maxLength)
+}
+
+function cleanUrl(value) {
+  const href = String(value || '').trim()
+
+  if (!href) {
+    return ''
+  }
+
+  try {
+    const url = new URL(href)
+
+    if (url.protocol !== 'http:' && url.protocol !== 'https:') {
+      return ''
+    }
+
+    return url.toString().slice(0, 300)
+  } catch {
+    return ''
+  }
 }
 
 function jsonResponse(body, status = 200) {

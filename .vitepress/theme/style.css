@@ -1306,6 +1306,40 @@ select {
   white-space: pre-wrap;
 }
 
+.comment-reply {
+  margin-top: 14px;
+  padding: 14px;
+  background: var(--canvas-soft);
+  border: 1px solid var(--hairline-cool);
+  border-left: 3px solid var(--primary);
+  border-radius: var(--radius-sm);
+}
+
+.comment-reply-label {
+  margin-bottom: 6px;
+  color: var(--primary-deep);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.comment-reply p {
+  margin: 0;
+  color: #212121;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+.comment-reply a {
+  display: inline-flex;
+  margin-top: 8px;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 .comment-fab {
   position: fixed;
   right: 24px;
@@ -1422,8 +1456,19 @@ select {
   white-space: pre-wrap;
 }
 
+.comment-admin-reply {
+  display: grid;
+  gap: 12px;
+  margin: 14px 0;
+  padding: 14px;
+  background: var(--canvas-soft);
+  border: 1px solid var(--hairline-cool);
+  border-radius: var(--radius-sm);
+}
+
 .comment-admin-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
 }
 
