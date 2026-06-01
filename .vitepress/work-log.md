@@ -136,3 +136,33 @@
 - 先在本地打开首页，重点验收「网络热帖」模块的桌面端与移动端卡片高度、标题截断和链接可用性。
 - 如果热帖接口方案会继续保留，下一步应把平台兜底数据和格式化逻辑再收束，减少 `HomePage.vue` 与 API 文件之间的重复配置。
 - 指南页如果还要持续按序号排序，建议顺手检查重命名后的链接与导航下拉是否都已指向正确页面。
+
+## 2026-06-01
+
+### 自动回顾
+
+- 今日已完成的项目修改：
+  - 提交记录显示，今天主分支先后完成了 `重构新手指南`、`整理了新手指南`、`撰写ai编程文章`、`新增留言回复功能` 4 次提交，工作重点从指南体系重排延伸到留言回复能力补齐。
+  - 已提交改动覆盖 [`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/Layout.vue`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/Layout.vue)、[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/style.css`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/style.css)、[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/Comments.vue`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/Comments.vue)、[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/CommentAdmin.vue`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/CommentAdmin.vue)、[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/functions/api/comments-admin.js`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/functions/api/comments-admin.js) 以及多篇 `guide/` 页面，说明今天同时处理了站点结构和内容建设两条线。
+  - 当前工作区还有未提交变更：[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/guide/02-what-is-vibe-coding.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/guide/02-what-is-vibe-coding.md) 已把插图路径切换到新资源目录；[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/guide/03-what-is-codex.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/guide/03-what-is-codex.md) 已从跳转占位页改成完整入门文章，并补充了 Prompt、视频和 FAQ 内容。
+  - 资源文件目前处于迁移未完成状态：旧路径 [`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/guide/assets/03-what-is-codex /inweida.mp4`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/guide/assets/03-what-is-codex%20/inweida.mp4) 被删除，同时 `guide/assets/03-what-is-codex/` 以未跟踪目录出现，目录名曾带尾随空格，提交前需要确认最终路径是否统一。
+
+### 验证情况
+
+- `npm run build`
+  - 结果：通过
+  - 时间：2026-06-01
+  - 耗时：约 1.10s
+- 今日自动回顾未发现新的浏览器人工验收记录；目前只能确认 VitePress 构建链路正常，尚不能替代页面级手工检查。
+
+### 遗留问题
+
+- [`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/guide/03-what-is-codex.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/guide/03-what-is-codex.md) 的正文已经落地，但配套视频资源仍在目录迁移中，若路径不一致会直接影响页面内 `<video>` 播放。
+- 今天 `guide/` 下既有已提交的重命名/排序，也有未提交的内容与资源调整；如果继续堆叠修改，后续会更难区分哪些是结构变更，哪些是正文完善。
+- 留言回复功能今天已提交上线代码，但本次回顾没有看到对应的前台留言、后台审核、回复展示三段式人工验收记录。
+
+### 明天建议
+
+- 先统一 `guide/assets/03-what-is-codex` 的最终目录名和文件跟踪状态，再本地打开文章确认图片与视频资源都能正常加载。
+- 对今天新增的 `03 Codex 是什么？` 做一次页面验收，重点检查 Prompt 容器样式、外链图片加载和移动端排版是否符合现有设计。
+- 给留言系统补一次最小闭环验证：提交留言、后台回复、前台回显，避免功能代码已合并但交互细节未确认。
