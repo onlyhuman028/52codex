@@ -13,7 +13,8 @@ title: 插件与技能
 | 类型 | 说明 |
 |------|------|
 | [01 Codex 十大必装 Skills](/plugins/top-skills) | 常用 Skill 推荐清单 |
-| [02 自定义 Skill](/plugins/custom-skill) | 把重复操作封装成可复用的能力包 |
+| [02 中文内容创作者 Skills](/plugins/content-creator-skills) | 写作、润色、配图和分发包装技能 |
+| [03 自定义 Skill](/plugins/custom-skill) | 把重复操作封装成可复用的能力包 |
 
 ## 插件
 
@@ -26,6 +27,7 @@ title: 插件与技能
 | [03 Automations](/plugins/automations) | 定时任务、触发器、持续运行 | ★★★★★ |
 | [04 飞书 MCP](/plugins/feishu) | 连接飞书文档、多维表格 | ★★★★☆ |
 | [05 Draw.io MCP](/plugins/drawio) | 自然语言生成架构图、流程图 | ★★★★☆ |
+| [06 Codex 实用插件清单](./03 codex-practical-plugins.md) | PPT、表格、视频、设计等高频生产力插件 | ★★★★☆ |
 
 ::: tip 持续更新
 本页会持续收录好用的插件和 Skill。如果你发现了好用的工具，欢迎投稿。

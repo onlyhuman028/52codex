@@ -1,69 +1,144 @@
 ---
-title: 手机端操控桌面 APP
-description: 了解如何用手机里的 ChatGPT 连接桌面 Codex，在手机上查看进度、批准操作和切换方向。
-tags: [Codex, 手机端, 桌面 App]
+title: 15 手机端操控桌面 App：用 ChatGPT 遥控 Codex
+description: 介绍 Codex 手机端能力的使用方式，讲清楚它不是单独的手机 App，而是通过 ChatGPT 连接桌面 Codex，用手机查看进度、批准操作和调整任务方向。
+tags: [Codex, 新手入门, Computer Use]
 order: 15
-level: 0
-date: 2026-05-29
+level: 2
+date: 2026-06-02
 ---
 
-# Codex 手机版来了！以后可以在手机上遥控你的 AI 牛马
+# 15 手机端操控桌面 App：用 ChatGPT 遥控 Codex
 
-大家好，我是清风。
+Codex 支持在手机端查看和操控桌面任务后，你不一定要一直坐在电脑前等它跑完。
 
-终于，AI 牛马 Codex 上线手机版了。
+它的核心不是“在手机上写代码”，而是让手机变成桌面 Codex 的遥控器。
 
-![](/images/guide/codex-mobile/01-overview.png)
+## 适合谁
 
-**怎么用？**
+这篇适合这些用户：
 
-是单独做一个 Codex 手机 App，而是放进你手机里已有的 ChatGPT。
+- 已经在电脑上安装了 Codex 桌面 App
+- 平时会让 Codex 跑较长任务
+- 想在手机上查看 Codex 执行进度
+- 想在外面批准 Codex 的下一步操作
+- 想用手机临时调整任务方向
 
-也不是让你在手机上写代码。
+## 它到底是什么
 
-真正干活的 Codex 还是跑在你电脑上（笔记本、Mac mini 或者 devbox）。手机只是一个**遥控器**。
+Codex 手机版不是单独做一个新的 Codex 手机 App，而是放进你手机里已有的 ChatGPT App。
 
-你可以：
+真正执行任务的 Codex，仍然跑在你的电脑上，比如 MacBook、Mac mini 或者 devbox。手机只是用来连接、查看和控制。
 
-- 地铁上看 Codex 跑到哪一步了
-- 看一眼它改的代码和测试结果
+你可以在手机上做这些事：
+
+- 看 Codex 当前跑到哪一步
+- 查看它改了哪些文件
+- 看测试结果或执行日志
 - 批准下一步操作
-- 临时换一个方向
+- 临时补充要求，调整任务方向
 
-文件、密码、权限都留在你电脑上，不上传到手机。
+![](./assets/08-codex-mobile/mobile-overview.png){#screenshot}
 
-OpenAI 的解释是：底层走了一层安全中继，让你的电脑和手机能连上，又不暴露在公网。你在哪台设备登录 ChatGPT，会话状态就跟到哪里。
+## 手机端能解决什么问题
 
-**为什么现在出？**
+当 Codex 跑的任务越来越长，比如几十分钟甚至几小时，人一直坐在电脑前盯着并不划算。
 
-OpenAI 自己公布的数据：Codex 每周活跃用户已经超过 400 万。
+手机端更适合做“随手看一眼、随手拍板”的事情。
 
-当 AI 跑的任务越来越长（几十分钟甚至几小时），人一直坐在电脑前盯着就太傻了。你需要的是：**随手看一眼、随手拍板的能力**。
+比如：
 
-mac 先上，win 版稍后。手机端支持安卓、apple，但是目前只能连 macOS 上的 Codex，Windows 支持据说”很快”。
+- 出门路上看任务有没有卡住
+- 吃饭时批准一次权限请求
+- 睡前看构建有没有通过
+- 发现方向不对时，马上补一句要求
 
-**如何开通？**
+文件、密码和权限仍然留在电脑上。手机端更像是一个远程控制入口，而不是把项目搬到手机上。
 
-首先，把手机 chatgpt 和桌面 codex 更新到最新版
+## 准备工作
 
-然后打开 codex 桌面版，选择“设置 codex 桌面版”
+开始前，先确认这几件事：
 
-在客户端选择 codex，设置后，
-![](/images/guide/codex-mobile/02-desktop-setting.png)
+- 电脑上已经安装 Codex 桌面 App
+- 手机上已经安装 ChatGPT App
+- 手机 ChatGPT 和桌面 Codex 都更新到较新版本
+- 手机和桌面端使用同一个 ChatGPT 账号
+- 当前功能已在你的系统和账号上开放
 
-点“允许”
+原文提到：Mac 端先支持，Windows 支持会稍后跟进。实际可用情况以你当前 App 里的入口为准。
 
-![](/images/guide/codex-mobile/03-allow.png)
+## 第 1 步：打开桌面端设置
 
-会出来一个二维码，用手机扫描二维码
+先打开电脑上的 Codex 桌面版。
 
-![](/images/guide/codex-mobile/04-qr-code.png)
+在设置里找到“设置 Codex 桌面版”相关入口。
 
-二维码会打开 ChatGPT App，再在 ChatGPT 里完成连接
+![](./assets/08-codex-mobile/desktop-setting.png){#screenshot}
 
-![](/images/guide/codex-mobile/05-chatgpt-connect.jpg)
+## 第 2 步：允许连接
 
-连接成功，体验丝滑，现在可以手机上遥控查看你电脑正在运行的 codex 资料了
-![](/images/guide/codex-mobile/06-connected.png)
+在客户端选择 Codex 后，系统会提示你是否允许连接。
 
-大家赶快去体验吧！
+点击“允许”。
+
+![](./assets/08-codex-mobile/allow-connection.png){#screenshot}
+
+## 第 3 步：用手机扫描二维码
+
+允许后，桌面端会显示一个二维码。
+
+用手机扫描这个二维码。
+
+![](./assets/08-codex-mobile/qr-code.png){#screenshot}
+
+## 第 4 步：在 ChatGPT App 里完成连接
+
+二维码会打开手机里的 ChatGPT App。
+
+按照 ChatGPT App 里的提示完成连接。
+
+![](./assets/08-codex-mobile/chatgpt-connect.jpg){#screenshot}
+
+## 第 5 步：在手机上查看桌面 Codex
+
+连接成功后，你就可以在手机端查看电脑上正在运行的 Codex 任务。
+
+![](./assets/08-codex-mobile/connected.png){#screenshot}
+
+以后遇到长任务，可以让 Codex 在电脑上跑，你在手机上查看进度和批准关键步骤。
+
+## 常见问题
+
+### 手机端是不是一个单独的 Codex App
+
+不是。它是在 ChatGPT App 里连接桌面 Codex。
+
+### 能不能直接在手机上写代码
+
+不建议这样理解。手机端主要用于查看、批准和调整方向。真正的文件修改和任务执行仍然发生在桌面 Codex 上。
+
+### 手机端支持 Windows 吗
+
+原文提到 Mac 先支持，Windows 稍后跟进。你可以先看自己的 Codex 桌面端设置里有没有对应入口。
+
+### 为什么我看不到连接入口
+
+可能有几个原因：
+
+- Codex 桌面 App 版本太旧
+- ChatGPT App 版本太旧
+- 当前账号还没有开放这个功能
+- 当前系统暂不支持
+
+先更新手机和桌面 App，再检查设置入口。
+
+## 下一步推荐阅读
+
+- [Codex 项目与对话：新手怎么管理项目和线程](/guide/08-projects-and-chats)
+- [Codex 界面全览：对话区、项目区和权限怎么用](/guide/06-interface)
+- [Codex 插件与技能：插件区怎么用](/guide/07-skills-and-plugins)
+
+## 待补充
+
+- Windows 端支持后的连接截图
+- 手机端可批准操作的完整范围
+- 断开连接和重新绑定的详细步骤

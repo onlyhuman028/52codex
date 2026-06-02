@@ -9,16 +9,19 @@ const fallbackGroups = [
     items: [
       {
         title: 'Arlan：把整个 Web 变成文件系统，让 Codex 直接读取文档',
+        author: 'Arlan',
         meta: 'X 原帖 · 185.4K views',
         href: 'https://x.com/arlanr/status/2041215978957389908'
       },
       {
         title: 'GitHub：GPT-5.2-Codex 已在 GitHub Copilot 中推出',
+        author: 'GitHub',
         meta: 'X 原帖 · 174.4K views',
         href: 'https://x.com/github/status/2011501527991546066'
       },
       {
         title: 'Vaibhav：介绍 Claude Code 工作流里的 Codex Plugin',
+        author: 'Vaibhav',
         meta: 'X 原帖 · 44.6K views',
         href: 'https://x.com/reach_vb/status/2039251986357338257'
       }
@@ -32,16 +35,19 @@ const fallbackGroups = [
     items: [
       {
         title: 'xianyu110/gpt-codex：写给 Codex 小白用户的完整教程',
+        author: 'xianyu110',
         meta: '中文教程 · OpenAI Codex',
         href: 'https://github.com/xianyu110/gpt-codex'
       },
       {
         title: 'Ivesfsy/Codex：云原生 Codex CLI 快速入门指南',
+        author: 'Ivesfsy',
         meta: '安装配置 · Codex CLI 教程',
         href: 'https://github.com/Ivesfsy/Codex'
       },
       {
         title: 'OpenAI Cookbook：用 Codex SDK 构建代码审查工作流',
+        author: 'openai',
         meta: '官方案例 · Codex SDK',
         href: 'https://github.com/openai/openai-cookbook/blob/main/examples/codex/build_code_review_with_codex_sdk.md'
       }
@@ -55,16 +61,19 @@ const fallbackGroups = [
     items: [
       {
         title: 'Codex (APP) 保姆级全攻略，海量实战教程，一期精通 Codex',
+        author: '技术爬爬虾',
         meta: '2026-04-28 · 75.6 万播放',
         href: 'https://www.bilibili.com/video/BV1Kk9kBAEJv/'
       },
       {
         title: '全网最全！40 分钟全面掌握 Codex【附完整文档】',
+        author: '秋芝2046',
         meta: '2026-05-16 · 46.6 万播放',
         href: 'https://www.bilibili.com/video/BV1Nd596vEyU/'
       },
       {
         title: 'Codex APP 保姆级使用教程，实战项目全流程讲解',
+        author: 'AI随风随风',
         meta: '2026-03-03 · 20.2 万播放',
         href: 'https://www.bilibili.com/video/BV1oJAoz2Emf/'
       }
@@ -78,16 +87,19 @@ const fallbackGroups = [
     items: [
       {
         title: '你目前用 Codex 做出了哪些东西？',
+        author: 'r/codex 社区',
         meta: 'r/codex · 2 周前 · 原题已翻译',
         href: 'https://www.reddit.com/r/codex/comments/1tcgyu7/what_have_you_built_so_far_using_codex/'
       },
       {
         title: '你用 Codex 做过最大、最复杂的项目是什么？',
+        author: 'r/codex 社区',
         meta: 'r/codex · 上月 · 原题已翻译',
         href: 'https://www.reddit.com/r/codex/comments/1sx8dg4/what_is_the_biggest_thing_you_build_with_codex/'
       },
       {
         title: '社区热议：ChatGPT 登录的 Codex 可能移除 GPT-5.2 和 GPT-5.3-Codex',
+        author: 'r/codex 社区',
         meta: 'r/codex · 社区热议 · 原题已翻译',
         href: 'https://www.reddit.com/r/codex/comments/1tp8ujz/openai_is_removing_gpt52_and_gpt53codex_from/'
       }
@@ -101,16 +113,19 @@ const fallbackGroups = [
     items: [
       {
         title: 'Codex Tutorial for Beginners：完整入门课程',
+        author: 'YouTube 创作者',
         meta: 'YouTube · 完整教程',
         href: 'https://www.youtube.com/watch?v=KXIdYEdOPys'
       },
       {
         title: 'Master Codex in One Hour：用 Codex 做评论分析、Skill 和自动化',
+        author: 'YouTube 创作者',
         meta: 'YouTube · 实战工作流',
         href: 'https://www.youtube.com/watch?v=3TdD8Qv5Tk8'
       },
       {
         title: 'Computer use in Codex：多任务电脑操作演示',
+        author: 'OpenAI',
         meta: 'YouTube · 官方能力演示',
         href: 'https://www.youtube.com/watch?v=D_FCYsshMI4'
       }
@@ -205,6 +220,7 @@ function mapXTweets(data) {
 
       return {
         title: `${author}：${cleanTweetText(tweet.text)}`,
+        author,
         meta: `X 原帖 · ${formatNumber(metric)} ${suffix}`,
         href: `https://x.com/${user?.username || 'i'}/status/${tweet.id}`
       }
@@ -233,6 +249,7 @@ async function buildGitHubGroup(env) {
     })
     const items = (data.items || []).slice(0, 3).map((repo) => ({
       title: formatGitHubTitle(repo.full_name),
+      author: repo.owner?.login || repo.full_name.split('/')[0],
       meta: `GitHub · ${formatNumber(repo.stargazers_count)} stars`,
       href: repo.html_url
     }))
@@ -255,6 +272,7 @@ async function buildRedditGroup() {
     })
     const items = (data.data?.children || []).map(({ data: post }) => ({
       title: `Reddit：${post.title}`,
+      author: post.author ? `u/${post.author}` : 'r/codex 社区',
       meta: `r/codex · ${formatNumber(post.ups)} upvotes · ${formatNumber(post.num_comments)} comments`,
       href: `https://www.reddit.com${post.permalink}`
     }))
@@ -279,6 +297,7 @@ async function buildYouTubeGroup(env) {
       : await searchYouTubeVideos(apiKey, env.YOUTUBE_SEARCH_QUERY)
     const items = (data.items || []).slice(0, 3).map((video) => ({
       title: `${video.snippet.channelTitle}：${video.snippet.title}`,
+      author: video.snippet.channelTitle,
       meta: `YouTube · ${formatNumber(video.statistics.viewCount)} views`,
       href: `https://www.youtube.com/watch?v=${video.id}`
     }))

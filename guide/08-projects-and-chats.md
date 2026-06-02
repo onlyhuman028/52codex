@@ -166,7 +166,7 @@ Codex 的对话分两层：
 ## 下一步推荐阅读
 
 - [Codex 界面全览：对话区、项目区和权限怎么用](/guide/06-interface)
-- [AGENTS.md 怎么写？让 Codex 按你的规则做事](/tips/agents-md)
+- [AGENTS.md 怎么写？让 Codex 按你的规则做事](/tips/04-agents-md)
 - [上手项目1：新建一个贪吃蛇游戏](/guide/06-first-project)
 
 

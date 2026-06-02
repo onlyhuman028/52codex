@@ -6,15 +6,23 @@ title: 资源集锦
 
 Codex 相关的优质资源汇总，持续更新。
 
+::: tip 最新消息：
+OpenAI将于本周（6月7日前）发布chatgpt5.6！
+并对codex有重大更新！！！ 
+:::
+
+
 ## 官方资源
 
 - [Codex 官网](https://openai.com/codex) — 下载、介绍、更新日志
-- [Codex 官方文档](https://platform.openai.com/docs) — API 和配置参考
-- [OpenAI 博客](https://openai.com/blog) — 官方发布和技术解读
+- [Codex 官方X账号](https://x.com/OpenAIDevs) —  Codex 官方更新
+- [OpenAI cli 开源项目](https://github.com/openai/codex) — Codex cli 仓库
+- [Codex](https://status.openai.com) — 官方发布的codex服务状态
+
 
 ## 社区项目
 
-- [CodexGuide（苍何）](https://codexguide.ai) — 中文 Codex 指南，17 章教程 + 14 个案例
+
 - [awesome-design-md](https://github.com/VoltAgent/awesome-design-md) — 31 个知名网站的 DESIGN.md 合集
 - [OpenClaw 中文站](https://www.91openclaw.site) — OpenClaw 安装部署和使用指南
 
@@ -22,6 +30,7 @@ Codex 相关的优质资源汇总，持续更新。
 
 - [Karpathy: Vibe Coding](https://x.com/karpathy) — Vibe Coding 概念的提出者
 - [Codex Cookbook](https://cookbook.openai.com) — OpenAI 官方示例和最佳实践
+- [CodexGuide（苍何）](https://codexguide.ai) — 中文 Codex 指南，17 章教程 + 14 个案例
 
 ## 工具推荐
 
@@ -33,5 +42,5 @@ Codex 相关的优质资源汇总，持续更新。
 | [Cloudflare Pages](https://pages.cloudflare.com) | 免费静态站点部署 |
 
 ::: tip 推荐资源
-如果你发现了好的 Codex 相关资源，欢迎通过公众号或邮件投稿。
+如果你发现了好的 Codex 相关资源，欢迎留言告知我们。
 :::

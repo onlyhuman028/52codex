@@ -65,11 +65,11 @@ Codex++ 是 BigPizzaV3 开发的开源项目，定位是 Codex App 的外部增�
 
 [https://github.com/BigPizzaV3/CodexPlusPlus](https://github.com/BigPizzaV3/CodexPlusPlus)
 
-![](./assets/codex-third-party-api/codex-plusplus-intro.png){#screenshot}
+![](./assets/03-codex-third-party-api/codex-plusplus-intro.png){#screenshot}
 
 进入 GitHub 项目后，打开 Releases 下载页面。
 
-![](./assets/codex-third-party-api/github-release-download.png){#screenshot}
+![](./assets/03-codex-third-party-api/github-release-download.png){#screenshot}
 
 选择版本时按这个规则：
 
@@ -81,7 +81,7 @@ Codex++ 是 BigPizzaV3 开发的开源项目，定位是 Codex App 的外部增�
 
 如果你不确定自己的 Mac 是什么芯片，可以点左上角苹果菜单，进入“关于本机”查看。
 
-![](./assets/codex-third-party-api/mac-chip-check.png){#screenshot}
+![](./assets/03-codex-third-party-api/mac-chip-check.png){#screenshot}
 
 Mac 用户下载 `.dmg` 后，双击打开，把里面两个 App 都拖进“应用程序”文件夹：
 
@@ -96,7 +96,7 @@ Windows 用户可以跳过这一节。
 
 Codex++ 是开源小众工具，如果没有经过苹果公证，Mac 第一次打开时可能会提示“无法验证开发者”。
 
-![](./assets/codex-third-party-api/mac-security-warning.png){#screenshot}
+![](./assets/03-codex-third-party-api/mac-security-warning.png){#screenshot}
 
 ### 方法 1：从系统设置里仍要打开
 
@@ -106,7 +106,7 @@ Codex++ 是开源小众工具，如果没有经过苹果公证，Mac 第一次�
 系统设置 -> 隐私与安全性 -> 仍要打开
 ```
 
-![](./assets/codex-third-party-api/mac-privacy-open.jpg){#screenshot}
+![](./assets/03-codex-third-party-api/mac-privacy-open.jpg){#screenshot}
 
 ### 方法 2：用命令移除隔离标记
 
@@ -127,32 +127,32 @@ sudo xattr -rd com.apple.quarantine "/Applications/Codex++ 管理工具.app"
 请根据我的电脑系统下载合适版本，安装到应用程序目录，并帮我处理 Mac 安全提示。
 :::
 
-![](./assets/codex-third-party-api/codex-install-plusplus.png){#screenshot}
+![](./assets/03-codex-third-party-api/codex-install-plusplus.png){#screenshot}
 
 装好后，在 Mac 的“应用程序”中可以看到两个新图标：
 
 - Codex++ 管理工具：各种增强功能的管理面板
 - Codex++：增强后的 Codex 启动入口
 
-![](./assets/codex-third-party-api/applications-icons.png){#screenshot}
+![](./assets/03-codex-third-party-api/applications-icons.png){#screenshot}
 
 进入“Codex++ 管理工具”，如果页面上都是绿色状态，说明基础环境正常。
 
 先关闭原生 Codex，再从管理工具里启动 Codex++。
 
-![](./assets/codex-third-party-api/manager-ready.png){#screenshot}
+![](./assets/03-codex-third-party-api/manager-ready.png){#screenshot}
 
 ## 第 3 步：添加模型供应商
 
 在 Codex++ 管理工具里，点击“添加供应商”。
 
-![](./assets/codex-third-party-api/add-provider.png){#screenshot}
+![](./assets/03-codex-third-party-api/add-provider.png){#screenshot}
 
 在供应商页面，填写你的 Base URL 和 API Key。
 
 注意：接入方式选择“纯 API”。
 
-![](./assets/codex-third-party-api/provider-settings.png){#screenshot}
+![](./assets/03-codex-third-party-api/provider-settings.png){#screenshot}
 
 可以按下面这样填：
 
@@ -186,7 +186,7 @@ https://api.xxx.com/v1
 
 显示成功，就说明 API Key 和 Base URL 基本可用。
 
-![](./assets/codex-third-party-api/connection-test.png){#screenshot}
+![](./assets/03-codex-third-party-api/connection-test.png){#screenshot}
 
 如果失败，先检查这几项：
 
@@ -202,7 +202,7 @@ https://api.xxx.com/v1
 
 回到“Codex++ 管理工具”，点击启动按钮。
 
-![](./assets/codex-third-party-api/launch-codex-plusplus.png){#screenshot}
+![](./assets/03-codex-third-party-api/launch-codex-plusplus.png){#screenshot}
 
 如果你已经打开了原生 Codex，建议先完全退出，再从 Codex++ 管理工具启动。
 
@@ -212,23 +212,23 @@ https://api.xxx.com/v1
 
 如果配置成功，你应该能看到自定义模型供应商或对应模型。
 
-![](./assets/codex-third-party-api/custom-model-menu.png){#screenshot}
+![](./assets/03-codex-third-party-api/custom-model-menu.png){#screenshot}
 
 发一条消息测试，能正常回复，就说明接入成功。
 
-![](./assets/codex-third-party-api/model-reply-test.png){#screenshot}
+![](./assets/03-codex-third-party-api/model-reply-test.png){#screenshot}
 
 ## 想切回官方模型怎么办
 
 模型配置里默认会有官方模型，接入模式是“官方登录”。
 
-![](./assets/codex-third-party-api/official-provider.png){#screenshot}
+![](./assets/03-codex-third-party-api/official-provider.png){#screenshot}
 
 在模型设置界面点击“使用”，状态变为“使用中”后，重启 Codex。
 
 前提是：你本来就有可用的官方 Plus 或更高套餐。
 
-![](./assets/codex-third-party-api/use-official-provider.png){#screenshot}
+![](./assets/03-codex-third-party-api/use-official-provider.png){#screenshot}
 
 官方模型和第三方模型可以来回切换，互不影响。
 
@@ -286,7 +286,7 @@ https://api.xxx.com/v1
 
 - [Codex 下载安装](/guide/05-install)
 - [Codex 插件与技能：插件区怎么用](/guide/07-skills-and-plugins)
-- [额度怎么省](/tips/save-quota)
+- [额度怎么省](/tips/08-save-quota)
 
 ## 待补充
 

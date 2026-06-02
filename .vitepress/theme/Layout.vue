@@ -3,7 +3,7 @@ import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { useData, useRoute } from 'vitepress'
 import { Content } from 'vitepress/dist/client/app/components/Content.js'
 import Comments from './Comments.vue'
-import { guidePages } from './guidePages'
+import { casePages, guidePages, pluginToolPages, skillPages, tipPages } from './navPages'
 
 const route = useRoute()
 const { frontmatter } = useData()
@@ -13,13 +13,18 @@ let dropdownCloseTimer: ReturnType<typeof window.setTimeout> | undefined
 
 const isHome = computed(() => route.path === '/')
 const isCasePost = computed(() => route.path.startsWith('/cases/') && route.path !== '/cases/')
+const isResourceUtilityPage = computed(() => (
+  route.path === '/resources'
+  || route.path === '/resources/wechat'
+  || route.path === '/resources/comment-admin'
+))
 const isArticlePost = computed(() => {
-  if (isHome.value || route.path === '/coming-soon' || route.path === '/resources/comment-admin') return false
+  if (isHome.value || route.path === '/coming-soon' || isResourceUtilityPage.value) return false
 
   return !route.path.endsWith('/')
 })
 const showComments = computed(() => {
-  if (isHome.value || route.path === '/coming-soon' || route.path === '/resources/comment-admin') return false
+  if (isHome.value || route.path === '/coming-soon' || isResourceUtilityPage.value) return false
 
   return route.path === '/guide/' || !route.path.endsWith('/')
 })
@@ -28,16 +33,16 @@ const sectionTitle = computed(() => {
   if (route.path.startsWith('/guide/')) return '上手指南'
   if (route.path.startsWith('/tips/')) return '实用技巧'
   if (route.path.startsWith('/plugins/')) return '插件与技能'
-  if (route.path.startsWith('/resources/')) return '资源集锦'
+  if (route.path === '/resources' || route.path.startsWith('/resources/')) return '资源集锦'
   if (route.path === '/faq') return 'FAQ'
   return ''
 })
 const sectionHref = computed(() => {
   if (route.path.startsWith('/cases/')) return '/cases/'
   if (route.path.startsWith('/guide/')) return '/guide/'
-  if (route.path.startsWith('/tips/')) return '/tips/'
+  if (route.path.startsWith('/tips/')) return '/tips/01-index'
   if (route.path.startsWith('/plugins/')) return '/plugins/'
-  if (route.path.startsWith('/resources/')) return '/resources/'
+  if (route.path === '/resources' || route.path.startsWith('/resources/')) return '/resources/'
   return '/'
 })
 const levelClass = computed(() => {
@@ -193,14 +198,7 @@ watch(
           >
             实用技巧
             <div class="nav-dropdown" @mouseenter="openDropdown('tips')">
-              <a href="/tips/" @click="closeDropdown">01 技巧总览</a>
-              <a href="/tips/make-codex-better" @click="closeDropdown">02 让 Codex 越用越顺手</a>
-              <a href="/tips/codex-third-party-api" @click="closeDropdown">03 Codex 接入三方 API</a>
-              <a href="/tips/agents-md" @click="closeDropdown">04 AGENTS.md 怎么写</a>
-              <a href="/tips/goals" @click="closeDropdown">05 Goals 拆解术</a>
-              <a href="/tips/prevent-bad-edits" @click="closeDropdown">06 防止乱改代码</a>
-              <a href="/tips/self-evolution" @click="closeDropdown">07 让 Codex 自我进化</a>
-              <a href="/tips/save-quota" @click="closeDropdown">08 额度怎么省</a>
+              <a v-for="page in tipPages" :key="page.link" :href="page.link" @click="closeDropdown">{{ page.text }}</a>
             </div>
           </div>
 
@@ -213,16 +211,7 @@ watch(
             精选案例
             <div class="nav-dropdown" @mouseenter="openDropdown('cases')">
               <a href="/cases/" @click="closeDropdown">01 案例总览</a>
-              <div class="dd-divider">Lv.1 入门</div>
-              <a href="/cases/02-build-company-site" @click="closeDropdown">02 半天做一个公司网站</a>
-              <a href="/cases/03-batch-image-ppt" @click="closeDropdown">03 批量生图做 PPT</a>
-              <div class="dd-divider">Lv.2 进阶</div>
-              <a href="/cases/04-auto-collect-posts" @click="closeDropdown">04 自动搜集公众号热帖</a>
-              <a href="/cases/05-install-openclaw" @click="closeDropdown">05 用 Computer Use 安装龙虾</a>
-              <a href="/cases/06-auto-video-edit" @click="closeDropdown">06 剪视频</a>
-              <div class="dd-divider">Lv.3 系统</div>
-              <a href="/cases/07-investment-system" @click="closeDropdown">07 从零搭建投资管理系统</a>
-              <a href="/cases/08-hr-system" @click="closeDropdown">08 搭建招聘管理系统</a>
+              <a v-for="page in casePages" :key="page.link" :href="page.link" @click="closeDropdown">{{ page.text }}</a>
             </div>
           </div>
 
@@ -234,15 +223,10 @@ watch(
           >
             插件与技能
             <div class="nav-dropdown" @mouseenter="openDropdown('plugins')">
-              <div class="dd-divider">技能</div>
-              <a href="/plugins/top-skills" @click="closeDropdown">01 Codex 十大必装 Skills</a>
-              <a href="/plugins/custom-skill" @click="closeDropdown">02 自定义 Skill</a>
-              <div class="dd-divider">插件</div>
-              <a href="/plugins/computer-use" @click="closeDropdown">01 Computer Use</a>
-              <a href="/plugins/playwright" @click="closeDropdown">02 Playwright MCP</a>
-              <a href="/plugins/automations" @click="closeDropdown">03 Automations</a>
-              <a href="/plugins/feishu" @click="closeDropdown">04 飞书 MCP</a>
-              <a href="/plugins/drawio" @click="closeDropdown">05 Draw.io MCP</a>
+              <div v-if="skillPages.length" class="dd-divider">技能</div>
+              <a v-for="page in skillPages" :key="page.link" :href="page.link" @click="closeDropdown">{{ page.text }}</a>
+              <div v-if="pluginToolPages.length" class="dd-divider">插件</div>
+              <a v-for="page in pluginToolPages" :key="page.link" :href="page.link" @click="closeDropdown">{{ page.text }}</a>
             </div>
           </div>
 
@@ -285,34 +269,16 @@ watch(
         <a href="/#hot-posts" @click="closeMobile">网络热帖</a>
         <a href="/guide/" @click="closeMobile">上手指南</a>
         <a v-for="page in guidePages" :key="`mobile-${page.link}`" :href="page.link" class="sub-link" @click="closeMobile">{{ page.text }}</a>
-        <a href="/tips/" @click="closeMobile">实用技巧</a>
-        <a href="/tips/" class="sub-link" @click="closeMobile">01 技巧总览</a>
-        <a href="/tips/make-codex-better" class="sub-link" @click="closeMobile">02 让 Codex 越用越顺手</a>
-        <a href="/tips/codex-third-party-api" class="sub-link" @click="closeMobile">03 Codex 接入三方 API</a>
-        <a href="/tips/agents-md" class="sub-link" @click="closeMobile">04 AGENTS.md 怎么写</a>
-        <a href="/tips/goals" class="sub-link" @click="closeMobile">05 Goals 拆解术</a>
-        <a href="/tips/prevent-bad-edits" class="sub-link" @click="closeMobile">06 防止乱改代码</a>
-        <a href="/tips/self-evolution" class="sub-link" @click="closeMobile">07 让 Codex 自我进化</a>
-        <a href="/tips/save-quota" class="sub-link" @click="closeMobile">08 额度怎么省</a>
+        <a href="/tips/01-index" @click="closeMobile">实用技巧</a>
+        <a v-for="page in tipPages" :key="`mobile-${page.link}`" :href="page.link" class="sub-link" @click="closeMobile">{{ page.text }}</a>
         <a href="/cases/" @click="closeMobile">精选案例</a>
         <a href="/cases/" class="sub-link" @click="closeMobile">01 案例总览</a>
-        <a href="/cases/02-build-company-site" class="sub-link" @click="closeMobile">02 半天做一个公司网站</a>
-        <a href="/cases/03-batch-image-ppt" class="sub-link" @click="closeMobile">03 批量生图做 PPT</a>
-        <a href="/cases/04-auto-collect-posts" class="sub-link" @click="closeMobile">04 自动搜集公众号热帖</a>
-        <a href="/cases/05-install-openclaw" class="sub-link" @click="closeMobile">05 用 Computer Use 安装龙虾</a>
-        <a href="/cases/06-auto-video-edit" class="sub-link" @click="closeMobile">06 剪视频</a>
-        <a href="/cases/07-investment-system" class="sub-link" @click="closeMobile">07 从零搭建投资管理系统</a>
-        <a href="/cases/08-hr-system" class="sub-link" @click="closeMobile">08 搭建招聘管理系统</a>
+        <a v-for="page in casePages" :key="`mobile-${page.link}`" :href="page.link" class="sub-link" @click="closeMobile">{{ page.text }}</a>
         <a href="/plugins/" @click="closeMobile">插件与技能</a>
-        <div class="mobile-divider">技能</div>
-        <a href="/plugins/top-skills" class="sub-link" @click="closeMobile">01 Codex 十大必装 Skills</a>
-        <a href="/plugins/custom-skill" class="sub-link" @click="closeMobile">02 自定义 Skill</a>
-        <div class="mobile-divider">插件</div>
-        <a href="/plugins/computer-use" class="sub-link" @click="closeMobile">01 Computer Use</a>
-        <a href="/plugins/playwright" class="sub-link" @click="closeMobile">02 Playwright MCP</a>
-        <a href="/plugins/automations" class="sub-link" @click="closeMobile">03 Automations</a>
-        <a href="/plugins/feishu" class="sub-link" @click="closeMobile">04 飞书 MCP</a>
-        <a href="/plugins/drawio" class="sub-link" @click="closeMobile">05 Draw.io MCP</a>
+        <div v-if="skillPages.length" class="mobile-divider">技能</div>
+        <a v-for="page in skillPages" :key="`mobile-${page.link}`" :href="page.link" class="sub-link" @click="closeMobile">{{ page.text }}</a>
+        <div v-if="pluginToolPages.length" class="mobile-divider">插件</div>
+        <a v-for="page in pluginToolPages" :key="`mobile-${page.link}`" :href="page.link" class="sub-link" @click="closeMobile">{{ page.text }}</a>
         <a href="/resources/" @click="closeMobile">资源集锦</a>
         <a href="/resources/#官方资源" class="sub-link" @click="closeMobile">官方资源</a>
         <a href="/resources/#社区项目" class="sub-link" @click="closeMobile">社区资源</a>
@@ -325,7 +291,7 @@ watch(
     <Content v-if="isHome" />
 
     <main v-else class="article-page">
-      <article class="article-wrapper">
+      <article class="article-wrapper" :class="{ 'article-wrapper-wide': route.path === '/resources/wechat' }">
         <div class="breadcrumb">
           <a href="/">首页</a>
           <span class="sep">/</span>
@@ -368,7 +334,7 @@ watch(
       <div class="footer-inner">
         <div class="footer-brand">
           <div class="nav-logo"><span>我爱</span><span>CodeX</span></div>
-          <p>技术小白的Codex 实践站。不用写代码，把脑子里的想法变成能用的工具。</p>
+          <p>技术小白的Codex 实践站。不用写代码，把想法变成能用的工具。</p>
           <p class="disclaimer">52codex.site 是独立第三方站点，非 OpenAI 官方产品。</p>
           <p class="disclaimer copyright">© 2026 我爱CodeX</p>
           <a class="footer-hidden-link" href="/resources/comment-admin" aria-label="留言管理">.</a>
@@ -378,15 +344,15 @@ watch(
           <div class="footer-links">
             <a href="https://openai.com/codex" target="_blank" rel="noreferrer">Codex 官网</a>
             <a href="https://platform.openai.com/docs" target="_blank" rel="noreferrer">Codex 官方文档</a>
-            <a href="https://codexguide.ai" target="_blank" rel="noreferrer">CodexGuide（苍何）</a>
+             
             <a href="https://www.91openclaw.site" target="_blank" rel="noreferrer">OpenClaw 中文站</a>
           </div>
         </div>
         <div>
           <h4>社区</h4>
           <div class="footer-links">
-            <a href="#">公众号</a>
-            <a href="#">微信交流群</a>
+            <a href="/resources/wechat#wechat">公众号</a>
+            <a href="/resources/wechat#wechat-group">微信交流群</a>
             <a href="#" target="_blank" rel="noreferrer">GitHub</a>
             <a href="mailto:hello@52codex.site">联系邮箱</a>
           </div>

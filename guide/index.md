@@ -27,7 +27,7 @@ import { guidePages } from '../.vitepress/theme/guidePages'
 
 
 ::: tip 真的太好用了。
-**"Codex 让我仿佛那个程序员搭子又回来了。"**
+**"Codex 让我的那个程序员搭子又回来了。"**
 :::
 
  
@@ -85,5 +85,5 @@ Phase 4  工程化落地      AGENTS.md → DESIGN.md → Goals → 快速发布
 ## 学完之后去哪里
 
 - 想看别人怎么用 → [精选案例](/cases/)
-- 想提升效率 → [实用技巧](/tips/)
+- 想提升效率 → [实用技巧](/tips/01-index)
 - 想扩展能力 → [插件与技能](/plugins/)

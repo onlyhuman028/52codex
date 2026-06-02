@@ -32,8 +32,14 @@
             </div>
             <div class="hot-row">
               <a v-for="item in group.items" :key="item.href" :href="item.href" target="_blank" class="hot-item" rel="noreferrer">
-                <div class="hot-title">{{ item.title }}</div>
-                <div class="hot-time">{{ item.meta }}</div>
+                <div class="hot-item-main">
+                  <div class="hot-title">{{ item.title }}</div>
+                  <div v-if="item.author" class="hot-author">作者：{{ item.author }}</div>
+                </div>
+                <div class="hot-item-footer">
+                  <span class="hot-time">{{ item.meta }}</span>
+                  <span class="hot-open">原文</span>
+                </div>
               </a>
             </div>
           </div>
@@ -136,10 +142,10 @@
             <h2 class="section-title">实用技巧</h2>
             <p class="section-desc">真实使用经验，解决你用 Codex 最常遇到的问题</p>
           </div>
-          <a href="/tips/" class="section-link">查看全部</a>
+          <a href="/tips/01-index" class="section-link">查看全部</a>
         </div>
         <div class="tip-grid tip-grid-featured">
-          <a href="/tips/make-codex-better" class="tip-card tip-card-featured">
+          <a href="/tips/02-make-codex-better" class="tip-card tip-card-featured">
             <div class="tip-meta">
               <span>用法技巧</span>
               <span>入门必看</span>
@@ -148,7 +154,7 @@
             <p>记忆管理、偏好设置、项目规范，让 Codex 越来越懂你的习惯。</p>
             <span class="tip-action">开始优化</span>
           </a>
-          <a href="/tips/codex-third-party-api" class="tip-card">
+          <a href="/tips/03-codex-third-party-api" class="tip-card">
             <div class="tip-meta">
               <span>扩展配置</span>
               <span>进阶</span>
@@ -156,7 +162,7 @@
             <h3>Codex 怎么接入第三方 API</h3>
             <p>用 Codex++ 接入国产模型、中转站 GPT 或 Claude，保留图形化设置。</p>
           </a>
-          <a href="/tips/agents-md" class="tip-card">
+          <a href="/tips/04-agents-md" class="tip-card">
             <div class="tip-meta">
               <span>项目规范</span>
               <span>模板</span>
@@ -164,15 +170,15 @@
             <h3>AGENTS.md 怎么写</h3>
             <p>从实战模板出发，手把手教你写好项目规范文档。</p>
           </a>
-          <a href="/tips/goals" class="tip-card">
+          <a href="/tips/05-goals" class="tip-card">
             <div class="tip-meta">
               <span>项目管理</span>
               <span>长任务</span>
             </div>
-            <h3>长任务和 Goals 怎么拆</h3>
-            <p>大项目不能一句话搞定，学会用 Goals 拆成 Codex 能执行的子任务。</p>
+            <h3>/goal 长任务怎么拆</h3>
+            <p>迁移、重构、修测试这类长任务，要写清目标、检查点和停止条件。</p>
           </a>
-          <a href="/tips/prevent-bad-edits" class="tip-card">
+          <a href="/tips/06-prevent-bad-edits" class="tip-card">
             <div class="tip-meta">
               <span>避坑</span>
               <span>安全边界</span>
@@ -180,7 +186,7 @@
             <h3>怎么防止 Codex 乱改代码</h3>
             <p>用 AGENTS.md 划定行为边界，让 Codex 只改该改的地方。</p>
           </a>
-          <a href="/tips/self-evolution" class="tip-card">
+          <a href="/tips/07-self-evolution" class="tip-card">
             <div class="tip-meta">
               <span>工作流</span>
               <span>复用</span>
@@ -188,13 +194,29 @@
             <h3>怎么让 Codex 自我进化</h3>
             <p>让 Codex 自己总结经验、优化 Prompt、建立可复用的工作流。</p>
           </a>
-          <a href="/tips/save-quota" class="tip-card">
+          <a href="/tips/08-save-quota" class="tip-card">
             <div class="tip-meta">
               <span>额度策略</span>
               <span>省钱</span>
             </div>
             <h3>额度怎么省</h3>
-            <p>5 小时滚动重置、时段策略、智能等级选择，让每分额度花在关键处。</p>
+            <p>少浪费上下文和无效交互，用 Prompt、模型选择和检查点控制消耗。</p>
+          </a>
+          <a href="/tips/09-chatgpt-codex-phone-verification" class="tip-card">
+            <div class="tip-meta">
+              <span>账号安全</span>
+              <span>登录验证</span>
+            </div>
+            <h3>手机号二次验证怎么办</h3>
+            <p>用高级账号安全和通行密钥减少短信依赖，先讲清恢复密钥风险。</p>
+          </a>
+          <a href="/tips/10-sms-verification-platforms" class="tip-card">
+            <div class="tip-meta">
+              <span>账号验证</span>
+              <span>手机号</span>
+            </div>
+            <h3>接码平台和实体卡一览</h3>
+            <p>临时接码适合一次验证，长期账号更建议准备可复用实体 SIM 卡。</p>
           </a>
         </div>
       </div>
@@ -260,7 +282,7 @@
           </details>
           <details class="faq-item">
             <summary>如何正确使用 Codex？</summary>
-            <div class="faq-body">从上手指南开始，跟着学习路线走。核心原则：先想清楚你要什么，再用自然语言精确描述，最后用 AGENTS.md 和 Goals 管理大项目。别急着做大系统，从一个小网页开始。</div>
+            <div class="faq-body">从上手指南开始，跟着学习路线走。核心原则：先想清楚你要什么，再用自然语言精确描述，最后用 AGENTS.md 和 /goal 管理大项目。别急着做大系统，从一个小网页开始。</div>
           </details>
         </div>
       </div>
@@ -288,8 +310,8 @@
         <div>
           <h4>社区</h4>
           <div class="footer-links">
-            <a href="#">公众号</a>
-            <a href="#">微信交流群</a>
+            <a href="/resources/wechat#wechat">公众号</a>
+            <a href="/resources/wechat#wechat-group">微信交流群</a>
             <a href="#" target="_blank" rel="noreferrer">GitHub</a>
             <a href="mailto:hello@52codex.site">联系邮箱</a>
             <a href="#">投稿</a>
@@ -302,7 +324,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
-import { guidePages } from './guidePages'
+import { guidePages } from './navPages'
 
 const featuredGuidePages = guidePages.slice(0, 4)
 
@@ -315,16 +337,19 @@ const fallbackHotGroups = [
     items: [
       {
         title: 'Arlan：把整个 Web 变成文件系统，让 Codex 直接读取文档',
+        author: 'Arlan',
         meta: 'X 原帖 · 185.4K views',
         href: 'https://x.com/arlanr/status/2041215978957389908'
       },
       {
         title: 'GitHub：GPT-5.2-Codex 已在 GitHub Copilot 中推出',
+        author: 'GitHub',
         meta: 'X 原帖 · 174.4K views',
         href: 'https://x.com/github/status/2011501527991546066'
       },
       {
         title: 'Vaibhav：介绍 Claude Code 工作流里的 Codex Plugin',
+        author: 'Vaibhav',
         meta: 'X 原帖 · 44.6K views',
         href: 'https://x.com/reach_vb/status/2039251986357338257'
       }
@@ -338,16 +363,19 @@ const fallbackHotGroups = [
     items: [
       {
         title: 'xianyu110/gpt-codex：写给 Codex 小白用户的完整教程',
+        author: 'xianyu110',
         meta: '中文教程 · OpenAI Codex',
         href: 'https://github.com/xianyu110/gpt-codex'
       },
       {
         title: 'Ivesfsy/Codex：云原生 Codex CLI 快速入门指南',
+        author: 'Ivesfsy',
         meta: '安装配置 · Codex CLI 教程',
         href: 'https://github.com/Ivesfsy/Codex'
       },
       {
         title: 'OpenAI Cookbook：用 Codex SDK 构建代码审查工作流',
+        author: 'openai',
         meta: '官方案例 · Codex SDK',
         href: 'https://github.com/openai/openai-cookbook/blob/main/examples/codex/build_code_review_with_codex_sdk.md'
       }
@@ -361,16 +389,19 @@ const fallbackHotGroups = [
     items: [
       {
         title: 'Codex (APP) 保姆级全攻略，海量实战教程，一期精通 Codex',
+        author: '技术爬爬虾',
         meta: '2026-04-28 · 75.6 万播放',
         href: 'https://www.bilibili.com/video/BV1Kk9kBAEJv/'
       },
       {
         title: '全网最全！40 分钟全面掌握 Codex【附完整文档】',
+        author: '秋芝2046',
         meta: '2026-05-16 · 46.6 万播放',
         href: 'https://www.bilibili.com/video/BV1Nd596vEyU/'
       },
       {
         title: 'Codex APP 保姆级使用教程，实战项目全流程讲解',
+        author: 'AI随风随风',
         meta: '2026-03-03 · 20.2 万播放',
         href: 'https://www.bilibili.com/video/BV1oJAoz2Emf/'
       }
@@ -384,16 +415,19 @@ const fallbackHotGroups = [
     items: [
       {
         title: '你目前用 Codex 做出了哪些东西？',
+        author: 'r/codex 社区',
         meta: 'r/codex · 2 周前 · 原题已翻译',
         href: 'https://www.reddit.com/r/codex/comments/1tcgyu7/what_have_you_built_so_far_using_codex/'
       },
       {
         title: '你用 Codex 做过最大、最复杂的项目是什么？',
+        author: 'r/codex 社区',
         meta: 'r/codex · 上月 · 原题已翻译',
         href: 'https://www.reddit.com/r/codex/comments/1sx8dg4/what_is_the_biggest_thing_you_build_with_codex/'
       },
       {
         title: '社区热议：ChatGPT 登录的 Codex 可能移除 GPT-5.2 和 GPT-5.3-Codex',
+        author: 'r/codex 社区',
         meta: 'r/codex · 社区热议 · 原题已翻译',
         href: 'https://www.reddit.com/r/codex/comments/1tp8ujz/openai_is_removing_gpt52_and_gpt53codex_from/'
       }
@@ -407,16 +441,19 @@ const fallbackHotGroups = [
     items: [
       {
         title: 'Codex Tutorial for Beginners：完整入门课程',
+        author: 'YouTube 创作者',
         meta: 'YouTube · 完整教程',
         href: 'https://www.youtube.com/watch?v=KXIdYEdOPys'
       },
       {
         title: 'Master Codex in One Hour：用 Codex 做评论分析、Skill 和自动化',
+        author: 'YouTube 创作者',
         meta: 'YouTube · 实战工作流',
         href: 'https://www.youtube.com/watch?v=3TdD8Qv5Tk8'
       },
       {
         title: 'Computer use in Codex：多任务电脑操作演示',
+        author: 'OpenAI',
         meta: 'YouTube · 官方能力演示',
         href: 'https://www.youtube.com/watch?v=D_FCYsshMI4'
       }
@@ -458,6 +495,7 @@ function isValidHotGroups(groups) {
           && typeof item.title === 'string'
           && typeof item.meta === 'string'
           && typeof item.href === 'string'
+          && (item.author === undefined || typeof item.author === 'string')
       })
   })
 }
