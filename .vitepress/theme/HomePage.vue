@@ -45,7 +45,7 @@
       <div class="section-inner">
         <div class="section-header">
           <div>
-            <h2 class="section-title">实战案例</h2>
+            <h2 class="section-title">精选案例</h2>
             <p class="section-desc">本站原创拆解，完整工作流 + Prompt + 踩坑记录</p>
           </div>
           <a href="/cases/" class="section-link">查看全部</a>
@@ -60,7 +60,7 @@
           <span class="filter-tag">环境搭建</span>
         </div>
         <div class="card-grid">
-          <a href="/cases/build-company-site" class="card">
+          <a href="/cases/02-build-company-site" class="card">
             <div class="card-cover">封面图</div>
             <div class="card-body">
               <div class="card-tags"><span class="lv lv1">Lv.1</span><span class="tag-pill">做网站</span></div>
@@ -68,7 +68,7 @@
               <p>不会写代码的运营，用 Codex 从零搭出了一个响应式公司官网。</p>
             </div>
           </a>
-          <a href="/cases/auto-collect-posts" class="card">
+          <a href="/cases/04-auto-collect-posts" class="card">
             <div class="card-cover">封面图</div>
             <div class="card-body">
               <div class="card-tags"><span class="lv lv2">Lv.2</span><span class="tag-pill">自动化</span></div>
@@ -76,7 +76,7 @@
               <p>用 Computer Use 控制微信搜一搜，定时抓取关键词热帖。</p>
             </div>
           </a>
-          <a href="/cases/install-openclaw" class="card">
+          <a href="/cases/05-install-openclaw" class="card">
             <div class="card-cover">封面图</div>
             <div class="card-body">
               <div class="card-tags"><span class="lv lv2">Lv.2</span><span class="tag-pill">环境搭建</span></div>
@@ -84,7 +84,7 @@
               <p>让 Codex 自动安装 OpenClaw、配置 API Key、启动 Web UI。</p>
             </div>
           </a>
-          <a href="/cases/investment-system" class="card">
+          <a href="/cases/07-investment-system" class="card">
             <div class="card-cover">封面图</div>
             <div class="card-body">
               <div class="card-tags"><span class="lv lv3">Lv.3</span><span class="tag-pill">建系统</span></div>
@@ -92,7 +92,7 @@
               <p>用 AGENTS.md + DESIGN.md 规范 Codex 行为，完成全栈开发。</p>
             </div>
           </a>
-          <a href="/cases/batch-image-ppt" class="card">
+          <a href="/cases/03-batch-image-ppt" class="card">
             <div class="card-cover">封面图</div>
             <div class="card-body">
               <div class="card-tags"><span class="lv lv1">Lv.1</span><span class="tag-pill">内容创作</span></div>
@@ -100,7 +100,7 @@
               <p>结合 gpt-image 批量生成配图，自动排版成演示文稿。</p>
             </div>
           </a>
-          <a href="/cases/hr-system" class="card">
+          <a href="/cases/08-hr-system" class="card">
             <div class="card-cover">封面图</div>
             <div class="card-body">
               <div class="card-tags"><span class="lv lv3">Lv.3</span><span class="tag-pill">建系统</span></div>
@@ -131,34 +131,68 @@
 
     <section class="section">
       <div class="section-inner">
-        <h2 class="section-title">实用技巧</h2>
-        <p class="section-desc">真实使用经验，解决你用 Codex 最常遇到的问题</p>
-        <div class="tip-grid">
-          <a href="/tips/make-codex-better" class="tip-card">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">实用技巧</h2>
+            <p class="section-desc">真实使用经验，解决你用 Codex 最常遇到的问题</p>
+          </div>
+          <a href="/tips/" class="section-link">查看全部</a>
+        </div>
+        <div class="tip-grid tip-grid-featured">
+          <a href="/tips/make-codex-better" class="tip-card tip-card-featured">
+            <div class="tip-meta">
+              <span>用法技巧</span>
+              <span>入门必看</span>
+            </div>
             <h3>怎么让 Codex 越用越顺手</h3>
             <p>记忆管理、偏好设置、项目规范，让 Codex 越来越懂你的习惯。</p>
+            <span class="tip-action">开始优化</span>
           </a>
           <a href="/tips/codex-third-party-api" class="tip-card">
+            <div class="tip-meta">
+              <span>扩展配置</span>
+              <span>进阶</span>
+            </div>
             <h3>Codex 怎么接入第三方 API</h3>
             <p>用 Codex++ 接入国产模型、中转站 GPT 或 Claude，保留图形化设置。</p>
           </a>
           <a href="/tips/agents-md" class="tip-card">
+            <div class="tip-meta">
+              <span>项目规范</span>
+              <span>模板</span>
+            </div>
             <h3>AGENTS.md 怎么写</h3>
             <p>从实战模板出发，手把手教你写好项目规范文档。</p>
           </a>
           <a href="/tips/goals" class="tip-card">
+            <div class="tip-meta">
+              <span>项目管理</span>
+              <span>长任务</span>
+            </div>
             <h3>长任务和 Goals 怎么拆</h3>
             <p>大项目不能一句话搞定，学会用 Goals 拆成 Codex 能执行的子任务。</p>
           </a>
           <a href="/tips/prevent-bad-edits" class="tip-card">
+            <div class="tip-meta">
+              <span>避坑</span>
+              <span>安全边界</span>
+            </div>
             <h3>怎么防止 Codex 乱改代码</h3>
             <p>用 AGENTS.md 划定行为边界，让 Codex 只改该改的地方。</p>
           </a>
           <a href="/tips/self-evolution" class="tip-card">
+            <div class="tip-meta">
+              <span>工作流</span>
+              <span>复用</span>
+            </div>
             <h3>怎么让 Codex 自我进化</h3>
             <p>让 Codex 自己总结经验、优化 Prompt、建立可复用的工作流。</p>
           </a>
           <a href="/tips/save-quota" class="tip-card">
+            <div class="tip-meta">
+              <span>额度策略</span>
+              <span>省钱</span>
+            </div>
             <h3>额度怎么省</h3>
             <p>5 小时滚动重置、时段策略、智能等级选择，让每分额度花在关键处。</p>
           </a>

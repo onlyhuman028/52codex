@@ -24,8 +24,7 @@ const showComments = computed(() => {
   return route.path === '/guide/' || !route.path.endsWith('/')
 })
 const sectionTitle = computed(() => {
-  if (route.path === '/plugins/computer-use') return 'Computer use'
-  if (route.path.startsWith('/cases/')) return '实战案例'
+  if (route.path.startsWith('/cases/')) return '精选案例'
   if (route.path.startsWith('/guide/')) return '上手指南'
   if (route.path.startsWith('/tips/')) return '实用技巧'
   if (route.path.startsWith('/plugins/')) return '插件与技能'
@@ -34,7 +33,6 @@ const sectionTitle = computed(() => {
   return ''
 })
 const sectionHref = computed(() => {
-  if (route.path === '/plugins/computer-use') return '/plugins/computer-use'
   if (route.path.startsWith('/cases/')) return '/cases/'
   if (route.path.startsWith('/guide/')) return '/guide/'
   if (route.path.startsWith('/tips/')) return '/tips/'
@@ -195,14 +193,14 @@ watch(
           >
             实用技巧
             <div class="nav-dropdown" @mouseenter="openDropdown('tips')">
-              <a href="/tips/" @click="closeDropdown">技巧总览</a>
-              <a href="/tips/make-codex-better" @click="closeDropdown">让 Codex 越用越顺手</a>
-              <a href="/tips/codex-third-party-api" @click="closeDropdown">Codex 接入三方 API</a>
-              <a href="/tips/agents-md" @click="closeDropdown">AGENTS.md 怎么写</a>
-              <a href="/tips/goals" @click="closeDropdown">Goals 拆解术</a>
-              <a href="/tips/prevent-bad-edits" @click="closeDropdown">防止乱改代码</a>
-              <a href="/tips/self-evolution" @click="closeDropdown">让 Codex 自我进化</a>
-              <a href="/tips/save-quota" @click="closeDropdown">额度怎么省</a>
+              <a href="/tips/" @click="closeDropdown">01 技巧总览</a>
+              <a href="/tips/make-codex-better" @click="closeDropdown">02 让 Codex 越用越顺手</a>
+              <a href="/tips/codex-third-party-api" @click="closeDropdown">03 Codex 接入三方 API</a>
+              <a href="/tips/agents-md" @click="closeDropdown">04 AGENTS.md 怎么写</a>
+              <a href="/tips/goals" @click="closeDropdown">05 Goals 拆解术</a>
+              <a href="/tips/prevent-bad-edits" @click="closeDropdown">06 防止乱改代码</a>
+              <a href="/tips/self-evolution" @click="closeDropdown">07 让 Codex 自我进化</a>
+              <a href="/tips/save-quota" @click="closeDropdown">08 额度怎么省</a>
             </div>
           </div>
 
@@ -212,19 +210,19 @@ watch(
             @mouseenter="openDropdown('cases')"
             @click.self="toggleDropdown('cases')"
           >
-            实战案例
+            精选案例
             <div class="nav-dropdown" @mouseenter="openDropdown('cases')">
-              <a href="/cases/" @click="closeDropdown">案例总览</a>
+              <a href="/cases/" @click="closeDropdown">01 案例总览</a>
               <div class="dd-divider">Lv.1 入门</div>
-              <a href="/cases/build-company-site" @click="closeDropdown">半天做一个公司网站</a>
-              <a href="/cases/batch-image-ppt" @click="closeDropdown">批量生图做 PPT</a>
+              <a href="/cases/02-build-company-site" @click="closeDropdown">02 半天做一个公司网站</a>
+              <a href="/cases/03-batch-image-ppt" @click="closeDropdown">03 批量生图做 PPT</a>
               <div class="dd-divider">Lv.2 进阶</div>
-              <a href="/cases/auto-collect-posts" @click="closeDropdown">自动搜集公众号热帖</a>
-              <a href="/cases/install-openclaw" @click="closeDropdown">用 Computer Use 安装龙虾</a>
-              <a href="/cases/auto-video-edit" @click="closeDropdown">自动剪辑视频</a>
+              <a href="/cases/04-auto-collect-posts" @click="closeDropdown">04 自动搜集公众号热帖</a>
+              <a href="/cases/05-install-openclaw" @click="closeDropdown">05 用 Computer Use 安装龙虾</a>
+              <a href="/cases/06-auto-video-edit" @click="closeDropdown">06 剪视频</a>
               <div class="dd-divider">Lv.3 系统</div>
-              <a href="/cases/investment-system" @click="closeDropdown">从零搭建投资管理系统</a>
-              <a href="/cases/hr-system" @click="closeDropdown">搭建招聘管理系统</a>
+              <a href="/cases/07-investment-system" @click="closeDropdown">07 从零搭建投资管理系统</a>
+              <a href="/cases/08-hr-system" @click="closeDropdown">08 搭建招聘管理系统</a>
             </div>
           </div>
 
@@ -236,16 +234,17 @@ watch(
           >
             插件与技能
             <div class="nav-dropdown" @mouseenter="openDropdown('plugins')">
-              <a href="/plugins/" @click="closeDropdown">插件总览</a>
-              <a href="/plugins/computer-use" @click="closeDropdown">Computer Use</a>
-              <a href="/plugins/playwright" @click="closeDropdown">Playwright MCP</a>
-              <a href="/plugins/automations" @click="closeDropdown">Automations</a>
-              <a href="/plugins/feishu" @click="closeDropdown">飞书 MCP</a>
-              <a href="/plugins/custom-skill" @click="closeDropdown">自定义 Skill</a>
+              <div class="dd-divider">技能</div>
+              <a href="/plugins/top-skills" @click="closeDropdown">01 Codex 十大必装 Skills</a>
+              <a href="/plugins/custom-skill" @click="closeDropdown">02 自定义 Skill</a>
+              <div class="dd-divider">插件</div>
+              <a href="/plugins/computer-use" @click="closeDropdown">01 Computer Use</a>
+              <a href="/plugins/playwright" @click="closeDropdown">02 Playwright MCP</a>
+              <a href="/plugins/automations" @click="closeDropdown">03 Automations</a>
+              <a href="/plugins/feishu" @click="closeDropdown">04 飞书 MCP</a>
+              <a href="/plugins/drawio" @click="closeDropdown">05 Draw.io MCP</a>
             </div>
           </div>
-
-          <a href="/plugins/computer-use" class="nav-item" @click="closeDropdown">Computer use</a>
 
           <div
             class="nav-item has-dropdown"
@@ -287,14 +286,33 @@ watch(
         <a href="/guide/" @click="closeMobile">上手指南</a>
         <a v-for="page in guidePages" :key="`mobile-${page.link}`" :href="page.link" class="sub-link" @click="closeMobile">{{ page.text }}</a>
         <a href="/tips/" @click="closeMobile">实用技巧</a>
-        <a href="/tips/codex-third-party-api" class="sub-link" @click="closeMobile">Codex 接入三方 API</a>
-        <a href="/tips/agents-md" class="sub-link" @click="closeMobile">AGENTS.md 怎么写</a>
-        <a href="/cases/" @click="closeMobile">实战案例</a>
-        <a href="/cases/build-company-site" class="sub-link" @click="closeMobile">半天做一个公司网站</a>
-        <a href="/cases/auto-collect-posts" class="sub-link" @click="closeMobile">自动搜集公众号热帖</a>
-        <a href="/cases/investment-system" class="sub-link" @click="closeMobile">从零搭建投资管理系统</a>
+        <a href="/tips/" class="sub-link" @click="closeMobile">01 技巧总览</a>
+        <a href="/tips/make-codex-better" class="sub-link" @click="closeMobile">02 让 Codex 越用越顺手</a>
+        <a href="/tips/codex-third-party-api" class="sub-link" @click="closeMobile">03 Codex 接入三方 API</a>
+        <a href="/tips/agents-md" class="sub-link" @click="closeMobile">04 AGENTS.md 怎么写</a>
+        <a href="/tips/goals" class="sub-link" @click="closeMobile">05 Goals 拆解术</a>
+        <a href="/tips/prevent-bad-edits" class="sub-link" @click="closeMobile">06 防止乱改代码</a>
+        <a href="/tips/self-evolution" class="sub-link" @click="closeMobile">07 让 Codex 自我进化</a>
+        <a href="/tips/save-quota" class="sub-link" @click="closeMobile">08 额度怎么省</a>
+        <a href="/cases/" @click="closeMobile">精选案例</a>
+        <a href="/cases/" class="sub-link" @click="closeMobile">01 案例总览</a>
+        <a href="/cases/02-build-company-site" class="sub-link" @click="closeMobile">02 半天做一个公司网站</a>
+        <a href="/cases/03-batch-image-ppt" class="sub-link" @click="closeMobile">03 批量生图做 PPT</a>
+        <a href="/cases/04-auto-collect-posts" class="sub-link" @click="closeMobile">04 自动搜集公众号热帖</a>
+        <a href="/cases/05-install-openclaw" class="sub-link" @click="closeMobile">05 用 Computer Use 安装龙虾</a>
+        <a href="/cases/06-auto-video-edit" class="sub-link" @click="closeMobile">06 剪视频</a>
+        <a href="/cases/07-investment-system" class="sub-link" @click="closeMobile">07 从零搭建投资管理系统</a>
+        <a href="/cases/08-hr-system" class="sub-link" @click="closeMobile">08 搭建招聘管理系统</a>
         <a href="/plugins/" @click="closeMobile">插件与技能</a>
-        <a href="/plugins/computer-use" @click="closeMobile">Computer use</a>
+        <div class="mobile-divider">技能</div>
+        <a href="/plugins/top-skills" class="sub-link" @click="closeMobile">01 Codex 十大必装 Skills</a>
+        <a href="/plugins/custom-skill" class="sub-link" @click="closeMobile">02 自定义 Skill</a>
+        <div class="mobile-divider">插件</div>
+        <a href="/plugins/computer-use" class="sub-link" @click="closeMobile">01 Computer Use</a>
+        <a href="/plugins/playwright" class="sub-link" @click="closeMobile">02 Playwright MCP</a>
+        <a href="/plugins/automations" class="sub-link" @click="closeMobile">03 Automations</a>
+        <a href="/plugins/feishu" class="sub-link" @click="closeMobile">04 飞书 MCP</a>
+        <a href="/plugins/drawio" class="sub-link" @click="closeMobile">05 Draw.io MCP</a>
         <a href="/resources/" @click="closeMobile">资源集锦</a>
         <a href="/resources/#官方资源" class="sub-link" @click="closeMobile">官方资源</a>
         <a href="/resources/#社区项目" class="sub-link" @click="closeMobile">社区资源</a>

@@ -43,6 +43,10 @@ npm run build    # 构建，输出 .vitepress/dist
 
 Cloudflare Pages：构建命令 `npm run build`，输出目录 `.vitepress/dist`，Node 18+
 
+## 撰写
+
+按照write_rules.md 格式撰写具体栏目下的文章。
+
 ## 禁止
 
 - 不引入额外 npm 依赖（Tailwind 除外），需要时先问我

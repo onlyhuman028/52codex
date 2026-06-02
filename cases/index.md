@@ -1,8 +1,8 @@
 ---
-title: 实战案例
+title: 精选案例
 ---
 
-# 实战案例
+# 精选案例
 
 这里收集本站原创拆解的 Codex 使用案例。每个案例包含完整工作流、Prompt、踩坑与修复记录。
 
@@ -16,16 +16,16 @@ title: 实战案例
 
 ## Lv.1 入门
 
-- [半天做一个公司介绍网站](/cases/build-company-site)
-- [批量生图做 PPT](/cases/batch-image-ppt)
+- [半天做一个公司介绍网站](/cases/02-build-company-site)
+- [批量生图做 PPT](/cases/03-batch-image-ppt)
 
 ## Lv.2 进阶
 
-- [自动搜集公众号热帖](/cases/auto-collect-posts)
-- [用 Computer Use 安装龙虾](/cases/install-openclaw)
-- [自动剪辑视频](/cases/auto-video-edit)
+- [自动搜集公众号热帖](/cases/04-auto-collect-posts)
+- [用 Computer Use 安装龙虾](/cases/05-install-openclaw)
+- [剪视频](/cases/06-auto-video-edit)
 
 ## Lv.3 系统级
 
-- [从零搭建投资管理系统](/cases/investment-system)
-- [搭建招聘管理系统](/cases/hr-system)
+- [从零搭建投资管理系统](/cases/07-investment-system)
+- [搭建招聘管理系统](/cases/08-hr-system)
