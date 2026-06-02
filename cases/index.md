@@ -16,6 +16,7 @@ title: 精选案例
 
 ## Lv.1 入门
 
+- [用 Codex 做武侠网页游戏](/cases/01-codex-wuxia-game)
 - [半天做一个公司介绍网站](/cases/02-build-company-site)
 - [批量生图做 PPT](/cases/03-batch-image-ppt)
 

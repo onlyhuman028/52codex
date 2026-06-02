@@ -1,7 +1,7 @@
 ---
-title: 上手项目2：用 Codex 完善老项目
-description: 把已有项目交给 Codex 继续完善，理解任务顺序执行、并行处理和修改边界。
-tags: [Codex, 老项目, 任务拆解]
+title: 10 上手项目1：做一个贪吃蛇游戏
+description: 用 Codex 调用 Skill 完成 PPT 生成任务，理解素材准备、结构输出和文件交付流程。
+tags: [Codex, Skill, PPT]
 order: 10
 level: 1
 ---

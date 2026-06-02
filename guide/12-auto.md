@@ -1,8 +1,8 @@
 ---
-title: 上手项目4：调用自动化插件搜索小红书
+title: 14 上手项目4：调用自动化插件搜索小红书
 description: 使用 Codex 自动化能力执行搜索任务，理解插件调用、网页操作和任务边界。
 tags: [Codex, 自动化, 小红书]
-order: 12
+order: 14
 level: 1
 ---
 

@@ -87,6 +87,10 @@ const articleAuthor = computed(() => {
 
   return defaultAuthor
 })
+const numberedCasePages = computed(() => casePages.map((page, index) => ({
+  ...page,
+  text: `${String(index + 1).padStart(2, '0')} ${page.text.replace(/^\d+\s+/, '')}`,
+})))
 function closeMobile() {
   mobileOpen.value = false
 }
@@ -210,8 +214,8 @@ watch(
           >
             精选案例
             <div class="nav-dropdown" @mouseenter="openDropdown('cases')">
-              <a href="/cases/" @click="closeDropdown">01 案例总览</a>
-              <a v-for="page in casePages" :key="page.link" :href="page.link" @click="closeDropdown">{{ page.text }}</a>
+              <a href="/cases/" @click="closeDropdown">案例总览</a>
+              <a v-for="page in numberedCasePages" :key="page.link" :href="page.link" @click="closeDropdown">{{ page.text }}</a>
             </div>
           </div>
 
@@ -272,8 +276,8 @@ watch(
         <a href="/tips/01-index" @click="closeMobile">实用技巧</a>
         <a v-for="page in tipPages" :key="`mobile-${page.link}`" :href="page.link" class="sub-link" @click="closeMobile">{{ page.text }}</a>
         <a href="/cases/" @click="closeMobile">精选案例</a>
-        <a href="/cases/" class="sub-link" @click="closeMobile">01 案例总览</a>
-        <a v-for="page in casePages" :key="`mobile-${page.link}`" :href="page.link" class="sub-link" @click="closeMobile">{{ page.text }}</a>
+        <a href="/cases/" class="sub-link" @click="closeMobile">案例总览</a>
+        <a v-for="page in numberedCasePages" :key="`mobile-${page.link}`" :href="page.link" class="sub-link" @click="closeMobile">{{ page.text }}</a>
         <a href="/plugins/" @click="closeMobile">插件与技能</a>
         <div v-if="skillPages.length" class="mobile-divider">技能</div>
         <a v-for="page in skillPages" :key="`mobile-${page.link}`" :href="page.link" class="sub-link" @click="closeMobile">{{ page.text }}</a>

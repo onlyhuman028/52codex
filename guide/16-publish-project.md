@@ -1,8 +1,8 @@
 ---
-title: 快速发布项目到互联网
+title: 16 快速发布codex项目到互联网
 description: 把 Codex 做好的本地项目快速发布到互联网，理解构建、部署和访问链接。
 tags: [Codex, 部署, 发布]
-order: 14
+order: 16
 level: 1
 ---
 
