@@ -13,6 +13,11 @@ let dropdownCloseTimer: ReturnType<typeof window.setTimeout> | undefined
 
 const isHome = computed(() => route.path === '/')
 const isCasePost = computed(() => route.path.startsWith('/cases/') && route.path !== '/cases/')
+const isArticlePost = computed(() => {
+  if (isHome.value || route.path === '/coming-soon' || route.path === '/resources/comment-admin') return false
+
+  return !route.path.endsWith('/')
+})
 const showComments = computed(() => {
   if (isHome.value || route.path === '/coming-soon' || route.path === '/resources/comment-admin') return false
 
@@ -47,6 +52,37 @@ const displayDate = computed(() => {
   if (value instanceof Date) return value.toISOString().slice(0, 10)
   const text = String(value)
   return text.includes('T') ? text.slice(0, 10) : text
+})
+const articleAuthor = computed(() => {
+  const author = frontmatter.value.author
+  const defaultAuthor = {
+    name: '清风徐来',
+    href: 'https://x.com/onlyhuman028',
+  }
+
+  if (!author) {
+    return {
+      ...defaultAuthor,
+      href: String(frontmatter.value.authorLink || frontmatter.value.authorUrl || defaultAuthor.href),
+    }
+  }
+
+  if (typeof author === 'string') {
+    return {
+      name: author,
+      href: String(frontmatter.value.authorLink || frontmatter.value.authorUrl || defaultAuthor.href),
+    }
+  }
+
+  if (typeof author === 'object') {
+    const value = author as Record<string, unknown>
+    return {
+      name: String(value.name || value.title || defaultAuthor.name),
+      href: String(value.href || value.link || value.url || value.x || value.wechat || value.reddit || defaultAuthor.href),
+    }
+  }
+
+  return defaultAuthor
 })
 function closeMobile() {
   mobileOpen.value = false
@@ -161,6 +197,7 @@ watch(
             <div class="nav-dropdown" @mouseenter="openDropdown('tips')">
               <a href="/tips/" @click="closeDropdown">技巧总览</a>
               <a href="/tips/make-codex-better" @click="closeDropdown">让 Codex 越用越顺手</a>
+              <a href="/tips/codex-third-party-api" @click="closeDropdown">Codex 接入三方 API</a>
               <a href="/tips/agents-md" @click="closeDropdown">AGENTS.md 怎么写</a>
               <a href="/tips/goals" @click="closeDropdown">Goals 拆解术</a>
               <a href="/tips/prevent-bad-edits" @click="closeDropdown">防止乱改代码</a>
@@ -250,6 +287,7 @@ watch(
         <a href="/guide/" @click="closeMobile">上手指南</a>
         <a v-for="page in guidePages" :key="`mobile-${page.link}`" :href="page.link" class="sub-link" @click="closeMobile">{{ page.text }}</a>
         <a href="/tips/" @click="closeMobile">实用技巧</a>
+        <a href="/tips/codex-third-party-api" class="sub-link" @click="closeMobile">Codex 接入三方 API</a>
         <a href="/tips/agents-md" class="sub-link" @click="closeMobile">AGENTS.md 怎么写</a>
         <a href="/cases/" @click="closeMobile">实战案例</a>
         <a href="/cases/build-company-site" class="sub-link" @click="closeMobile">半天做一个公司网站</a>
@@ -285,12 +323,17 @@ watch(
 
         <h1 class="article-title">{{ frontmatter.title }}</h1>
         <p v-if="frontmatter.description" class="article-lead">{{ frontmatter.description }}</p>
-        <div v-if="isCasePost" class="article-meta">
-          <span>{{ displayDate }}</span>
-          <span>·</span>
-          <span>阅读约 8 分钟</span>
-          <span>·</span>
-          <span>额度消耗 ≈ 30%</span>
+        <div v-if="isArticlePost" class="article-meta">
+          <span v-if="displayDate">{{ displayDate }}</span>
+          <span v-if="displayDate">·</span>
+          <span>作者</span>
+          <a :href="articleAuthor.href" target="_blank" rel="noreferrer">{{ articleAuthor.name }}</a>
+          <template v-if="isCasePost">
+            <span>·</span>
+            <span>阅读约 8 分钟</span>
+            <span>·</span>
+            <span>额度消耗 ≈ 30%</span>
+          </template>
         </div>
         <div v-if="isCasePost" class="article-cover">
           <div class="article-cover-inner">封面图</div>

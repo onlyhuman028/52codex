@@ -879,6 +879,17 @@ select {
   font-size: 13px;
 }
 
+.article-meta a {
+  color: var(--ink);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.article-meta a:hover {
+  color: var(--primary-deep);
+}
+
 .article-cover {
   overflow: hidden;
   margin-bottom: 40px;

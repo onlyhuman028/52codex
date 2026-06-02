@@ -138,6 +138,10 @@
             <h3>怎么让 Codex 越用越顺手</h3>
             <p>记忆管理、偏好设置、项目规范，让 Codex 越来越懂你的习惯。</p>
           </a>
+          <a href="/tips/codex-third-party-api" class="tip-card">
+            <h3>Codex 怎么接入第三方 API</h3>
+            <p>用 Codex++ 接入国产模型、中转站 GPT 或 Claude，保留图形化设置。</p>
+          </a>
           <a href="/tips/agents-md" class="tip-card">
             <h3>AGENTS.md 怎么写</h3>
             <p>从实战模板出发，手把手教你写好项目规范文档。</p>
