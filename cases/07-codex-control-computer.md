@@ -1,3 +1,11 @@
+---
+title: 07 GPT Codex能够控制电脑了！
+description: 介绍 Codex 桌面版电脑控制能力，说明如何在 macOS 上安装 Computer MCP、打开内置浏览器，并理解后台操作、多 Agent 并行和手机遥控等新功能。
+tags: [Codex, Computer Use, 自动化]
+level: 2
+date: 2026-06-02
+---
+
 GPT Codex能够控制电脑了！
 
 GPT Codex能够控制你的电脑了！

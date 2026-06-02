@@ -1,5 +1,5 @@
 ---
-title: 03 用 Codex + HyperFrames 做视频 
+title: 05 用 Codex + HyperFrames 做视频 
 description: 这篇文章用三个视频案例，讲清楚新手如何用 Codex 搭配 HyperFrames 或 Remotion 制作宣传片、电影榜单短视频和回忆杀混剪，并整理可复制的提示词和避坑建议。
 tags: [Codex, 插件, 提示词, 实战案例]
 level: 2

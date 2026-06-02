@@ -66,15 +66,15 @@
           <span class="filter-tag">环境搭建</span>
         </div>
         <div class="card-grid">
-          <a href="/cases/02-build-company-site" class="card">
+          <a href="/cases/02-snake-game" class="card">
             <div class="card-cover">封面图</div>
             <div class="card-body">
-              <div class="card-tags"><span class="lv lv1">Lv.1</span><span class="tag-pill">做网站</span></div>
-              <h3>半天做一个公司介绍网站</h3>
-              <p>不会写代码的运营，用 Codex 从零搭出了一个响应式公司官网。</p>
+              <div class="card-tags"><span class="lv lv1">Lv.1</span><span class="tag-pill">小游戏</span></div>
+              <h3>写一个武侠版贪吃蛇</h3>
+              <p>从新建项目、输入需求、审核实施，到运行测试和继续优化。</p>
             </div>
           </a>
-          <a href="/cases/04-auto-collect-posts" class="card">
+          <a href="/cases/06-auto-collect-posts" class="card">
             <div class="card-cover">封面图</div>
             <div class="card-body">
               <div class="card-tags"><span class="lv lv2">Lv.2</span><span class="tag-pill">自动化</span></div>
@@ -90,28 +90,28 @@
               <p>让 Codex 自动安装 OpenClaw、配置 API Key、启动 Web UI。</p>
             </div>
           </a>
-          <a href="/cases/07-investment-system" class="card">
+          <a href="/cases/09-goal-mode-project" class="card">
             <div class="card-cover">封面图</div>
             <div class="card-body">
               <div class="card-tags"><span class="lv lv3">Lv.3</span><span class="tag-pill">建系统</span></div>
-              <h3>从零搭建投资管理系统</h3>
-              <p>用 AGENTS.md + DESIGN.md 规范 Codex 行为，完成全栈开发。</p>
+              <h3>目标/Goal 模式开发软件项目</h3>
+              <p>用 Goal 模式拆解并推进软件项目，学习从设计规范到持续开发的完整流程。</p>
             </div>
           </a>
-          <a href="/cases/03-batch-image-ppt" class="card">
+          <a href="/cases/04-skill-ppt" class="card">
             <div class="card-cover">封面图</div>
             <div class="card-body">
               <div class="card-tags"><span class="lv lv1">Lv.1</span><span class="tag-pill">内容创作</span></div>
-              <h3>批量生图做 PPT</h3>
-              <p>结合 gpt-image 批量生成配图，自动排版成演示文稿。</p>
+              <h3>调用 Skill 写 PPT</h3>
+              <p>用 Codex 调用 Skill 完成 PPT 生成任务，理解素材准备、结构输出和文件交付流程。</p>
             </div>
           </a>
-          <a href="/cases/08-hr-system" class="card">
+          <a href="/cases/10-weekly-plan-system" class="card">
             <div class="card-cover">封面图</div>
             <div class="card-body">
               <div class="card-tags"><span class="lv lv3">Lv.3</span><span class="tag-pill">建系统</span></div>
-              <h3>搭建招聘管理系统</h3>
-              <p>HR 从业务需求出发，完成简历收集、筛选、面试安排全流程。</p>
+              <h3>编写一个周计划管理系统</h3>
+              <p>把日常计划、任务安排和每周复盘做成可持续维护的小工具。</p>
             </div>
           </a>
         </div>

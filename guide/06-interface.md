@@ -148,6 +148,6 @@ Codex 的权限决定它能不能动你的文件、运行命令、操作电脑�
 
 - [Codex 下载安装：新手怎么安装 Codex App](/guide/05-install)
 - [项目与对话](/guide/08-projects-and-chats)
-- [上手项目1：新建一个贪吃蛇游戏](/guide/06-first-project)
+- [上手项目1：新建一个贪吃蛇游戏](/cases/02-snake-game)
 
  

@@ -205,6 +205,6 @@ https://b357e7f5.pinme.dev
 
 ## 下一步推荐阅读
 
-- [半天做一个公司介绍网站](/cases/02-build-company-site)
-- [批量生图做 PPT](/cases/03-batch-image-ppt)
-- [自动搜集公众号热帖](/cases/02-auto-collect-posts)
+- [写一个武侠版贪吃蛇](/cases/02-snake-game)
+- [调用 Skill 写 PPT](/cases/04-skill-ppt)
+- [自动搜集公众号热帖](/cases/06-auto-collect-posts)

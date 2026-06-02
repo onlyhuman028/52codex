@@ -5,6 +5,13 @@ import { Content } from 'vitepress/dist/client/app/components/Content.js'
 import Comments from './Comments.vue'
 import { casePages, guidePages, pluginToolPages, skillPages, tipPages } from './navPages'
 
+type ReadingLink = {
+  label: string
+  title: string
+  description: string
+  link: string
+}
+
 const route = useRoute()
 const { frontmatter } = useData()
 const mobileOpen = ref(false)
@@ -87,10 +94,175 @@ const articleAuthor = computed(() => {
 
   return defaultAuthor
 })
-const numberedCasePages = computed(() => casePages.map((page, index) => ({
+function getNumberedCaseText(page: { order: number; text: string }) {
+  if (/^\d+\s/.test(page.text)) return page.text
+
+  return `${String(page.order).padStart(2, '0')} ${page.text}`
+}
+
+const numberedCasePages = computed(() => casePages.map((page) => ({
   ...page,
-  text: `${String(index + 1).padStart(2, '0')} ${page.text.replace(/^\d+\s+/, '')}`,
+  text: getNumberedCaseText(page),
 })))
+const casePageGroups = computed(() => [
+  {
+    label: 'Lv.1 入门',
+    pages: numberedCasePages.value.filter((page) => page.level === 1),
+  },
+  {
+    label: 'Lv.2 进阶',
+    pages: numberedCasePages.value.filter((page) => page.level === 2),
+  },
+  {
+    label: 'Lv.3 系统',
+    pages: numberedCasePages.value.filter((page) => page.level === 3),
+  },
+].filter((group) => group.pages.length))
+const pluginPages = computed(() => [...skillPages, ...pluginToolPages])
+const sectionHubs: Record<string, ReadingLink> = {
+  guide: {
+    label: '学习路线',
+    title: '新手指南总览',
+    description: '从 AI 编程概念、Codex 安装，到第一个实战项目的完整学习路线。',
+    link: '/guide/',
+  },
+  tips: {
+    label: '技巧总览',
+    title: 'Codex 高频技巧',
+    description: '集中查看 AGENTS.md、额度节省、插件配置、登录验证和项目规则等常见问题。',
+    link: '/tips/01-index',
+  },
+  cases: {
+    label: '案例总览',
+    title: 'Codex 实战案例',
+    description: '查看用 Codex 做网页、自动化、内容创作和业务系统的真实拆解。',
+    link: '/cases/',
+  },
+  plugins: {
+    label: '插件入口',
+    title: '插件与技能总览',
+    description: '认识 Codex 插件和 Skills，判断什么时候用现成插件，什么时候封装自己的工作流。',
+    link: '/plugins/',
+  },
+}
+const crossSectionLinks: Record<string, ReadingLink[]> = {
+  guide: [
+    {
+      label: '继续进阶',
+      title: 'AGENTS.md 怎么写？',
+      description: '把项目规则写清楚，让 Codex 按你的边界稳定执行任务。',
+      link: '/tips/04-agents-md',
+    },
+    {
+      label: '扩展能力',
+      title: 'Codex 插件与技能',
+      description: '理解插件和 Skill 的区别，开始把重复流程变成可复用能力。',
+      link: '/guide/07-skills-and-plugins',
+    },
+  ],
+  tips: [
+    {
+      label: '回到路线',
+      title: 'Codex 新手学习路线',
+      description: '按顺序补齐概念、安装、界面、项目和自动化基础。',
+      link: '/guide/',
+    },
+    {
+      label: '实战看看',
+      title: 'Codex 实战案例',
+      description: '从真实案例里看 Prompt、执行过程和踩坑修复。',
+      link: '/cases/',
+    },
+  ],
+  cases: [
+    {
+      label: '复用规则',
+      title: 'AGENTS.md 怎么写？',
+      description: '学会给 Codex 划定项目规则，减少实战中乱改和跑偏。',
+      link: '/tips/04-agents-md',
+    },
+    {
+      label: '继续学习',
+      title: 'Codex 新手学习路线',
+      description: '从案例回到系统学习路径，把实战经验补成方法论。',
+      link: '/guide/',
+    },
+  ],
+  plugins: [
+    {
+      label: '先看基础',
+      title: 'Codex 插件与技能怎么用？',
+      description: '先理解插件区、技能列表和创建技能入口，再挑工具。',
+      link: '/guide/07-skills-and-plugins',
+    },
+    {
+      label: '实战应用',
+      title: 'Codex 实战案例',
+      description: '看看插件、自动化和 Skill 在真实项目里怎么配合使用。',
+      link: '/cases/',
+    },
+  ],
+}
+const recommendationExcludedLinks = new Set([
+  '/guide/16-publish-project',
+  '/cases/02-snake-game',
+  '/cases/03-improve-old-project',
+  '/cases/04-skill-ppt',
+  '/cases/09-goal-mode-project',
+  '/cases/05-install-openclaw',
+  '/cases/10-weekly-plan-system',
+])
+
+function isRecommendablePage(page: { text: string; link: string }) {
+  return !recommendationExcludedLinks.has(page.link) && page.text !== '即将上线'
+}
+
+const nextReadings = computed(() => {
+  const current = route.path
+  let section = ''
+  let pages = guidePages.filter(isRecommendablePage)
+
+  if (current.startsWith('/guide/')) {
+    section = 'guide'
+    pages = guidePages.filter(isRecommendablePage)
+  } else if (current.startsWith('/tips/')) {
+    section = 'tips'
+    pages = tipPages.filter(isRecommendablePage)
+  } else if (current.startsWith('/cases/')) {
+    section = 'cases'
+    pages = numberedCasePages.value.filter(isRecommendablePage)
+  } else if (current.startsWith('/plugins/')) {
+    section = 'plugins'
+    pages = pluginPages.value.filter(isRecommendablePage)
+  }
+
+  if (!section || !isArticlePost.value) return []
+
+  const currentIndex = pages.findIndex((page) => page.link === current)
+  const nextPage = currentIndex >= 0 ? pages[currentIndex + 1] : undefined
+  const candidates: ReadingLink[] = [
+    ...(nextPage
+      ? [{
+          label: '下一篇',
+          title: nextPage.text,
+          description: nextPage.description || '继续阅读同一栏目里的下一篇内容。',
+          link: nextPage.link,
+        }]
+      : []),
+    sectionHubs[section],
+    ...(crossSectionLinks[section] || []),
+  ]
+
+  const seen = new Set<string>()
+  return candidates
+    .filter((item) => item.link !== current)
+    .filter((item) => {
+      if (seen.has(item.link)) return false
+      seen.add(item.link)
+      return true
+    })
+    .slice(0, 3)
+})
 function closeMobile() {
   mobileOpen.value = false
 }
@@ -215,7 +387,10 @@ watch(
             精选案例
             <div class="nav-dropdown" @mouseenter="openDropdown('cases')">
               <a href="/cases/" @click="closeDropdown">案例总览</a>
-              <a v-for="page in numberedCasePages" :key="page.link" :href="page.link" @click="closeDropdown">{{ page.text }}</a>
+              <template v-for="group in casePageGroups" :key="group.label">
+                <div class="dd-divider">{{ group.label }}</div>
+                <a v-for="page in group.pages" :key="page.link" :href="page.link" @click="closeDropdown">{{ page.text }}</a>
+              </template>
             </div>
           </div>
 
@@ -277,7 +452,10 @@ watch(
         <a v-for="page in tipPages" :key="`mobile-${page.link}`" :href="page.link" class="sub-link" @click="closeMobile">{{ page.text }}</a>
         <a href="/cases/" @click="closeMobile">精选案例</a>
         <a href="/cases/" class="sub-link" @click="closeMobile">案例总览</a>
-        <a v-for="page in numberedCasePages" :key="`mobile-${page.link}`" :href="page.link" class="sub-link" @click="closeMobile">{{ page.text }}</a>
+        <template v-for="group in casePageGroups" :key="`mobile-${group.label}`">
+          <div class="mobile-divider">{{ group.label }}</div>
+          <a v-for="page in group.pages" :key="`mobile-${page.link}`" :href="page.link" class="sub-link" @click="closeMobile">{{ page.text }}</a>
+        </template>
         <a href="/plugins/" @click="closeMobile">插件与技能</a>
         <div v-if="skillPages.length" class="mobile-divider">技能</div>
         <a v-for="page in skillPages" :key="`mobile-${page.link}`" :href="page.link" class="sub-link" @click="closeMobile">{{ page.text }}</a>
@@ -330,6 +508,19 @@ watch(
         <div class="article-content">
           <Content />
         </div>
+        <section v-if="nextReadings.length" class="next-readings" aria-labelledby="next-readings-title">
+          <div class="next-readings-head">
+            <h2 id="next-readings-title">下一步推荐阅读</h2>
+            <p>顺着这个主题继续看，少走弯路。</p>
+          </div>
+          <div class="next-reading-grid">
+            <a v-for="item in nextReadings" :key="item.link" :href="item.link" class="next-reading-card">
+              <span>{{ item.label }}</span>
+              <strong>{{ item.title }}</strong>
+              <p>{{ item.description }}</p>
+            </a>
+          </div>
+        </section>
         <Comments v-if="showComments" />
       </article>
     </main>

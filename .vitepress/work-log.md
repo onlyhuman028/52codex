@@ -166,3 +166,33 @@
 - 先统一 `guide/assets/03-what-is-codex` 的最终目录名和文件跟踪状态，再本地打开文章确认图片与视频资源都能正常加载。
 - 对今天新增的 `03 Codex 是什么？` 做一次页面验收，重点检查 Prompt 容器样式、外链图片加载和移动端排版是否符合现有设计。
 - 给留言系统补一次最小闭环验证：提交留言、后台回复、前台回显，避免功能代码已合并但交互细节未确认。
+
+## 2026-06-02
+
+### 自动回顾
+
+- 今天完成的修改：
+  - 提交记录显示，今天主分支已有 8 次提交，连续推进了内容扩充、栏目整理和站点结构修正，最近一次提交 `修复站内死链以恢复部署` 已把若干错误链接修正回可构建状态。
+  - 已提交改动覆盖范围较大：`guide/` 侧补齐了注册、安装、界面、技能/插件、项目与聊天等新手内容；`tips/`、`plugins/`、`cases/` 增加或重排了多篇文章；主题层新增了 [`.vitepress/theme/navPages.ts`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/navPages.ts) 并持续调整 [`.vitepress/theme/Layout.vue`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/Layout.vue)、[`.vitepress/theme/style.css`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/style.css) 和首页展示逻辑。
+  - 当前工作区还有 12 个已修改文件和 2 个未跟踪文件未提交，方向已经比较清晰： [`.vitepress/config.mts`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/config.mts) 正在补 canonical、OG、Twitter、`sitemap` 过滤和 `noindex` 规则；[`.vitepress/theme/Layout.vue`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/Layout.vue) 正在为文章页补「下一篇 / 栏目总览 / 跨栏目推荐」阅读链路；多个栏目首页补了 `description`；[`cases/09-codex-control-computer.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/cases/09-codex-control-computer.md) 和 [`cases/10-codex-mobile.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/cases/10-codex-mobile.md) 补了 frontmatter。
+  - 今天还新增了 [`public/robots.txt`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/public/robots.txt) 和 [`public/images/og-default.svg`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/public/images/og-default.svg)，说明今天开始把搜索引擎抓取和默认分享图纳入站点基础配置；[`write_rules.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/write_rules.md) 也被大幅收束成更短、更明确的改写规范。
+
+### 验证命令结果
+
+- `npm run build`
+  - 结果：通过
+  - 时间：2026-06-02
+  - 耗时：约 1.26s
+- 本次自动回顾没有发现新的浏览器人工验收记录；目前只能确认静态构建、渲染和 `sitemap` 生成通过，不能替代页面级检查。
+
+### 遗留问题
+
+- 今天未提交的 SEO 和阅读推荐改动都属于读者可见行为，但目前没有对应的浏览器验收记录，尤其需要确认 canonical / `noindex` / 默认 OG 图，以及文章底部推荐卡片在桌面端和移动端的实际呈现。
+- [`write_rules.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/write_rules.md) 今天做了较大幅度压缩，如果后续文章改写继续依赖它，最好再确认新版本是否完整保留了原先对 Prompt 容器、图片路径和「不注水」的约束。
+- 当前工作区把 SEO、主题、栏目描述、案例 frontmatter 和写作规范改动混在一起，提交边界还不够清楚；如果继续叠加新改动，后续回溯会变难。
+
+### 明天建议
+
+- 先本地打开首页、任一 `cases/` 文章、任一 `tips/` 文章和 `plugins/` 总览页，逐项检查 meta、分享图、推荐阅读和导航入口是否都按预期生效。
+- 将今天未提交改动按主题拆分整理，优先考虑分成「SEO/站点元信息」和「文章页推荐链路」两批提交，减少后续回滚成本。
+- 如果 [`write_rules.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/write_rules.md) 要作为后续撰稿基线，建议明天顺手用一篇真实稿件过一遍，验证新规则是否足够约束输出质量。

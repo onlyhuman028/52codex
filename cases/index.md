@@ -1,5 +1,6 @@
 ---
 title: 精选案例
+description: 收集非程序员使用 Codex 做网页、自动化、内容创作和业务系统的实战案例，每篇都包含工作流、Prompt、踩坑记录和适合人群。
 ---
 
 # 精选案例
@@ -17,16 +18,19 @@ title: 精选案例
 ## Lv.1 入门
 
 - [用 Codex 做武侠网页游戏](/cases/01-codex-wuxia-game)
-- [半天做一个公司介绍网站](/cases/02-build-company-site)
-- [批量生图做 PPT](/cases/03-batch-image-ppt)
+- [用 Codex 桌面 App 写一个 Python 贪吃蛇](/cases/02-snake-game)
+- [用 Codex 完善老项目](/cases/03-improve-old-project)
+- [调用 Skill 写 PPT](/cases/04-skill-ppt)
 
 ## Lv.2 进阶
 
-- [自动搜集公众号热帖](/cases/02-auto-collect-posts)
+- [自动搜集公众号热帖](/cases/06-auto-collect-posts)
 - [用 Computer Use 安装龙虾](/cases/05-install-openclaw)
 - [剪视频](/cases/03-auto-video-edit)
+- [GPT Codex 能够控制电脑了](/cases/07-codex-control-computer)
+- [调用自动化插件搜索小红书](/cases/08-auto-xiaohongshu)
 
 ## Lv.3 系统级
 
-- [从零搭建投资管理系统](/cases/07-investment-system)
-- [搭建招聘管理系统](/cases/08-hr-system)
+- [目标/Goal 模式开发软件项目](/cases/09-goal-mode-project)
+- [编写一个周计划管理系统](/cases/10-weekly-plan-system)

@@ -137,8 +137,4 @@ Codex 手机版不是单独做一个新的 Codex 手机 App，而是放进你手
 - [Codex 界面全览：对话区、项目区和权限怎么用](/guide/06-interface)
 - [Codex 插件与技能：插件区怎么用](/guide/07-skills-and-plugins)
 
-## 待补充
 
-- Windows 端支持后的连接截图
-- 手机端可批准操作的完整范围
-- 断开连接和重新绑定的详细步骤

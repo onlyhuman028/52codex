@@ -1196,6 +1196,79 @@ select {
   font-weight: 500;
 }
 
+.next-readings {
+  margin: 52px 0 0;
+  padding-top: 28px;
+  border-top: 1px solid var(--hairline-cool);
+}
+
+.next-readings-head {
+  margin-bottom: 18px;
+}
+
+.next-readings-head h2 {
+  margin: 0 0 6px;
+  color: var(--ink);
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.next-readings-head p {
+  margin: 0;
+  color: var(--ink-mute);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.next-reading-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.next-reading-card {
+  display: flex;
+  min-height: 154px;
+  padding: 16px;
+  flex-direction: column;
+  color: inherit;
+  background: var(--canvas-soft);
+  border: 1px solid var(--hairline-cool);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: border-color 0.15s, transform 0.15s, background 0.15s;
+}
+
+.next-reading-card:hover {
+  color: inherit;
+  background: #ffffff;
+  border-color: rgba(62, 207, 142, 0.48);
+  transform: translateY(-2px);
+}
+
+.next-reading-card span {
+  margin-bottom: 10px;
+  color: var(--primary-deep);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.next-reading-card strong {
+  margin-bottom: 8px;
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.next-reading-card p {
+  margin: 0;
+  color: var(--ink-mute);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
 .custom-block {
   margin: 24px 0;
   padding: 16px 18px;
@@ -1891,6 +1964,10 @@ select {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .next-reading-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .tip-card-featured {
     grid-column: span 2;
   }
@@ -1975,7 +2052,8 @@ select {
 @media (max-width: 640px) {
   .card-grid,
   .guide-grid,
-  .tip-grid {
+  .tip-grid,
+  .next-reading-grid {
     grid-template-columns: 1fr;
   }
 

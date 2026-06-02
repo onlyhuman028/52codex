@@ -1,5 +1,6 @@
 ---
 title: 常见问题
+description: 解答 Codex 新手最常遇到的问题，包括 Codex 是什么、不会编程能不能用、和 ChatGPT 的区别、费用、改错代码和额度限制。
 ---
 
 # 常见问题
