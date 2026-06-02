@@ -22,9 +22,9 @@ title: 精选案例
 
 ## Lv.2 进阶
 
-- [自动搜集公众号热帖](/cases/04-auto-collect-posts)
+- [自动搜集公众号热帖](/cases/02-auto-collect-posts)
 - [用 Computer Use 安装龙虾](/cases/05-install-openclaw)
-- [剪视频](/cases/06-auto-video-edit)
+- [剪视频](/cases/03-auto-video-edit)
 
 ## Lv.3 系统级
 

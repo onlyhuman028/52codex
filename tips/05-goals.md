@@ -288,7 +288,7 @@ codex features enable goals
 ## 下一步推荐阅读
 
 - [AGENTS.md 怎么写](/tips/04-agents-md)
-- [怎么防止 Codex 乱改代码](/tips/08-prevent-bad-edits)
+- [怎么防止 Codex 乱改代码](/tips/04-agents-md)
 - [Codex 额度怎么省](/tips/06-save-quota)
 - [怎么让 Codex 越用越顺手](/tips/02-make-codex-better)
 

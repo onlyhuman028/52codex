@@ -207,4 +207,4 @@ https://b357e7f5.pinme.dev
 
 - [半天做一个公司介绍网站](/cases/02-build-company-site)
 - [批量生图做 PPT](/cases/03-batch-image-ppt)
-- [自动搜集公众号热帖](/cases/04-auto-collect-posts)
+- [自动搜集公众号热帖](/cases/02-auto-collect-posts)

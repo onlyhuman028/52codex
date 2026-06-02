@@ -362,7 +362,7 @@ Fast 模式速度是标准的1.5倍，消耗是2倍
 
 - [Codex 的 /goal 怎么用](/tips/05-goals)
 - [AGENTS.md 怎么写](/tips/04-agents-md)
-- [怎么防止 Codex 乱改代码](/tips/08-prevent-bad-edits)
+- [怎么防止 Codex 乱改代码](/tips/04-agents-md)
 - [Codex 如何接入第三方 API](/tips/03-codex-third-party-api)
 
 ## 参考资料

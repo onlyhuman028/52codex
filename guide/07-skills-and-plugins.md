@@ -144,8 +144,8 @@ Skill 的好处是：你不用每次都把同一套要求重新说一遍。Codex
 ## 相关阅读
 
 - [Codex 界面全览：对话区、项目区和权限怎么用](/guide/06-interface)
-- [上手项目3：调用 Skill 写 PPT](/guide/11-skill-ppt)
-- [上手项目4：调用自动化插件搜索小红书](/guide/07-auto)
+- [上手项目3：调用 Skill 写 PPT](/guide/13-skill-ppt)
+- [上手项目4：调用自动化插件搜索小红书](/guide/12-auto)
 
 ## 待补充
 

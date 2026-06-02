@@ -22,9 +22,9 @@ Codex 使用经验库。解决你最常遇到的问题，来自真实使用中�
 - [ChatGPT/Codex 手机号二次验证怎么办](/tips/07-chatgpt-codex-phone-verification) — 高级账号安全、通行密钥、恢复密钥
 - [Codex/OpenAI 电话验证怎么办](/tips/08-sms-verification-platforms) — 接码平台、实体 SIM 卡、长期保号
 - [如何让 Codex 不断进化](/tips/09-self-evolution) — 项目复盘、偏好提炼、规则沉淀
-- [如何提升 Codex 的设计美感](/tips/11-improve-codex-design) — DESIGN.md、参考风格、UI 审查清单
-- [Giffgaff 境外卡激活教程](/tips/12-giffgaff-activation) — 实体 SIM、eSIM、充值激活、长期保号
-- [怎么防止 Codex 乱改代码](/tips/08-prevent-bad-edits) — 用 AGENTS.md 划定行为边界
+- [如何提升 Codex 的设计美感](/tips/10-improve-codex-design) — DESIGN.md、参考风格、UI 审查清单
+- [Giffgaff 境外卡激活教程](/tips/11-giffgaff-activation) — 实体 SIM、eSIM、充值激活、长期保号
+- [怎么防止 Codex 乱改代码](/tips/04-agents-md) — 用 AGENTS.md 划定行为边界
 
 ## 工程化
 
