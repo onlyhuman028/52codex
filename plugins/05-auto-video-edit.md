@@ -1,5 +1,5 @@
 ---
-title:  04 视频剪辑插件 HyperFrames 生成短视频
+title:  05 视频剪辑插件 HyperFrames 
 description: 这篇文章用三个视频案例，讲清楚新手如何用 Codex 搭配 HyperFrames 或 Remotion 制作宣传片、电影榜单短视频和回忆杀混剪，并整理可复制的提示词和避坑建议。
 tags: [Codex, 插件, 提示词, 实战案例]
 level: 2
@@ -293,8 +293,4 @@ HyperFrames 插件安装路径：
 - [Codex 界面全览：对话区、项目区和权限怎么用](/guide/06-interface)
 - [用 Computer Use 安装龙虾](/cases/05-install-openclaw)
 
-## 待补充
 
-- 案例 1：科技企业宣传片成片或截图
-- 案例 2：电影票房排行榜成片或截图
-- 案例 3：游戏回忆杀混剪成片或截图

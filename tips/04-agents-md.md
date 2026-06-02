@@ -1,5 +1,5 @@
 ---
-title: AGENTS.md 怎么写？让 Codex 按你的项目规则做事
+title: 04 AGENTS 怎么写？ 
 description: AGENTS.md 是 Codex 项目中的核心规则文件。本文介绍如何用 /init 生成初始文件，并维护项目说明、常用命令、工作规则和完成标准。
 tags: [Codex, AGENTS.md, 项目规范, 提示词]
 level: 1
@@ -277,6 +277,4 @@ AGENTS.md 要写关键规则，不要堆空话。
 
 后面使用 Codex 时，只要发现它反复犯同一种错误，就把这条规则写进 AGENTS.md。
 
-## 待补充
-
-- 需要补充当前板块的 level 规则
+ 

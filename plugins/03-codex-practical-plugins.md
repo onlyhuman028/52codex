@@ -1,7 +1,7 @@
 ---
-title: 03 8 个Codex 办公插件
+title: 03 八个办公生产力Skill
 description: 这是一份面向 Codex 新手的实用插件选择清单，整理 Presentations、Spreadsheets、Windsor AI、Hyperframes、Remotion、BioRender、Kama 和 Figma 的适用场景。
-tags: [Codex, 插件, 自动化,skill]
+tags: [Codex, 插件, Skill,自动化]
 level: 2
 date: 2026-06-02
 author: 蔡文彬CyberBin
@@ -289,10 +289,7 @@ Figma 适合把需求、草稿或代码转成设计稿。
 ## 下一步推荐阅读
 
 - [插件与技能总览](/plugins/)
-- [Codex 十大必装 Skills 怎么选](/plugins/top-skills)
-- [自定义 Skill](/plugins/custom-skill)
+- [Codex 十大必装 Skills 怎么选](/plugins/01-top-skills)
+- [Codex 的 Skill 和插件怎么用](/guide/07-skills-and-plugins)
 - [AGENTS.md 怎么写](/tips/04-agents-md)
-
-## 待补充
-
-- 需要补充当前板块的 level 规则。
+ 

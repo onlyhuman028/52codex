@@ -1,5 +1,5 @@
 ---
-title: 如何让 Codex 更懂你？用 AGENTS.md 和 Memories 建立长期记忆
+title: 02 如何让 Codex 越用越顺手
 description: 使用 Codex 一段时间后，如果你总要重复说明偏好和边界，可以通过 AGENTS.md 与 Memories 建立长期记忆系统，让 Codex 更稳定地理解你的习惯、项目规则和执行边界。
 tags: [Codex, AGENTS.md, 新手入门, 项目规范]
 level: 1
@@ -322,7 +322,4 @@ Memories 适合沉淀偏好，但项目规则、禁止事项、构建命令、�
 
 构建记忆系统本来就是一个持续进化的过程。只要你不断完善行动规则、沉淀有效记忆，Codex 就会逐渐变成更懂你、也更顺手的生产力工具。
 
-## 待补充
-
-- 原文中的配置截图
-- 需要补充当前板块的 level 规则
+ 

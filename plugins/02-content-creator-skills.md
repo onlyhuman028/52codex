@@ -1,5 +1,5 @@
 ---
-title: 02 内容创作者必用的10个Codex Skills 
+title: 02 十个内容创作者必用Skill 
 description: 这是一份面向中文内容创作者的 Codex Skills 推荐清单，覆盖去 AI 味、选题诊断、长文写作、资料研究、正文配图、封面卡片、PPT 和 HTML 海报制作。
 tags: [Codex, Skill, 插件, 内容创作]
 level: 2
@@ -302,8 +302,8 @@ Skill 更像可复用的工作流，里面可以包含触发规则、步骤、�
 ## 下一步推荐阅读
 
 - [插件与技能总览](/plugins/)
-- [Codex 十大必装 Skills 怎么选](/plugins/top-skills)
-- [自定义 Skill](/plugins/custom-skill)
+- [Codex 十大必装 Skills 怎么选](/plugins/01-top-skills)
+- [Codex 的 Skill 和插件怎么用](/guide/07-skills-and-plugins)
 - [Codex 的 Skill 和插件怎么用](/guide/07-skills-and-plugins)
 
  

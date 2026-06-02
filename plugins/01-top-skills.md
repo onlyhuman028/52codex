@@ -1,9 +1,12 @@
 ---
-title: 01 Codex项目规范十大必装 Skills 
+title: 01 十个Codex项目规范Skills 
 description: 这是一份面向 Codex 新手和进阶用户的 Skills 推荐清单，整理 10 个常用技能仓库，覆盖工程规范、前端检查、上下文管理、外部工具连接和技能模板。
 tags: [Codex, Skill, 插件]
 level: 2
 date: 2026-06-02
+author: 王峰Anc
+authorLink: https://x.com/wangfenganc
+
 ---
 
 # Codex 十大必装 Skills 怎么选？新手常用技能清单
@@ -259,10 +262,7 @@ Skill 的价值不在于数量，而在于它是否真的解决了你每天重�
 ## 下一步推荐阅读
 
 - [插件与技能总览](/plugins/)
-- [自定义 Skill](/plugins/custom-skill)
+- [Codex 的 Skill 和插件怎么用](/guide/07-skills-and-plugins)
 - [AGENTS.md 怎么写](/tips/04-agents-md)
 - [Codex 的 /goal 怎么用](/tips/05-goals)
 
-## 待补充
-
-- 需要补充当前板块的 level 规则。

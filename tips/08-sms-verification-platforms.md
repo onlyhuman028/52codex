@@ -1,5 +1,5 @@
 ---
-title: 10 Codex/OpenAI 要求电话短信验证怎么办？ 
+title: 08 三招搞定Codex短信验证
 description: Codex 或 OpenAI 账号遇到电话验证时，可以临时使用接码平台，也可以准备长期可复用的实体 SIM 卡。本文整理 Hero-SMS、Giffgaff、Ultra Mobile PayGo 等方案，并说明风险和选择建议。
 tags: [Codex, 新手入门, 自动化]
 level: 2
@@ -161,7 +161,7 @@ Giffgaff 更适合长期账号，因为号码在你手里，未来再次验证�
 
 如果你已经用了接码平台，后面又遇到二次验证，可以先看：
 
-- [ChatGPT/Codex 手机号二次验证怎么办](/tips/09-chatgpt-codex-phone-verification)
+- [ChatGPT/Codex 手机号二次验证怎么办](/tips/07-chatgpt-codex-phone-verification)
 
 ## 操作注意事项
 
@@ -236,14 +236,13 @@ Plus 账号、API 账号、长期项目账号，都不建议绑定一次性号�
 
 ## 下一步推荐阅读
 
-- [ChatGPT/Codex 手机号二次验证怎么办](/tips/09-chatgpt-codex-phone-verification)
+- [ChatGPT/Codex 手机号二次验证怎么办](/tips/07-chatgpt-codex-phone-verification)
 - [Codex 如何接入第三方 API](/tips/03-codex-third-party-api)
 - [GPT 注册与订阅](/guide/04-register)
-- [额度怎么省](/tips/08-save-quota)
+- [额度怎么省](/tips/06-save-quota)
 
 ## 参考资料
 
 - [What does phone verification look like? | OpenAI Help Center](https://help.openai.com/en/articles/8983040)
 - [Activating your giffgaff SIM | giffgaff Help](https://help.giffgaff.com/en/articles/240393-activating-your-giffgaff-sim)
 - [giffgaff SIM Activation](https://www.giffgaff.com/activate)
-

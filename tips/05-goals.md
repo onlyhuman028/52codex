@@ -1,5 +1,5 @@
 ---
-title: Codex 的 /goal 怎么用？让它做完长任务
+title: 05 Codex“目标”功能怎么用？
 description: 当一个任务不是一次对话就能完成时，可以用 /goal 给 Codex 设置目标。本文用简单例子讲清什么时候用、怎么写停止条件，以及如何避免目标太大太模糊。
 tags: [Codex, 自动化, 提示词, 项目规范]
 level: 2
@@ -288,8 +288,8 @@ codex features enable goals
 ## 下一步推荐阅读
 
 - [AGENTS.md 怎么写](/tips/04-agents-md)
-- [怎么防止 Codex 乱改代码](/tips/06-prevent-bad-edits)
-- [Codex 额度怎么省](/tips/08-save-quota)
+- [怎么防止 Codex 乱改代码](/tips/08-prevent-bad-edits)
+- [Codex 额度怎么省](/tips/06-save-quota)
 - [怎么让 Codex 越用越顺手](/tips/02-make-codex-better)
 
 ## 参考资料
@@ -297,6 +297,4 @@ codex features enable goals
 - [Follow a goal | OpenAI Developers](https://developers.openai.com/codex/use-cases/follow-goals)
 - [Slash commands in Codex CLI | OpenAI Developers](https://developers.openai.com/codex/cli/slash-commands)
 
-## 待补充
-
-- 需要补充当前板块的 level 规则。
+ 

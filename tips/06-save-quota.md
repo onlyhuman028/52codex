@@ -1,5 +1,5 @@
 ---
-title: Codex 额度怎么省？减少 token 消耗的实用方法
+title: 06 Codex 额度怎么省？ 
 description: Codex 额度消耗和模型、上下文大小、任务复杂度、工具调用有关。本文整理 Prompt 写法、上下文压缩、AGENTS.md 精简、MCP 控制、模型选择和用量监控方法。
 tags: [Codex, 新手入门, 提示词, 项目规范]
 level: 2
@@ -362,7 +362,7 @@ Fast 模式速度是标准的1.5倍，消耗是2倍
 
 - [Codex 的 /goal 怎么用](/tips/05-goals)
 - [AGENTS.md 怎么写](/tips/04-agents-md)
-- [怎么防止 Codex 乱改代码](/tips/06-prevent-bad-edits)
+- [怎么防止 Codex 乱改代码](/tips/08-prevent-bad-edits)
 - [Codex 如何接入第三方 API](/tips/03-codex-third-party-api)
 
 ## 参考资料
@@ -370,8 +370,4 @@ Fast 模式速度是标准的1.5倍，消耗是2倍
 - [OpenAI Help Center: Codex usage limits](https://help.openai.com/en/articles/11369540-codex-in-chatgpt)
 - [Slash commands in Codex CLI | OpenAI Developers](https://developers.openai.com/codex/cli/slash-commands)
 
-## 待补充
-
-- 需要补充当前板块的 level 规则。
-- Codex 设置页 Usage 面板截图。
-- 不同套餐当前额度和购买额外点数的官方截图。
+ 

@@ -178,7 +178,7 @@
             <h3>/goal 长任务怎么拆</h3>
             <p>迁移、重构、修测试这类长任务，要写清目标、检查点和停止条件。</p>
           </a>
-          <a href="/tips/06-prevent-bad-edits" class="tip-card">
+          <a href="/tips/08-prevent-bad-edits" class="tip-card">
             <div class="tip-meta">
               <span>避坑</span>
               <span>安全边界</span>
@@ -186,7 +186,7 @@
             <h3>怎么防止 Codex 乱改代码</h3>
             <p>用 AGENTS.md 划定行为边界，让 Codex 只改该改的地方。</p>
           </a>
-          <a href="/tips/07-self-evolution" class="tip-card">
+          <a href="/tips/09-self-evolution" class="tip-card">
             <div class="tip-meta">
               <span>工作流</span>
               <span>复用</span>
@@ -194,7 +194,7 @@
             <h3>怎么让 Codex 自我进化</h3>
             <p>让 Codex 自己总结经验、优化 Prompt、建立可复用的工作流。</p>
           </a>
-          <a href="/tips/08-save-quota" class="tip-card">
+          <a href="/tips/06-save-quota" class="tip-card">
             <div class="tip-meta">
               <span>额度策略</span>
               <span>省钱</span>
@@ -202,7 +202,7 @@
             <h3>额度怎么省</h3>
             <p>少浪费上下文和无效交互，用 Prompt、模型选择和检查点控制消耗。</p>
           </a>
-          <a href="/tips/09-chatgpt-codex-phone-verification" class="tip-card">
+          <a href="/tips/07-chatgpt-codex-phone-verification" class="tip-card">
             <div class="tip-meta">
               <span>账号安全</span>
               <span>登录验证</span>
@@ -210,7 +210,7 @@
             <h3>手机号二次验证怎么办</h3>
             <p>用高级账号安全和通行密钥减少短信依赖，先讲清恢复密钥风险。</p>
           </a>
-          <a href="/tips/10-sms-verification-platforms" class="tip-card">
+          <a href="/tips/08-sms-verification-platforms" class="tip-card">
             <div class="tip-meta">
               <span>账号验证</span>
               <span>手机号</span>

@@ -40,6 +40,7 @@ OpenAI将于本周（6月7日前）发布chatgpt5.6！
 | [mdnice](https://mdnice.com) | 公众号 Markdown 排版工具 |
 | [VitePress](https://vitepress.dev) | 静态站点生成器 |
 | [Cloudflare Pages](https://pages.cloudflare.com) | 免费静态站点部署 |
+| [智合智充值](https://www.91gpt.com.cn | GPT plus 充值平台 |
 
 ::: tip 推荐资源
 如果你发现了好的 Codex 相关资源，欢迎留言告知我们。

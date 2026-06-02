@@ -38,7 +38,7 @@ GPT账号开通、PLUS订阅详见 [GPT账号申请教程](/guide/04-register)�
 
 ## 额度用超了怎么办？
 
-Codex 是滚动 5 小时重置 1 次额度。要么等重置，要么升级到 Pro。省额度技巧见 [额度怎么省](/tips/08-save-quota)。
+Codex 是滚动 5 小时重置 1 次额度。要么等重置，要么升级到 Pro。省额度技巧见 [额度怎么省](/tips/06-save-quota)。
 
 ## 如何正确使用 Codex？
 

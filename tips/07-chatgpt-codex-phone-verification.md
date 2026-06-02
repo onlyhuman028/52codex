@@ -1,5 +1,5 @@
 ---
-title: ChatGPT/Codex 手机号二次验证怎么办？用高级账号安全减少短信依赖
+title: 07 Codex 手机二次验证怎么破？
 description: 如果 ChatGPT 或 Codex 登录时反复要求手机号二次验证，可以了解高级账号安全和通行密钥的设置方式。本文整理适用条件、风险提醒、操作步骤和恢复密钥注意事项。
 tags: [Codex, 新手入门, 自动化]
 level: 2
@@ -214,11 +214,10 @@ OpenAI 帮助中心说明，高级账号安全可以在 Settings > Security > Ad
 - [GPT 注册与订阅](/guide/04-register)
 - [Codex 下载安装](/guide/05-install)
 - [Codex 如何接入第三方 API](/tips/03-codex-third-party-api)
-- [额度怎么省](/tips/08-save-quota)
+- [额度怎么省](/tips/06-save-quota)
 
 ## 参考资料
 
 - [Advanced Account Security | OpenAI Help Center](https://help.openai.com/nl-nl/articles/20001221-advanced-account-security)
 - [Passkeys to Secure Your OpenAI Account | OpenAI Help Center](https://help.openai.com/en/articles/20001039-passkeys-to-secure-your-openai-account)
-
 
