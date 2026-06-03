@@ -1,14 +1,14 @@
 ---
-title: 12 怎么用 ChatGPT 账号给 OpenClaw 配 Codex 模型
+title: 12 怎么用Codex养龙虾(OpenClaw)？
 description: OpenClaw 支持通过 ChatGPT OAuth 使用 Codex 相关模型。本文按 4.24 版界面整理配置步骤，包括模型登录、模型列表查看、默认模型设置和额度注意事项。
 tags: [Codex, 插件, 自动化, 新手入门]
 level: 2
 date: 2026-06-03
 ---
 
-# 怎么用 ChatGPT 账号给 OpenClaw 配 Codex 模型
+# 怎么用Codex养龙虾(OpenClaw)
 
-老用户都知道，OpenClaw 要发挥好，模型很重要。
+老虾农都知道，OpenClaw 要发挥好，作为大脑的AI大模型很重要。
 
 模型选得好，效果就像澳洲大龙虾；模型选得差，就容易变成地沟小龙虾。
 
@@ -18,7 +18,7 @@ date: 2026-06-03
 
 现在有一个更省钱的办法：把你的 ChatGPT Plus 或 Pro 账号，通过 OpenClaw 自带的验证流程，接入为 OpenClaw 可用的 Codex 模型。
 
-这篇按 OpenClaw 4.24 版实操整理。
+首先声明，openai公司官方允许将codex 转成openclaw的 底座模型
 
 ## 准备工作
 
@@ -28,10 +28,6 @@ date: 2026-06-03
 - 一个可正常登录的 ChatGPT Plus 或 Pro 账号
 - 能打开 OpenClaw 终端
 - 已经了解 OpenClaw 的基础安装流程
-
-OpenClaw 安装可以参考你前面那篇教程：
-
-待补充：《OpenClaw 接入 DeepSeek v4 实操教程》链接
 
 ## 第 1 步：进入模型配置
 
@@ -175,6 +171,4 @@ hermes setup
 
 如果 OpenClaw 使用频率很高，再考虑 Pro 或单独账号。
 
-## 待补充
-
-- 《OpenClaw 接入 DeepSeek v4 实操教程》站内链接
+不过话说回来，codex 现在功能很强，算力珍贵啊，用来养龙虾，有钱！用mimo它不香吗？
