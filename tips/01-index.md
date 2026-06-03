@@ -21,7 +21,7 @@ Codex 使用经验库。解决你最常遇到的问题，来自真实使用中�
 - [怎么让 Codex 越用越顺手](/tips/02-make-codex-better) — 记忆管理、偏好设置、习惯养成
 - [Codex 如何接入第三方 API](/tips/03-codex-third-party-api) — 接入国产模型、中转站 GPT 或 Claude
 - [ChatGPT/Codex 手机号二次验证怎么办](/tips/07-chatgpt-codex-phone-verification) — 高级账号安全、通行密钥、恢复密钥
-- [Codex/OpenAI 电话验证怎么办](/tips/08-sms-verification-platforms) — 接码平台、实体 SIM 卡、长期保号
+- [Codex 手机验证刷屏了怎么办](/tips/08-sms-verification-platforms) — SMS、WhatsApp、实体 SIM 卡和账号安全
 - [如何让 Codex 不断进化](/tips/09-self-evolution) — 项目复盘、偏好提炼、规则沉淀
 - [如何提升 Codex 的设计美感](/tips/10-improve-codex-design) — DESIGN.md、参考风格、UI 审查清单
 - [Giffgaff 境外卡激活教程](/tips/11-giffgaff-activation) — 实体 SIM、eSIM、充值激活、长期保号
