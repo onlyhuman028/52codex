@@ -25,6 +25,29 @@ function pagePath(page: string) {
   return `/${page.replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, '')}`
 }
 
+function applyScreenshotAttrs(state: any) {
+  for (const token of state.tokens) {
+    if (token.type !== 'inline' || !token.children) continue
+
+    for (let index = 0; index < token.children.length; index += 1) {
+      const child = token.children[index]
+      const next = token.children[index + 1]
+
+      if (child.type !== 'image' || next?.type !== 'text') continue
+
+      const match = next.content.match(/^\{#([A-Za-z][\w-]*)\}/)
+      if (!match) continue
+
+      child.attrSet('id', match[1])
+      next.content = next.content.slice(match[0].length)
+
+      if (!next.content) {
+        token.children.splice(index + 1, 1)
+      }
+    }
+  }
+}
+
 export default defineConfig({
   title: siteTitle,
   description: siteDescription,
@@ -89,6 +112,9 @@ export default defineConfig({
     theme: {
       light: 'github-light',
       dark: 'github-dark'
+    },
+    config(md) {
+      md.core.ruler.after('inline', 'image_screenshot_attrs', applyScreenshotAttrs)
     }
   }
 })

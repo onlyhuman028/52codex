@@ -25,6 +25,7 @@ Codex 使用经验库。解决你最常遇到的问题，来自真实使用中�
 - [如何让 Codex 不断进化](/tips/09-self-evolution) — 项目复盘、偏好提炼、规则沉淀
 - [如何提升 Codex 的设计美感](/tips/10-improve-codex-design) — DESIGN.md、参考风格、UI 审查清单
 - [Giffgaff 境外卡激活教程](/tips/11-giffgaff-activation) — 实体 SIM、eSIM、充值激活、长期保号
+- [怎么用 ChatGPT 账号给 OpenClaw 配 Codex 模型](/tips/12-openclaw-chatgpt-codex) — OpenClaw、ChatGPT OAuth、Codex 模型和额度提醒
 - [怎么防止 Codex 乱改代码](/tips/04-agents-md) — 用 AGENTS.md 划定行为边界
 
 ## 工程化
