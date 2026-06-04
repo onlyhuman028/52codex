@@ -4,6 +4,8 @@ description: 把已有项目交给 Codex 继续完善，理解任务顺序执行
 tags: [Codex, 老项目, 实战案例]
 order: 03
 level: 1
+cover: ./assets/03-improve-old-project/cover.svg
+coverAlt: 用 Codex 完善老项目案例封面
 ---
 
 <script setup>

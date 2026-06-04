@@ -196,3 +196,35 @@
 - 先本地打开首页、任一 `cases/` 文章、任一 `tips/` 文章和 `plugins/` 总览页，逐项检查 meta、分享图、推荐阅读和导航入口是否都按预期生效。
 - 将今天未提交改动按主题拆分整理，优先考虑分成「SEO/站点元信息」和「文章页推荐链路」两批提交，减少后续回滚成本。
 - 如果 [`write_rules.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/write_rules.md) 要作为后续撰稿基线，建议明天顺手用一篇真实稿件过一遍，验证新规则是否足够约束输出质量。
+
+## 2026-06-03
+
+### 自动回顾
+
+- 今天完成的修改：
+  - 今天主分支共有 5 次提交，时间从 `00:52` 到 `16:28`，提交主题依次为 `修订案例`、`更新案例首页`、`更新公告`、`完善提示词增加文章1篇`、`完善codex养龙虾`，说明今天的工作重点从案例体系整理，延伸到资源公告、技巧文章新增和既有文章补完。
+  - `cases/` 今天做了较大幅度重排：新增 [`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/cases/02-snake-game.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/cases/02-snake-game.md) 及配套截图资源，多个原 `guide/` 页面迁入 `cases/` 并重编号，[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/cases/index.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/cases/index.md) 也同步调整，旧的重复案例页则被删除或让位。
+  - `guide/` 与 `tips/` 今天继续补内容：[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/guide/16-publish-project.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/guide/16-publish-project.md) 明显扩充，并新增多张发布流程配图；[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/tips/12-openclaw-chatgpt-codex.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/tips/12-openclaw-chatgpt-codex.md) 今天新建后又继续修订；[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/tips/08-sms-verification-platforms.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/tips/08-sms-verification-platforms.md) 也做了较大篇幅改写，并补了配图。
+  - 站点结构与配套文件今天也被触达：[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/config.mts`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/config.mts)、[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/resources/index.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/resources/index.md)、[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/tips/01-index.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/tips/01-index.md) 和 [`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/write_rules.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/write_rules.md) 都有更新；当前 `git status --short` 为空，说明今天可见改动已经提交，没有新的未提交工作区差异。
+
+### 验证命令结果
+
+- `git status --short`
+  - 结果：工作区干净
+  - 时间：2026-06-03
+- `npm run build`
+  - 结果：今天没有在仓库内找到可直接引用的终端输出记录
+  - 可见痕迹：`.vitepress/dist/index.html` 的修改时间为 `2026-06-03 08:26:43`，说明今天至少刷新过一次构建产物，但仅凭产物时间戳不能确认命令是否完整通过
+- 上一次有明确结论的构建记录仍是 `2026-06-02` 的 `npm run build` 通过，耗时约 `1.26s`。
+
+### 遗留问题
+
+- 今天新增和重排的 `cases/`、`guide/16-publish-project.md`、`tips/12-openclaw-chatgpt-codex.md` 都属于读者可见内容，但当前自动回顾没有看到对应的浏览器人工验收记录，尤其还缺少对新案例排序、图文加载和详情页排版的实际检查。
+- 今天能看到构建产物在 `08:26` 更新，但没有保留下来的 `npm run build` 命令结果；如果后续要回溯部署前状态，仅靠 `.vitepress/dist` 时间戳不够。
+- 今天的提交历史里包含 [`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/write_rules.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/write_rules.md) 与 [`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/AGENTS.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/AGENTS.md) 变更；后续继续做内容或自动化前，最好先确认这些规则文件当前版本就是预期基线。
+
+### 明天建议
+
+- 先本地打开 `cases/` 总览、新增的蛇游戏案例、`guide/16-publish-project.md` 和 `tips/12-openclaw-chatgpt-codex.md`，检查导航排序、图片加载、Prompt 样式和移动端排版。
+- 下一次做读者可见修改时，把 `npm run build` 的结论明确记录下来，避免自动回顾只能依赖构建产物时间戳推断。
+- 如果今天对规则文件的调整是有意收束，建议尽快用一篇真实稿件再走一遍改写流程，验证 [`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/write_rules.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/write_rules.md) 和 [`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/AGENTS.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/AGENTS.md) 的现版本不会和日常执行要求冲突。

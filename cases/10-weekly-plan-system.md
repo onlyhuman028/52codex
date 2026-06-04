@@ -4,6 +4,8 @@ description: 用 Codex 编写一个周计划管理系统，适合把日常计划
 tags: [Codex, 周计划, 管理系统]
 order: 10
 level: 3
+cover: ./assets/10-weekly-plan-system/cover.svg
+coverAlt: 周计划管理系统案例封面
 ---
 
 <script setup>

@@ -5,6 +5,8 @@ tags: [Codex, Vibe Coding, 新手入门, 实战案例]
 order: 02
 level: 1
 date: 2026-06-03
+cover: ./assets/11-snake-game/final-game-with-image.png
+coverAlt: 武侠版贪吃蛇游戏完成预览
 ---
 
 #  用 Codex 桌面 App 写一个 贪吃蛇

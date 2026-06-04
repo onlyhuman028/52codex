@@ -4,6 +4,8 @@ description: 使用 Codex 自动化能力执行搜索任务，理解插件调用
 tags: [Codex, 自动化, 小红书, 实战案例]
 order: 08
 level: 2
+cover: ./assets/08-auto-xiaohongshu/cover.svg
+coverAlt: 调用自动化插件搜索小红书案例封面
 ---
 
 这几天 gpt image2 刷屏
@@ -162,4 +164,3 @@ xx（访问被拒绝）
 对于一类工作，我们可以放到一个项目中，然后针对这个项目设置项目规范。这里不展开讲了，以后我们慢慢分享。
 
 案例二：抓取小红书信息
-

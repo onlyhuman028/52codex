@@ -67,7 +67,9 @@
         </div>
         <div class="card-grid">
           <a href="/cases/02-snake-game" class="card">
-            <div class="card-cover">封面图</div>
+            <div class="card-cover">
+              <img src="/cases/assets/11-snake-game/final-game-with-image.png" alt="写一个武侠版贪吃蛇案例封面">
+            </div>
             <div class="card-body">
               <div class="card-tags"><span class="lv lv1">Lv.1</span><span class="tag-pill">小游戏</span></div>
               <h3>写一个武侠版贪吃蛇</h3>
@@ -75,7 +77,9 @@
             </div>
           </a>
           <a href="/cases/06-auto-collect-posts" class="card">
-            <div class="card-cover">封面图</div>
+            <div class="card-cover">
+              <img src="/cases/assets/06-auto-collect-posts/cover.svg" alt="自动搜集公众号热帖案例封面">
+            </div>
             <div class="card-body">
               <div class="card-tags"><span class="lv lv2">Lv.2</span><span class="tag-pill">自动化</span></div>
               <h3>自动搜集公众号热帖</h3>
@@ -83,7 +87,9 @@
             </div>
           </a>
           <a href="/cases/05-install-openclaw" class="card">
-            <div class="card-cover">封面图</div>
+            <div class="card-cover">
+              <img src="/cases/assets/05-install-openclaw/cover.svg" alt="用 Computer Use 安装龙虾案例封面">
+            </div>
             <div class="card-body">
               <div class="card-tags"><span class="lv lv2">Lv.2</span><span class="tag-pill">环境搭建</span></div>
               <h3>用 Computer Use 安装龙虾</h3>
@@ -91,7 +97,9 @@
             </div>
           </a>
           <a href="/cases/09-goal-mode-project" class="card">
-            <div class="card-cover">封面图</div>
+            <div class="card-cover">
+              <img src="/cases/assets/09-goal-mode-project/cover.svg" alt="目标模式开发软件项目案例封面">
+            </div>
             <div class="card-body">
               <div class="card-tags"><span class="lv lv3">Lv.3</span><span class="tag-pill">建系统</span></div>
               <h3>目标/Goal 模式开发软件项目</h3>
@@ -99,7 +107,9 @@
             </div>
           </a>
           <a href="/cases/04-skill-ppt" class="card">
-            <div class="card-cover">封面图</div>
+            <div class="card-cover">
+              <img src="/cases/assets/04-skill-ppt/cover.svg" alt="调用 Skill 写 PPT 案例封面">
+            </div>
             <div class="card-body">
               <div class="card-tags"><span class="lv lv1">Lv.1</span><span class="tag-pill">内容创作</span></div>
               <h3>调用 Skill 写 PPT</h3>
@@ -107,7 +117,9 @@
             </div>
           </a>
           <a href="/cases/10-weekly-plan-system" class="card">
-            <div class="card-cover">封面图</div>
+            <div class="card-cover">
+              <img src="/cases/assets/10-weekly-plan-system/cover.svg" alt="编写周计划管理系统案例封面">
+            </div>
             <div class="card-body">
               <div class="card-tags"><span class="lv lv3">Lv.3</span><span class="tag-pill">建系统</span></div>
               <h3>编写一个周计划管理系统</h3>

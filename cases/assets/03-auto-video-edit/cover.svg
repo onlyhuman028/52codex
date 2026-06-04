@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Codex 搭配 HyperFrames 生成视频案例封面</title>
+  <desc id="desc">深色工作台上展示视频时间线、画面卡片和渲染进度。</desc>
+  <rect width="1200" height="630" fill="#111827"/>
+  <rect x="64" y="58" width="1072" height="514" rx="34" fill="#f7f4ea"/>
+  <rect x="108" y="104" width="986" height="366" rx="24" fill="#1f2937"/>
+  <rect x="144" y="136" width="420" height="236" rx="18" fill="#0f172a"/>
+  <path d="M300 207l112 66-112 66z" fill="#34d399"/>
+  <rect x="604" y="136" width="198" height="104" rx="16" fill="#f59e0b"/>
+  <rect x="826" y="136" width="206" height="104" rx="16" fill="#60a5fa"/>
+  <rect x="604" y="268" width="432" height="28" rx="14" fill="#94a3b8"/>
+  <rect x="604" y="322" width="330" height="28" rx="14" fill="#94a3b8"/>
+  <rect x="144" y="500" width="170" height="28" rx="14" fill="#111827"/>
+  <rect x="340" y="500" width="256" height="28" rx="14" fill="#34d399"/>
+  <rect x="622" y="500" width="142" height="28" rx="14" fill="#f59e0b"/>
+  <rect x="790" y="500" width="238" height="28" rx="14" fill="#60a5fa"/>
+  <text x="144" y="438" fill="#f8fafc" font-family="Arial, sans-serif" font-size="44" font-weight="700">Codex + HyperFrames</text>
+</svg>

@@ -4,6 +4,8 @@ description: 用 Codex 调用 Skill 完成 PPT 生成任务，理解素材准备
 tags: [Codex, Skill, PPT, 实战案例]
 order: 04
 level: 1
+cover: ./assets/04-skill-ppt/cover.svg
+coverAlt: 调用 Skill 写 PPT 案例封面
 ---
 
 <script setup>

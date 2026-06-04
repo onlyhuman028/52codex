@@ -4,6 +4,8 @@ description: 这篇文章用三个视频案例，讲清楚新手如何用 Codex 
 tags: [Codex, 插件, 提示词, 实战案例]
 level: 2
 date: 2026-06-02
+cover: ./assets/03-auto-video-edit/cover.svg
+coverAlt: Codex 搭配 HyperFrames 生成视频案例封面
 ---
 
 # 用 Codex + HyperFrames 做视频：新手怎么生成宣传片和短视频

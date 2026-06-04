@@ -4,6 +4,8 @@ description: 介绍 Codex 桌面版电脑控制能力，说明如何在 macOS �
 tags: [Codex, Computer Use, 自动化]
 level: 2
 date: 2026-06-02
+cover: ./assets/07-codex-control-computer/cover.svg
+coverAlt: Codex 控制电脑案例封面
 ---
 
 GPT Codex能够控制电脑了！

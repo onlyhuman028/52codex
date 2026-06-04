@@ -4,6 +4,8 @@ description: 用 Codex 的 Computer Use 控制微信搜一搜，定时抓取关�
 tags: [自动化, Computer Use]
 level: 2
 date: 2026-05-28
+cover: ./assets/06-auto-collect-posts/cover.svg
+coverAlt: 自动搜集公众号热帖案例封面
 ---
 
 # 自动搜集公众号热帖

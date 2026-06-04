@@ -56,6 +56,14 @@ const levelClass = computed(() => {
   const level = Number(frontmatter.value.level || 0)
   return level ? `lv lv${level}` : ''
 })
+const articleCover = computed(() => {
+  const cover = frontmatter.value.cover
+  return typeof cover === 'string' && cover ? cover : ''
+})
+const articleCoverAlt = computed(() => {
+  const alt = frontmatter.value.coverAlt
+  return typeof alt === 'string' && alt ? alt : String(frontmatter.value.title || '案例封面图')
+})
 const displayDate = computed(() => {
   const value = frontmatter.value.date
   if (!value) return ''
@@ -502,7 +510,8 @@ watch(
           </template>
         </div>
         <div v-if="isCasePost" class="article-cover">
-          <div class="article-cover-inner">封面图</div>
+          <img v-if="articleCover" class="article-cover-image" :src="articleCover" :alt="articleCoverAlt">
+          <div v-else class="article-cover-inner">封面图</div>
         </div>
 
         <div class="article-content">

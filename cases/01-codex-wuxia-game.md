@@ -7,6 +7,8 @@ date: 2026-06-02
 order: 1
 author: "清风徐来"
 authorLink: https://x.com/onlyhuman028
+cover: ./assets/01-codex-wuxia-game/game-finished-preview.jpg
+coverAlt: 武侠网页游戏完成预览
 ---
 
 # 01 用 Codex 做武侠网页游戏

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">目标模式开发软件项目案例封面</title>
+  <desc id="desc">目标树、任务看板和进度线表现 Goal 模式推进项目。</desc>
+  <rect width="1200" height="630" fill="#111827"/>
+  <rect x="80" y="72" width="1060" height="486" rx="36" fill="#f8fafc"/>
+  <circle cx="238" cy="190" r="74" fill="#eef0ff"/>
+  <text x="194" y="206" fill="#644fc1" font-family="Arial, sans-serif" font-size="34" font-weight="700">Goal</text>
+  <path d="M312 190h126v132h102" fill="none" stroke="#111827" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M312 190h126v-88h102" fill="none" stroke="#111827" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="560" y="106" width="324" height="74" rx="22" fill="#e8faf0"/>
+  <rect x="560" y="286" width="392" height="74" rx="22" fill="#fef3c7"/>
+  <rect x="560" y="410" width="292" height="74" rx="22" fill="#dbeafe"/>
+  <rect x="606" y="132" width="192" height="18" rx="9" fill="#24b47e"/>
+  <rect x="606" y="312" width="246" height="18" rx="9" fill="#d97706"/>
+  <rect x="606" y="436" width="172" height="18" rx="9" fill="#2563eb"/>
+  <rect x="132" y="404" width="264" height="52" rx="26" fill="#111827"/>
+  <text x="172" y="439" fill="#f8fafc" font-family="Arial, sans-serif" font-size="26" font-weight="700">Plan → Build → Review</text>
+</svg>

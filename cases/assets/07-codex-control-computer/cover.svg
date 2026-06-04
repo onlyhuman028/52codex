@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Codex 控制电脑案例封面</title>
+  <desc id="desc">桌面窗口、浏览器和自动操作光标表现 Codex 控制电脑能力。</desc>
+  <rect width="1200" height="630" fill="#111827"/>
+  <rect x="96" y="82" width="1012" height="474" rx="34" fill="#f8fafc"/>
+  <rect x="144" y="136" width="620" height="326" rx="24" fill="#e2e8f0"/>
+  <rect x="144" y="136" width="620" height="54" rx="24" fill="#0f172a"/>
+  <circle cx="184" cy="163" r="8" fill="#f87171"/>
+  <circle cx="214" cy="163" r="8" fill="#fbbf24"/>
+  <circle cx="244" cy="163" r="8" fill="#34d399"/>
+  <rect x="184" y="236" width="240" height="28" rx="14" fill="#64748b"/>
+  <rect x="184" y="304" width="360" height="28" rx="14" fill="#94a3b8"/>
+  <rect x="184" y="372" width="280" height="28" rx="14" fill="#94a3b8"/>
+  <rect x="820" y="144" width="180" height="180" rx="36" fill="#e8faf0"/>
+  <path d="M890 214l44 48 80-112" fill="none" stroke="#24b47e" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M750 402l92-178 92 178-82-34-28 78-42-16 28-76z" fill="#111827"/>
+  <text x="820" y="436" fill="#111827" font-family="Arial, sans-serif" font-size="38" font-weight="700">Computer Use</text>
+</svg>

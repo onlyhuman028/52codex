@@ -1,5 +1,7 @@
 ---
 title: 即将上线
+cover: ./assets/05-install-openclaw/cover.svg
+coverAlt: 用 Computer Use 安装 OpenClaw 案例封面
 ---
 
 <script setup>

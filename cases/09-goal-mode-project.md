@@ -4,6 +4,8 @@ description: 用 Goal 模式拆解并推进软件项目，学习从设计规范�
 tags: [Codex, Goal, 软件项目, 实战案例]
 order: 09
 level: 3
+cover: ./assets/09-goal-mode-project/cover.svg
+coverAlt: 目标模式开发软件项目案例封面
 ---
 
 <script setup>
