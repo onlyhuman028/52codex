@@ -228,3 +228,57 @@
 - 先本地打开 `cases/` 总览、新增的蛇游戏案例、`guide/16-publish-project.md` 和 `tips/12-openclaw-chatgpt-codex.md`，检查导航排序、图片加载、Prompt 样式和移动端排版。
 - 下一次做读者可见修改时，把 `npm run build` 的结论明确记录下来，避免自动回顾只能依赖构建产物时间戳推断。
 - 如果今天对规则文件的调整是有意收束，建议尽快用一篇真实稿件再走一遍改写流程，验证 [`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/write_rules.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/write_rules.md) 和 [`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/AGENTS.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/AGENTS.md) 的现版本不会和日常执行要求冲突。
+
+## 2026-06-05
+
+### 自动回顾
+
+- 今天完成的修改：
+  - 今天未发现新的项目提交或工作区改动；`git status --short` 结果为空，说明当前仓库仍是干净状态。
+  - 最近一次可见项目活动停留在 `2026-06-04`：上午 `09:20:54` 的 `增加配图` 主要触达首页主题文件和多篇 `cases/` 封面资源，晚上 `18:22:54` 的 `修改文章推理水平` 只修改了 [`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/guide/06-interface.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/guide/06-interface.md)。
+  - 因为 `2026-06-05` 没有新的代码、配置或内容变更，今天这条日志按“无实质变更”归档。
+
+### 验证命令结果
+
+- `git status --short`
+  - 结果：工作区干净
+  - 时间：2026-06-05
+- 最近一次可见构建痕迹仍是 [`.vitepress/dist/index.html`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/dist/index.html) 的修改时间 `2026-06-03 08:26:43`；今天没有发现新的 `npm run build` 输出或浏览器验收记录。
+
+### 遗留问题
+
+- `2026-06-04` 的两次提交都属于读者可见修改，但当前日志里仍缺少对应的浏览器人工验收结论，尤其是首页配图与案例封面实际展示效果。
+- 最近两天没有新的构建结果沉淀下来；如果后续继续改动，最好把 `npm run build` 的明确结论直接记录进日志，避免只能依赖时间戳判断。
+
+### 明天建议
+
+- 下一次有实际修改时，优先补一轮最小验收：至少记录一次 `npm run build` 结果，再检查首页和最新 `cases/` 页面是否正常显示新增配图。
+- 如果明天仍无代码变更，可以继续保持简短日志，但建议补上对 `2026-06-04` 那批可见改动的页面级确认。
+
+## 2026-06-07
+
+### 自动回顾
+
+- 今天完成的修改：
+  - `2026-06-07` 未发现新的项目提交；`git log --since='2026-06-06 00:00' --until='2026-06-07 23:59:59'` 没有返回记录。
+  - 当前工作区唯一可见差异仍是 [`.vitepress/work-log.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/work-log.md) 自身，说明今天没有新的源码、配置、文章或资源文件变更进入工作区。
+  - 因为今天没有可归档的实质项目修改，这条日志按“无实质变更，仅补日志状态”记录。
+
+### 验证命令结果
+
+- `git status --short --untracked-files=all`
+  - 结果：仅 [`.vitepress/work-log.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/work-log.md) 处于已修改状态
+  - 时间：2026-06-07
+- `git diff --stat`
+  - 结果：仅日志文件新增 26 行，没有其他项目文件差异
+- 最近一次可见构建痕迹仍是 [`.vitepress/dist/index.html`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/dist/index.html) 的修改时间 `2026-06-03 08:26:43`；今天没有发现新的 `npm run build` 输出或浏览器验收记录。
+
+### 遗留问题
+
+- 当前仓库缺少 `2026-06-04` 之后的明确构建与页面验收记录；如果后续继续改动，仍然无法从日志中直接判断首页配图、案例封面和最新文章页的实际展示状态。
+- 现有工作区差异只来自日志文件，说明自动回顾记录和项目提交节奏还没有同步；后续若要长期保留日志，最好明确何时提交 [`.vitepress/work-log.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/work-log.md)。
+
+### 明天建议
+
+- 下一次有真实项目改动时，先补一次 `npm run build` 并把结果直接写进日志，再做最小页面级验收。
+- 如果明天仍没有项目变更，继续保持简短记录即可，但建议尽快补一次对首页和最新 `cases/` 页面的人工检查。
