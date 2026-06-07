@@ -73,6 +73,7 @@ Claude Code 需要支持 Claude Code 的账号或团队环境。免费 Claude.ai
 
 如果还没安装 Codex，可以先看：
 
+- [GPT账号申请与plus订阅](/guide/04-register)
 - [Codex 下载安装](/guide/05-install)
 - [Codex 界面全览](/guide/06-interface)
 
@@ -96,6 +97,7 @@ Claude Code 常简称 CC。
 
 [https://docs.anthropic.com/en/docs/claude-code/getting-started](https://docs.anthropic.com/en/docs/claude-code/getting-started)
 
+没有claude pro会员可以到网站 - [智和智AI]( https://91gpt.com.cn) 购卡订阅
 ### Mac、Linux 或 WSL
 
 打开终端，输入：
