@@ -282,3 +282,33 @@
 
 - 下一次有真实项目改动时，先补一次 `npm run build` 并把结果直接写进日志，再做最小页面级验收。
 - 如果明天仍没有项目变更，继续保持简短记录即可，但建议尽快补一次对首页和最新 `cases/` 页面的人工检查。
+
+## 2026-06-08
+
+### 自动回顾
+
+- 今天完成的修改：
+  - `2026-06-08` 未发现新的项目提交或工作区文件变更；`git status --short --untracked-files=all` 为空，`git log --since='2026-06-08 00:00' --until='2026-06-08 23:59:59'` 也没有返回记录。
+  - 结合最近三次提交看，上一次回顾后仓库已有两次 `2026-06-07` 提交：`e357965 撰写codex运行cc` 新增了 [tips/13-run-claude-code-in-codex.md](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/tips/13-run-claude-code-in-codex.md)、对应栏目索引和 7 张配图，`bbb71ac 完善链接` 继续调整了这篇文章的链接。
+  - 因为今天没有新的源码、配置或资源改动，这条日志按“今日无实质变更，但补记最近已提交修改和验证状态”记录。
+
+### 验证命令结果
+
+- `git status --short --untracked-files=all`
+  - 结果：无输出，当前工作区干净
+  - 时间：2026-06-08
+- `git log --since='2026-06-08 00:00' --until='2026-06-08 23:59:59' --stat --oneline`
+  - 结果：无输出，今天没有新提交
+- `git log -3 --date=short --pretty=format:'%h %ad %s'`
+  - 结果：最近三次提交为 `bbb71ac 2026-06-07 完善链接`、`e357965 2026-06-07 撰写codex运行cc`、`ad0fcf9 2026-06-04 修改文章推理水平`
+- 最近一次可见构建痕迹仍是 [`.vitepress/dist/index.html`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/dist/index.html) 的修改时间 `2026-06-03 08:26:43`；今天没有发现新的 `npm run build` 输出或浏览器验收记录。
+
+### 遗留问题
+
+- `2026-06-07` 新增的 [tips/13-run-claude-code-in-codex.md](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/tips/13-run-claude-code-in-codex.md) 和配图已经提交，但日志里仍缺少对应的构建结果与页面级人工验收记录，暂时无法确认文章链接、配图展示和栏目入口是否都正常。
+- 最近一次可见构建时间仍停留在 `2026-06-03 08:26:43`，说明当前日志能确认提交历史，但还不能确认 `2026-06-07` 那批内容改动经过了新的静态构建验证。
+
+### 明天建议
+
+- 下一次继续改动 `tips/13-run-claude-code-in-codex.md` 或相关导航时，优先补一次 `npm run build`，并把结果直接记进日志。
+- 补一轮最小人工验收：至少检查首页、`/tips/` 列表页和新文章页，确认新增配图、栏目入口和文内链接都正常显示。

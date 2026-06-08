@@ -1,4 +1,6 @@
-const CACHE_SECONDS = 1800
+const CACHE_SECONDS = 900
+const X_SEARCH_RESULT_COUNT = 50
+const DEFAULT_X_SEARCH_QUERY = '("Codex" OR "OpenAI Codex") (案例 OR 教程 OR 插件 OR skill OR plugin OR workflow OR demo OR built OR build OR app) -is:retweet -is:reply'
 
 const fallbackGroups = [
   {
@@ -163,19 +165,28 @@ async function buildHotGroups(env) {
 async function buildXGroup(env) {
   const token = env.X_BEARER_TOKEN
   const ids = splitEnvList(env.X_POST_IDS)
+  const usePinnedIds = shouldUseXPostIds(env) && ids.length
 
   if (!token) {
     return fallbackGroups[0]
   }
 
   try {
-    const data = ids.length
+    const data = usePinnedIds
       ? await fetchXTweetsByIds(token, ids)
-      : await searchXTweets(token, env.X_SEARCH_QUERY)
+      : await searchXTweets(token, getXSearchQuery(env.X_SEARCH_QUERY))
     const items = mapXTweets(data)
 
-    return items.length ? { ...fallbackGroups[0], items } : fallbackGroups[0]
-  } catch {
+    return items.length
+      ? {
+          ...fallbackGroups[0],
+          keyword: usePinnedIds ? fallbackGroups[0].keyword : 'Codex 最近热度',
+          moreHref: usePinnedIds ? fallbackGroups[0].moreHref : buildXSearchHref(env.X_SEARCH_QUERY),
+          items
+        }
+      : fallbackGroups[0]
+  } catch (error) {
+    console.warn('Unable to fetch X hot posts', error?.message || error)
     return fallbackGroups[0]
   }
 }
@@ -194,8 +205,9 @@ async function fetchXTweetsByIds(token, ids) {
 
 async function searchXTweets(token, query) {
   const url = new URL('https://api.x.com/2/tweets/search/recent')
-  url.searchParams.set('query', query || '(Codex OR "OpenAI Codex") -is:retweet')
-  url.searchParams.set('max_results', '20')
+  url.searchParams.set('query', query)
+  url.searchParams.set('max_results', String(X_SEARCH_RESULT_COUNT))
+  url.searchParams.set('sort_order', 'recency')
   url.searchParams.set('tweet.fields', 'author_id,created_at,public_metrics')
   url.searchParams.set('expansions', 'author_id')
   url.searchParams.set('user.fields', 'name,username')
@@ -207,30 +219,40 @@ async function searchXTweets(token, query) {
 
 function mapXTweets(data) {
   const users = new Map((data.includes?.users || []).map((user) => [user.id, user]))
+  const now = Date.now()
 
   return (data.data || [])
     .slice()
-    .sort((a, b) => getTweetScore(b) - getTweetScore(a))
+    .sort((a, b) => getTweetScore(b, now) - getTweetScore(a, now))
     .slice(0, 3)
     .map((tweet) => {
       const user = users.get(tweet.author_id)
       const author = user?.name || user?.username || 'X'
-      const metric = tweet.public_metrics?.impression_count || tweet.public_metrics?.like_count
-      const suffix = tweet.public_metrics?.impression_count ? 'views' : 'likes'
+      const metric = getTweetPrimaryMetric(tweet)
+      const timeText = formatRelativeTime(tweet.created_at, now)
 
       return {
         title: `${author}：${cleanTweetText(tweet.text)}`,
         author,
-        meta: `X 原帖 · ${formatNumber(metric)} ${suffix}`,
+        meta: ['X 原帖', timeText, metric].filter(Boolean).join(' · '),
         href: `https://x.com/${user?.username || 'i'}/status/${tweet.id}`
       }
     })
 }
 
-function getTweetScore(tweet) {
+function getTweetScore(tweet, now) {
   const metrics = tweet.public_metrics || {}
+  const engagement = (metrics.impression_count || 0) * 0.08
+    + (metrics.like_count || 0) * 10
+    + (metrics.retweet_count || 0) * 20
+    + (metrics.quote_count || 0) * 16
+    + (metrics.reply_count || 0) * 6
+    + (metrics.bookmark_count || 0) * 8
+  const ageHours = getAgeHours(tweet.created_at, now)
+  const recencyWeight = Math.max(0.25, 1 - ageHours / (24 * 7))
+  const freshPostLift = Math.max(0, 48 - ageHours) * 2
 
-  return metrics.impression_count || (metrics.like_count || 0) * 10 + (metrics.retweet_count || 0) * 20
+  return engagement * recencyWeight + freshPostLift
 }
 
 async function buildGitHubGroup(env) {
@@ -359,6 +381,75 @@ function splitEnvList(value) {
     .split(',')
     .map((item) => item.trim())
     .filter(Boolean)
+}
+
+function shouldUseXPostIds(env) {
+  const mode = String(env.X_POST_SOURCE || env.X_SOURCE_MODE || '').trim().toLowerCase()
+  const flag = String(env.X_USE_POST_IDS || '').trim().toLowerCase()
+
+  return ['ids', 'fixed', 'manual', 'pinned'].includes(mode) || ['1', 'true', 'yes'].includes(flag)
+}
+
+function getXSearchQuery(value) {
+  return String(value || '').trim() || DEFAULT_X_SEARCH_QUERY
+}
+
+function buildXSearchHref(query) {
+  return `https://x.com/search?q=${encodeURIComponent(getXSearchQuery(query))}&src=typed_query&f=live`
+}
+
+function getTweetPrimaryMetric(tweet) {
+  const metrics = tweet.public_metrics || {}
+
+  if (metrics.impression_count) {
+    return `${formatNumber(metrics.impression_count)} views`
+  }
+
+  if (metrics.like_count) {
+    return `${formatNumber(metrics.like_count)} likes`
+  }
+
+  if (metrics.retweet_count) {
+    return `${formatNumber(metrics.retweet_count)} reposts`
+  }
+
+  if (metrics.reply_count) {
+    return `${formatNumber(metrics.reply_count)} replies`
+  }
+
+  return '最近热帖'
+}
+
+function formatRelativeTime(createdAt, now) {
+  const ageHours = getAgeHours(createdAt, now)
+
+  if (!Number.isFinite(ageHours)) {
+    return ''
+  }
+
+  if (ageHours < 1) {
+    return `${Math.max(1, Math.round(ageHours * 60))} 分钟前`
+  }
+
+  if (ageHours < 24) {
+    return `${Math.floor(ageHours)} 小时前`
+  }
+
+  if (ageHours < 7 * 24) {
+    return `${Math.floor(ageHours / 24)} 天前`
+  }
+
+  return ''
+}
+
+function getAgeHours(createdAt, now) {
+  const timestamp = Date.parse(createdAt)
+
+  if (!Number.isFinite(timestamp)) {
+    return Number.POSITIVE_INFINITY
+  }
+
+  return Math.max(0, (now - timestamp) / (60 * 60 * 1000))
 }
 
 function cleanTweetText(text) {
