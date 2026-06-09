@@ -1,6 +1,7 @@
 const CACHE_SECONDS = 900
 const X_SEARCH_RESULT_COUNT = 50
-const DEFAULT_X_SEARCH_QUERY = '("Codex" OR "OpenAI Codex") (案例 OR 教程 OR 插件 OR skill OR plugin OR workflow OR demo OR built OR build OR app) -is:retweet -is:reply'
+const X_SEARCH_DAYS = 7
+const DEFAULT_X_SEARCH_QUERY = 'codex lang:zh -is:retweet -is:reply'
 
 const fallbackGroups = [
   {
@@ -168,7 +169,7 @@ async function buildXGroup(env) {
   const usePinnedIds = shouldUseXPostIds(env) && ids.length
 
   if (!token) {
-    return fallbackGroups[0]
+    return buildXSearchFallbackGroup(env.X_SEARCH_QUERY)
   }
 
   try {
@@ -180,14 +181,14 @@ async function buildXGroup(env) {
     return items.length
       ? {
           ...fallbackGroups[0],
-          keyword: usePinnedIds ? fallbackGroups[0].keyword : 'Codex 最近热度',
+          keyword: usePinnedIds ? fallbackGroups[0].keyword : 'codex · 近 7 天中文',
           moreHref: usePinnedIds ? fallbackGroups[0].moreHref : buildXSearchHref(env.X_SEARCH_QUERY),
           items
         }
-      : fallbackGroups[0]
+      : buildXSearchFallbackGroup(env.X_SEARCH_QUERY)
   } catch (error) {
     console.warn('Unable to fetch X hot posts', error?.message || error)
-    return fallbackGroups[0]
+    return buildXSearchFallbackGroup(env.X_SEARCH_QUERY)
   }
 }
 
@@ -208,6 +209,7 @@ async function searchXTweets(token, query) {
   url.searchParams.set('query', query)
   url.searchParams.set('max_results', String(X_SEARCH_RESULT_COUNT))
   url.searchParams.set('sort_order', 'recency')
+  url.searchParams.set('start_time', getXSearchStartTime())
   url.searchParams.set('tweet.fields', 'author_id,created_at,public_metrics')
   url.searchParams.set('expansions', 'author_id')
   url.searchParams.set('user.fields', 'name,username')
@@ -395,7 +397,53 @@ function getXSearchQuery(value) {
 }
 
 function buildXSearchHref(query) {
-  return `https://x.com/search?q=${encodeURIComponent(getXSearchQuery(query))}&src=typed_query&f=live`
+  return `https://x.com/search?q=${encodeURIComponent(getXSearchQueryWithDateRange(query))}&src=typed_query&f=live`
+}
+
+function getXSearchStartTime() {
+  return new Date(Date.now() - X_SEARCH_DAYS * 24 * 60 * 60 * 1000).toISOString()
+}
+
+function getXSearchQueryWithDateRange(query) {
+  const now = new Date()
+  const since = new Date(now.getTime() - X_SEARCH_DAYS * 24 * 60 * 60 * 1000)
+  const until = new Date(now.getTime() + 24 * 60 * 60 * 1000)
+
+  return `${getXSearchQuery(query)} since:${formatSearchDate(since)} until:${formatSearchDate(until)}`
+}
+
+function buildXSearchFallbackGroup(query) {
+  const href = buildXSearchHref(query)
+
+  return {
+    ...fallbackGroups[0],
+    keyword: 'codex · 近 7 天中文',
+    moreHref: href,
+    items: [
+      {
+        title: '打开 X 查看：近 7 天 codex 中文热帖',
+        author: 'X 搜索',
+        meta: '实时搜索 · 中文 · 最近 7 天',
+        href
+      },
+      {
+        title: '按最新排序：codex 中文讨论',
+        author: 'X 搜索',
+        meta: '搜索词 codex · lang:zh',
+        href
+      },
+      {
+        title: '若这里仍显示搜索入口，请检查 X_BEARER_TOKEN',
+        author: '52codex',
+        meta: 'fallback · 未编造热帖数据',
+        href
+      }
+    ]
+  }
+}
+
+function formatSearchDate(date) {
+  return date.toISOString().slice(0, 10)
 }
 
 function getTweetPrimaryMetric(tweet) {

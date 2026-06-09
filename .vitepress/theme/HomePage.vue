@@ -344,26 +344,26 @@ const fallbackHotGroups = [
   {
     source: 'X',
     tagClass: 's-x',
-    keyword: 'codex 案例',
-    moreHref: 'https://x.com/search?q=codex%20%E6%A1%88%E4%BE%8B&src=typed_query&f=live',
+    keyword: 'codex 中文热帖',
+    moreHref: 'https://x.com/search?q=codex%20lang%3Azh&src=typed_query&f=live',
     items: [
       {
-        title: 'Arlan：把整个 Web 变成文件系统，让 Codex 直接读取文档',
-        author: 'Arlan',
-        meta: 'X 原帖 · 185.4K views',
-        href: 'https://x.com/arlanr/status/2041215978957389908'
+        title: '打开 X 查看：codex 中文热帖',
+        author: 'X 搜索',
+        meta: '实时搜索 · 中文内容',
+        href: 'https://x.com/search?q=codex%20lang%3Azh&src=typed_query&f=live'
       },
       {
-        title: 'GitHub：GPT-5.2-Codex 已在 GitHub Copilot 中推出',
-        author: 'GitHub',
-        meta: 'X 原帖 · 174.4K views',
-        href: 'https://x.com/github/status/2011501527991546066'
+        title: '按最新排序：codex 中文讨论',
+        author: 'X 搜索',
+        meta: '搜索词 codex · lang:zh',
+        href: 'https://x.com/search?q=codex%20lang%3Azh&src=typed_query&f=live'
       },
       {
-        title: 'Vaibhav：介绍 Claude Code 工作流里的 Codex Plugin',
-        author: 'Vaibhav',
-        meta: 'X 原帖 · 44.6K views',
-        href: 'https://x.com/reach_vb/status/2039251986357338257'
+        title: '接口失败时显示搜索入口，不编造热帖数据',
+        author: '52codex',
+        meta: 'fallback · 等待接口返回真实热帖',
+        href: 'https://x.com/search?q=codex%20lang%3Azh&src=typed_query&f=live'
       }
     ]
   },

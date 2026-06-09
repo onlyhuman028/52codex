@@ -4,6 +4,38 @@ const siteUrl = 'https://www.52codex.site'
 const siteTitle = '我爱CodeX'
 const siteDescription = '技术小白的Codex 实践站。不用写代码，把脑子里的想法变成能用的工具。'
 const defaultImage = `${siteUrl}/images/og-default.svg`
+const siteKeywords = [
+  'Codex',
+  'Codex 学习',
+  'Codex 新人',
+  'Codex 实战',
+  'Codex 入门',
+  'Codex 免费',
+  'Codex 新手',
+  'Codex 小白',
+  '不会编程',
+  'Codex 教程',
+  'Codex 安装',
+  'Codex 配置',
+  'Codex 保姆教程',
+  'Codex 工作流',
+  'Codex 实操',
+  'AI 编程',
+  'Codex 学习地图',
+  'Codex 零基础',
+  'Codex 指南',
+  'Codex 经验',
+  'Codex Skills',
+  'Skills 安装',
+  'Codex Windows',
+  'Codex 怎么用',
+  'Codex 是什么',
+  'Codex GitHub',
+  'Codex 下载',
+  'Codex 自动化',
+  'Codex 插件',
+  'Codex 心法',
+].join(', ')
 
 const noindexPages = new Set([
   'coming-soon.md',
@@ -65,6 +97,7 @@ export default defineConfig({
     ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
     ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
     ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap' }],
+    ['meta', { name: 'keywords', content: siteKeywords }],
     ['meta', { property: 'og:site_name', content: siteTitle }],
     ['meta', { property: 'og:locale', content: 'zh_CN' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],

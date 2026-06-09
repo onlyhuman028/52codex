@@ -312,3 +312,33 @@
 
 - 下一次继续改动 `tips/13-run-claude-code-in-codex.md` 或相关导航时，优先补一次 `npm run build`，并把结果直接记进日志。
 - 补一轮最小人工验收：至少检查首页、`/tips/` 列表页和新文章页，确认新增配图、栏目入口和文内链接都正常显示。
+
+## 2026-06-09
+
+### 自动回顾
+
+- 今天完成的修改：
+  - `2026-06-09` 没有新的提交记录；`git log --since='2026-06-09 00:00' --until='2026-06-09 23:59:59' --stat --oneline` 无输出，说明今天还没有已入库的项目变更。
+  - 当前工作区存在 2 处未提交改动，均围绕首页「网络热帖」与 X 抓取兜底逻辑：[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/HomePage.vue`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/HomePage.vue) 把 X 平台 fallback 卡片改成「codex 中文热帖」搜索入口，不再展示容易过时的手工示例；[`/Users/onlyhuman/Documents/Vibe coding/codex/52codex/functions/api/hot-posts.js`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/functions/api/hot-posts.js) 把默认查询词收束为 `codex lang:zh`，增加最近 7 天时间窗，并在缺少 `X_BEARER_TOKEN` 或抓取失败时返回搜索入口型兜底数据。
+  - 从 `git log -5 --date=short --pretty=format:'%h %ad %s'` 看，最近一次已提交变更是 `8f57821 2026-06-08 修改热帖x`；结合今天的未提交 diff，可以判断热帖模块仍在继续调整，但当前状态尚未提交。
+
+### 验证命令结果
+
+- `git status --short`
+  - 结果：当前有 2 个已修改未提交文件，分别是 [`.vitepress/theme/HomePage.vue`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/HomePage.vue) 和 [`functions/api/hot-posts.js`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/functions/api/hot-posts.js)
+  - 时间：2026-06-09
+- `git diff --stat`
+  - 结果：共 2 个文件变更，`68` 行新增、`20` 行删除，改动集中在首页热帖展示和接口兜底逻辑
+- `git log --since='2026-06-09 00:00' --until='2026-06-09 23:59:59' --stat --oneline`
+  - 结果：无输出，今天没有新提交
+- 最近一次可见构建痕迹仍是 [`.vitepress/dist/index.html`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/dist/index.html) 的修改时间 `2026-06-03 08:26:43`；今天没有发现新的 `npm run build` 输出，也没有新的浏览器人工验收记录。
+
+### 遗留问题
+
+- 今天的热帖改动都属于首页可见行为，但当前只有工作区 diff，没有对应的 `npm run build` 结果或页面级人工验收，暂时无法确认 X 卡片文案、搜索链接和接口 fallback 在桌面端与移动端的实际呈现。
+- [`.vitepress/dist/index.html`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/dist/index.html) 的可见构建时间仍停留在 `2026-06-03 08:26:43`，说明最近几天即使有热帖相关提交和未提交调整，日志里也还缺少新的静态构建验证依据。
+
+### 明天建议
+
+- 如果热帖模块明天继续调整，优先补一次 `npm run build`，并把结果直接写进日志，避免持续只靠 diff 和时间戳判断状态。
+- 补一轮最小人工验收：至少检查首页 X 热帖卡片、接口失败时的 fallback 展示，以及对应「更多」搜索链接是否都能正确打开。
