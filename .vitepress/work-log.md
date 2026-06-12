@@ -342,3 +342,34 @@
 
 - 如果热帖模块明天继续调整，优先补一次 `npm run build`，并把结果直接写进日志，避免持续只靠 diff 和时间戳判断状态。
 - 补一轮最小人工验收：至少检查首页 X 热帖卡片、接口失败时的 fallback 展示，以及对应「更多」搜索链接是否都能正确打开。
+
+## 2026-06-10
+
+### 自动回顾
+
+- 今天完成的修改：
+  - `2026-06-10` 未发现新的项目提交或工作区差异；`git status --short` 为空，`git log --since='2026-06-10 00:00' --until='2026-06-10 23:59:59'` 也没有返回记录，说明今天没有新的源码、配置、文章或资源文件变更。
+  - 最近一次可见项目活动仍是昨晚 `ae31502 2026-06-09 增加seo`，提交涉及 [`.vitepress/config.mts`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/config.mts)、[`.vitepress/theme/HomePage.vue`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/HomePage.vue)、[`functions/api/hot-posts.js`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/functions/api/hot-posts.js) 和 [`.vitepress/work-log.md`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/work-log.md)，说明昨天未提交的 SEO 与热帖兜底调整已经入库。
+  - 因为今天没有新的实质项目变更，这条日志按“今日无新增修改，仅补记当前仓库状态”归档。
+
+### 验证命令结果
+
+- `git status --short`
+  - 结果：无输出，当前工作区干净
+  - 时间：2026-06-10
+- `git log --since='2026-06-10 00:00' --until='2026-06-10 23:59:59' --name-only --oneline`
+  - 结果：无输出，今天没有新提交
+- `git show --stat --name-only ae31502`
+  - 结果：确认 `2026-06-09` 的 `增加seo` 提交已经把 [`.vitepress/config.mts`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/config.mts)、[`.vitepress/theme/HomePage.vue`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/theme/HomePage.vue) 和 [`functions/api/hot-posts.js`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/functions/api/hot-posts.js) 一并提交
+- 最近一次可见构建痕迹仍是 [`.vitepress/dist/index.html`](/Users/onlyhuman/Documents/Vibe coding/codex/52codex/.vitepress/dist/index.html) 的修改时间 `2026-06-03 08:26:43`；今天没有发现新的 `npm run build` 输出，也没有新的浏览器人工验收记录。
+
+### 遗留问题
+
+- 昨晚的 `增加seo` 提交已经入库，但日志里仍然缺少对应的 `npm run build` 结果，当前还不能确认 SEO 配置、首页热帖 fallback 和相关 reader-visible 调整经过了新的静态构建验证。
+- 最近一次可见构建时间仍停留在 `2026-06-03 08:26:43`，说明 `2026-06-07` 到 `2026-06-09` 之间的内容与首页改动都缺少明确的构建记录。
+- 目前仍未看到针对首页 X 热帖卡片、搜索入口和接口失败兜底展示的页面级人工验收结论。
+
+### 明天建议
+
+- 下一次继续改动首页热帖或 SEO 配置时，先补一次 `npm run build`，并把结果直接写进日志。
+- 补一轮最小人工验收：至少检查首页热帖模块、`/tips/` 列表页和任一文章页，确认最近几次提交引入的链接、配图和推荐入口都正常显示。
