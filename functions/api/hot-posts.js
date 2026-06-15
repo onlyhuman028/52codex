@@ -2,137 +2,38 @@ const CACHE_SECONDS = 900
 const X_SEARCH_RESULT_COUNT = 50
 const X_SEARCH_DAYS = 7
 const DEFAULT_X_SEARCH_QUERY = 'codex lang:zh -is:retweet -is:reply'
+const RECENT_DAYS = 7
 
 const fallbackGroups = [
   {
     source: 'X',
     tagClass: 's-x',
     keyword: 'codex 案例',
-    moreHref: 'https://x.com/search?q=codex%20%E6%A1%88%E4%BE%8B&src=typed_query&f=live',
-    items: [
-      {
-        title: 'Arlan：把整个 Web 变成文件系统，让 Codex 直接读取文档',
-        author: 'Arlan',
-        meta: 'X 原帖 · 185.4K views',
-        href: 'https://x.com/arlanr/status/2041215978957389908'
-      },
-      {
-        title: 'GitHub：GPT-5.2-Codex 已在 GitHub Copilot 中推出',
-        author: 'GitHub',
-        meta: 'X 原帖 · 174.4K views',
-        href: 'https://x.com/github/status/2011501527991546066'
-      },
-      {
-        title: 'Vaibhav：介绍 Claude Code 工作流里的 Codex Plugin',
-        author: 'Vaibhav',
-        meta: 'X 原帖 · 44.6K views',
-        href: 'https://x.com/reach_vb/status/2039251986357338257'
-      }
-    ]
+    moreHref: 'https://x.com/search?q=codex%20%E6%A1%88%E4%BE%8B&src=typed_query&f=live'
   },
   {
     source: 'GitHub',
     tagClass: 's-github',
     keyword: 'codex 案例',
-    moreHref: 'https://github.com/search?q=codex+%E6%A1%88%E4%BE%8B&type=repositories&s=updated&o=desc',
-    items: [
-      {
-        title: 'xianyu110/gpt-codex：写给 Codex 小白用户的完整教程',
-        author: 'xianyu110',
-        meta: '中文教程 · OpenAI Codex',
-        href: 'https://github.com/xianyu110/gpt-codex'
-      },
-      {
-        title: 'Ivesfsy/Codex：云原生 Codex CLI 快速入门指南',
-        author: 'Ivesfsy',
-        meta: '安装配置 · Codex CLI 教程',
-        href: 'https://github.com/Ivesfsy/Codex'
-      },
-      {
-        title: 'OpenAI Cookbook：用 Codex SDK 构建代码审查工作流',
-        author: 'openai',
-        meta: '官方案例 · Codex SDK',
-        href: 'https://github.com/openai/openai-cookbook/blob/main/examples/codex/build_code_review_with_codex_sdk.md'
-      }
-    ]
+    moreHref: 'https://github.com/search?q=codex+%E6%A1%88%E4%BE%8B&type=repositories&s=updated&o=desc'
   },
   {
     source: 'B站',
     tagClass: 's-bilibili',
     keyword: 'codex',
-    moreHref: 'https://search.bilibili.com/all?keyword=codex&from_source=web_search&spm_id_from=333.788&search_source=5&order=stow',
-    items: [
-      {
-        title: 'Codex (APP) 保姆级全攻略，海量实战教程，一期精通 Codex',
-        author: '技术爬爬虾',
-        meta: '2026-04-28 · 75.6 万播放',
-        href: 'https://www.bilibili.com/video/BV1Kk9kBAEJv/'
-      },
-      {
-        title: '全网最全！40 分钟全面掌握 Codex【附完整文档】',
-        author: '秋芝2046',
-        meta: '2026-05-16 · 46.6 万播放',
-        href: 'https://www.bilibili.com/video/BV1Nd596vEyU/'
-      },
-      {
-        title: 'Codex APP 保姆级使用教程，实战项目全流程讲解',
-        author: 'AI随风随风',
-        meta: '2026-03-03 · 20.2 万播放',
-        href: 'https://www.bilibili.com/video/BV1oJAoz2Emf/'
-      }
-    ]
+    moreHref: 'https://search.bilibili.com/all?keyword=codex&from_source=web_search&spm_id_from=333.788&search_source=5&order=stow'
   },
   {
     source: 'Reddit',
     tagClass: 's-reddit',
     keyword: 'OpenAI Codex case / build',
-    moreHref: 'https://www.reddit.com/r/codex/search/?q=build%20OR%20case&restrict_sr=1&sort=new',
-    items: [
-      {
-        title: '你目前用 Codex 做出了哪些东西？',
-        author: 'r/codex 社区',
-        meta: 'r/codex · 2 周前 · 原题已翻译',
-        href: 'https://www.reddit.com/r/codex/comments/1tcgyu7/what_have_you_built_so_far_using_codex/'
-      },
-      {
-        title: '你用 Codex 做过最大、最复杂的项目是什么？',
-        author: 'r/codex 社区',
-        meta: 'r/codex · 上月 · 原题已翻译',
-        href: 'https://www.reddit.com/r/codex/comments/1sx8dg4/what_is_the_biggest_thing_you_build_with_codex/'
-      },
-      {
-        title: '社区热议：ChatGPT 登录的 Codex 可能移除 GPT-5.2 和 GPT-5.3-Codex',
-        author: 'r/codex 社区',
-        meta: 'r/codex · 社区热议 · 原题已翻译',
-        href: 'https://www.reddit.com/r/codex/comments/1tp8ujz/openai_is_removing_gpt52_and_gpt53codex_from/'
-      }
-    ]
+    moreHref: 'https://www.reddit.com/r/codex/search/?q=build%20OR%20case&restrict_sr=1&sort=new'
   },
   {
     source: 'YouTube',
     tagClass: 's-youtube',
     keyword: 'codex 案例',
-    moreHref: 'https://www.youtube.com/results?search_query=codex+%E6%A1%88%E4%BE%8B',
-    items: [
-      {
-        title: 'Codex Tutorial for Beginners：完整入门课程',
-        author: 'YouTube 创作者',
-        meta: 'YouTube · 完整教程',
-        href: 'https://www.youtube.com/watch?v=KXIdYEdOPys'
-      },
-      {
-        title: 'Master Codex in One Hour：用 Codex 做评论分析、Skill 和自动化',
-        author: 'YouTube 创作者',
-        meta: 'YouTube · 实战工作流',
-        href: 'https://www.youtube.com/watch?v=3TdD8Qv5Tk8'
-      },
-      {
-        title: 'Computer use in Codex：多任务电脑操作演示',
-        author: 'OpenAI',
-        meta: 'YouTube · 官方能力演示',
-        href: 'https://www.youtube.com/watch?v=D_FCYsshMI4'
-      }
-    ]
+    moreHref: 'https://www.youtube.com/results?search_query=codex+%E6%A1%88%E4%BE%8B'
   }
 ]
 
@@ -160,7 +61,7 @@ async function buildHotGroups(env) {
     buildYouTubeGroup(env)
   ])
 
-  return groups.map((group, index) => group || fallbackGroups[index])
+  return groups.filter(Boolean)
 }
 
 async function buildXGroup(env) {
@@ -169,7 +70,7 @@ async function buildXGroup(env) {
   const usePinnedIds = shouldUseXPostIds(env) && ids.length
 
   if (!token) {
-    return buildXSearchFallbackGroup(env.X_SEARCH_QUERY)
+    return null
   }
 
   try {
@@ -185,10 +86,10 @@ async function buildXGroup(env) {
           moreHref: usePinnedIds ? fallbackGroups[0].moreHref : buildXSearchHref(env.X_SEARCH_QUERY),
           items
         }
-      : buildXSearchFallbackGroup(env.X_SEARCH_QUERY)
+      : null
   } catch (error) {
     console.warn('Unable to fetch X hot posts', error?.message || error)
-    return buildXSearchFallbackGroup(env.X_SEARCH_QUERY)
+    return null
   }
 }
 
@@ -225,6 +126,7 @@ function mapXTweets(data) {
 
   return (data.data || [])
     .slice()
+    .filter((tweet) => getAgeHours(tweet.created_at, now) <= RECENT_DAYS * 24)
     .sort((a, b) => getTweetScore(b, now) - getTweetScore(a, now))
     .slice(0, 3)
     .map((tweet) => {
@@ -260,7 +162,7 @@ function getTweetScore(tweet, now) {
 async function buildGitHubGroup(env) {
   try {
     const url = new URL('https://api.github.com/search/repositories')
-    url.searchParams.set('q', 'codex tutorial OR codex guide')
+    url.searchParams.set('q', `codex pushed:>=${formatSearchDate(getRecentCutoffDate())}`)
     url.searchParams.set('sort', 'stars')
     url.searchParams.set('order', 'desc')
     url.searchParams.set('per_page', '3')
@@ -278,32 +180,37 @@ async function buildGitHubGroup(env) {
       href: repo.html_url
     }))
 
-    return items.length ? { ...fallbackGroups[1], items } : fallbackGroups[1]
+    return items.length ? { ...fallbackGroups[1], keyword: 'codex · 最近 7 天更新', items } : null
   } catch {
-    return fallbackGroups[1]
+    return null
   }
 }
 
 function buildBilibiliGroup() {
-  return fallbackGroups[2]
+  return null
 }
 
 async function buildRedditGroup() {
   try {
-    const url = 'https://www.reddit.com/r/codex/search.json?q=Codex%20build%20OR%20case&restrict_sr=1&sort=top&t=month&limit=3'
+    const url = 'https://www.reddit.com/r/codex/search.json?q=Codex%20build%20OR%20case&restrict_sr=1&sort=top&t=week&limit=6'
     const data = await fetchJson(url, {
       headers: { 'User-Agent': '52codex-hot-posts/1.0' }
     })
-    const items = (data.data?.children || []).map(({ data: post }) => ({
-      title: `Reddit：${post.title}`,
-      author: post.author ? `u/${post.author}` : 'r/codex 社区',
-      meta: `r/codex · ${formatNumber(post.ups)} upvotes · ${formatNumber(post.num_comments)} comments`,
-      href: `https://www.reddit.com${post.permalink}`
-    }))
+    const now = Date.now()
+    const items = (data.data?.children || [])
+      .map(({ data: post }) => post)
+      .filter((post) => isRecentTimestamp(post.created_utc, now))
+      .slice(0, 3)
+      .map((post) => ({
+        title: `Reddit：${post.title}`,
+        author: post.author ? `u/${post.author}` : 'r/codex 社区',
+        meta: `r/codex · ${formatRelativeTime(post.created_utc * 1000, now)} · ${formatNumber(post.ups)} upvotes · ${formatNumber(post.num_comments)} comments`,
+        href: `https://www.reddit.com${post.permalink}`
+      }))
 
-    return items.length ? { ...fallbackGroups[3], items } : fallbackGroups[3]
+    return items.length ? { ...fallbackGroups[3], keyword: 'Codex build / case · 最近 7 天', items } : null
   } catch {
-    return fallbackGroups[3]
+    return null
   }
 }
 
@@ -311,7 +218,7 @@ async function buildYouTubeGroup(env) {
   const apiKey = env.YOUTUBE_API_KEY
 
   if (!apiKey) {
-    return fallbackGroups[4]
+    return null
   }
 
   try {
@@ -319,16 +226,20 @@ async function buildYouTubeGroup(env) {
     const data = ids.length
       ? await fetchYouTubeVideos(apiKey, ids)
       : await searchYouTubeVideos(apiKey, env.YOUTUBE_SEARCH_QUERY)
-    const items = (data.items || []).slice(0, 3).map((video) => ({
-      title: `${video.snippet.channelTitle}：${video.snippet.title}`,
-      author: video.snippet.channelTitle,
-      meta: `YouTube · ${formatNumber(video.statistics.viewCount)} views`,
-      href: `https://www.youtube.com/watch?v=${video.id}`
-    }))
+    const now = Date.now()
+    const items = (data.items || [])
+      .filter((video) => isRecentDateString(video.snippet?.publishedAt, now))
+      .slice(0, 3)
+      .map((video) => ({
+        title: `${video.snippet.channelTitle}：${video.snippet.title}`,
+        author: video.snippet.channelTitle,
+        meta: `YouTube · ${formatRelativeTime(video.snippet.publishedAt, now)} · ${formatNumber(video.statistics.viewCount)} views`,
+        href: `https://www.youtube.com/watch?v=${video.id}`
+      }))
 
-    return items.length ? { ...fallbackGroups[4], items } : fallbackGroups[4]
+    return items.length ? { ...fallbackGroups[4], keyword: 'codex 案例 · 最近 7 天', items } : null
   } catch {
-    return fallbackGroups[4]
+    return null
   }
 }
 
@@ -339,6 +250,7 @@ async function searchYouTubeVideos(apiKey, query) {
   searchUrl.searchParams.set('type', 'video')
   searchUrl.searchParams.set('order', 'viewCount')
   searchUrl.searchParams.set('maxResults', '6')
+  searchUrl.searchParams.set('publishedAfter', getRecentCutoffDate().toISOString())
   searchUrl.searchParams.set('key', apiKey)
 
   const searchData = await fetchJson(searchUrl)
@@ -401,7 +313,7 @@ function buildXSearchHref(query) {
 }
 
 function getXSearchStartTime() {
-  return new Date(Date.now() - X_SEARCH_DAYS * 24 * 60 * 60 * 1000).toISOString()
+  return getRecentCutoffDate().toISOString()
 }
 
 function getXSearchQueryWithDateRange(query) {
@@ -412,38 +324,12 @@ function getXSearchQueryWithDateRange(query) {
   return `${getXSearchQuery(query)} since:${formatSearchDate(since)} until:${formatSearchDate(until)}`
 }
 
-function buildXSearchFallbackGroup(query) {
-  const href = buildXSearchHref(query)
-
-  return {
-    ...fallbackGroups[0],
-    keyword: 'codex · 近 7 天中文',
-    moreHref: href,
-    items: [
-      {
-        title: '打开 X 查看：近 7 天 codex 中文热帖',
-        author: 'X 搜索',
-        meta: '实时搜索 · 中文 · 最近 7 天',
-        href
-      },
-      {
-        title: '按最新排序：codex 中文讨论',
-        author: 'X 搜索',
-        meta: '搜索词 codex · lang:zh',
-        href
-      },
-      {
-        title: '搜索 Codex 实战案例：看看最近大家在做什么',
-        author: 'X 搜索',
-        meta: '搜索入口 · 保留可直接打开结果',
-        href
-      }
-    ]
-  }
-}
-
 function formatSearchDate(date) {
   return date.toISOString().slice(0, 10)
+}
+
+function getRecentCutoffDate() {
+  return new Date(Date.now() - RECENT_DAYS * 24 * 60 * 60 * 1000)
 }
 
 function getTweetPrimaryMetric(tweet) {
@@ -491,13 +377,21 @@ function formatRelativeTime(createdAt, now) {
 }
 
 function getAgeHours(createdAt, now) {
-  const timestamp = Date.parse(createdAt)
+  const timestamp = typeof createdAt === 'number' ? createdAt : Date.parse(createdAt)
 
   if (!Number.isFinite(timestamp)) {
     return Number.POSITIVE_INFINITY
   }
 
   return Math.max(0, (now - timestamp) / (60 * 60 * 1000))
+}
+
+function isRecentDateString(value, now) {
+  return getAgeHours(value, now) <= RECENT_DAYS * 24
+}
+
+function isRecentTimestamp(value, now) {
+  return Number.isFinite(value) && (now - value * 1000) <= RECENT_DAYS * 24 * 60 * 60 * 1000
 }
 
 function cleanTweetText(text) {

@@ -440,6 +440,16 @@ select {
   gap: 20px;
 }
 
+.hot-empty {
+  padding: 22px;
+  color: var(--ink-mute);
+  font-size: 14px;
+  text-align: center;
+  background: var(--canvas);
+  border: 1px solid var(--hairline-cool);
+  border-radius: var(--radius-lg);
+}
+
 .hot-platform {
   display: flex;
   flex-direction: column;

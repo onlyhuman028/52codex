@@ -17,11 +17,11 @@
         <div class="section-header">
           <div>
             <h2 class="section-title">网络热帖</h2>
-            <p class="section-desc">按平台搜索 Codex 案例，保留可直接打开的结果</p>
+            <p class="section-desc">抓取最近 7 天内的 Codex 讨论，每张卡片都直接指向具体原文</p>
           </div>
           <span class="section-hint">点击直接跳转原文</span>
         </div>
-        <div class="hot-list">
+        <div v-if="hotGroups.length" class="hot-list">
           <div v-for="group in hotGroups" :key="group.source" class="hot-platform">
             <div class="hot-platform-header">
               <div class="hot-platform-meta">
@@ -44,6 +44,7 @@
             </div>
           </div>
         </div>
+        <div v-else class="hot-empty">最近 7 天暂时没有抓到可确认的 Codex 热帖。</div>
       </div>
     </section>
 
@@ -340,140 +341,7 @@ import { guidePages } from './navPages'
 
 const featuredGuidePages = guidePages.slice(0, 4)
 
-const fallbackHotGroups = [
-  {
-    source: 'X',
-    tagClass: 's-x',
-    keyword: 'codex 中文热帖',
-    moreHref: 'https://x.com/search?q=codex%20lang%3Azh&src=typed_query&f=live',
-    items: [
-      {
-        title: '打开 X 查看：codex 中文热帖',
-        author: 'X 搜索',
-        meta: '实时搜索 · 中文内容',
-        href: 'https://x.com/search?q=codex%20lang%3Azh&src=typed_query&f=live'
-      },
-      {
-        title: '按最新排序：codex 中文讨论',
-        author: 'X 搜索',
-        meta: '搜索词 codex · lang:zh',
-        href: 'https://x.com/search?q=codex%20lang%3Azh&src=typed_query&f=live'
-      },
-      {
-        title: '搜索 Codex 实战案例：看看最近大家在做什么',
-        author: 'X 搜索',
-        meta: '搜索入口 · 保留可直接打开结果',
-        href: 'https://x.com/search?q=codex%20lang%3Azh&src=typed_query&f=live'
-      }
-    ]
-  },
-  {
-    source: 'GitHub',
-    tagClass: 's-github',
-    keyword: 'codex 案例',
-    moreHref: 'https://github.com/search?q=codex+%E6%A1%88%E4%BE%8B&type=repositories&s=updated&o=desc',
-    items: [
-      {
-        title: 'xianyu110/gpt-codex：写给 Codex 小白用户的完整教程',
-        author: 'xianyu110',
-        meta: '中文教程 · OpenAI Codex',
-        href: 'https://github.com/xianyu110/gpt-codex'
-      },
-      {
-        title: 'Ivesfsy/Codex：云原生 Codex CLI 快速入门指南',
-        author: 'Ivesfsy',
-        meta: '安装配置 · Codex CLI 教程',
-        href: 'https://github.com/Ivesfsy/Codex'
-      },
-      {
-        title: 'OpenAI Cookbook：用 Codex SDK 构建代码审查工作流',
-        author: 'openai',
-        meta: '官方案例 · Codex SDK',
-        href: 'https://github.com/openai/openai-cookbook/blob/main/examples/codex/build_code_review_with_codex_sdk.md'
-      }
-    ]
-  },
-  {
-    source: 'B站',
-    tagClass: 's-bilibili',
-    keyword: 'codex',
-    moreHref: 'https://search.bilibili.com/all?keyword=codex&from_source=web_search&spm_id_from=333.788&search_source=5&order=stow',
-    items: [
-      {
-        title: 'Codex (APP) 保姆级全攻略，海量实战教程，一期精通 Codex',
-        author: '技术爬爬虾',
-        meta: '2026-04-28 · 75.6 万播放',
-        href: 'https://www.bilibili.com/video/BV1Kk9kBAEJv/'
-      },
-      {
-        title: '全网最全！40 分钟全面掌握 Codex【附完整文档】',
-        author: '秋芝2046',
-        meta: '2026-05-16 · 46.6 万播放',
-        href: 'https://www.bilibili.com/video/BV1Nd596vEyU/'
-      },
-      {
-        title: 'Codex APP 保姆级使用教程，实战项目全流程讲解',
-        author: 'AI随风随风',
-        meta: '2026-03-03 · 20.2 万播放',
-        href: 'https://www.bilibili.com/video/BV1oJAoz2Emf/'
-      }
-    ]
-  },
-  {
-    source: 'Reddit',
-    tagClass: 's-reddit',
-    keyword: 'OpenAI Codex case / build',
-    moreHref: 'https://www.reddit.com/r/codex/search/?q=build%20OR%20case&restrict_sr=1&sort=new',
-    items: [
-      {
-        title: '你目前用 Codex 做出了哪些东西？',
-        author: 'r/codex 社区',
-        meta: 'r/codex · 2 周前 · 原题已翻译',
-        href: 'https://www.reddit.com/r/codex/comments/1tcgyu7/what_have_you_built_so_far_using_codex/'
-      },
-      {
-        title: '你用 Codex 做过最大、最复杂的项目是什么？',
-        author: 'r/codex 社区',
-        meta: 'r/codex · 上月 · 原题已翻译',
-        href: 'https://www.reddit.com/r/codex/comments/1sx8dg4/what_is_the_biggest_thing_you_build_with_codex/'
-      },
-      {
-        title: '社区热议：ChatGPT 登录的 Codex 可能移除 GPT-5.2 和 GPT-5.3-Codex',
-        author: 'r/codex 社区',
-        meta: 'r/codex · 社区热议 · 原题已翻译',
-        href: 'https://www.reddit.com/r/codex/comments/1tp8ujz/openai_is_removing_gpt52_and_gpt53codex_from/'
-      }
-    ]
-  },
-  {
-    source: 'YouTube',
-    tagClass: 's-youtube',
-    keyword: 'codex 案例',
-    moreHref: 'https://www.youtube.com/results?search_query=codex+%E6%A1%88%E4%BE%8B',
-    items: [
-      {
-        title: 'Codex Tutorial for Beginners：完整入门课程',
-        author: 'YouTube 创作者',
-        meta: 'YouTube · 完整教程',
-        href: 'https://www.youtube.com/watch?v=KXIdYEdOPys'
-      },
-      {
-        title: 'Master Codex in One Hour：用 Codex 做评论分析、Skill 和自动化',
-        author: 'YouTube 创作者',
-        meta: 'YouTube · 实战工作流',
-        href: 'https://www.youtube.com/watch?v=3TdD8Qv5Tk8'
-      },
-      {
-        title: 'Computer use in Codex：多任务电脑操作演示',
-        author: 'OpenAI',
-        meta: 'YouTube · 官方能力演示',
-        href: 'https://www.youtube.com/watch?v=D_FCYsshMI4'
-      }
-    ]
-  }
-]
-
-const hotGroups = ref(fallbackHotGroups)
+const hotGroups = ref([])
 
 onMounted(async () => {
   try {
@@ -489,7 +357,7 @@ onMounted(async () => {
       hotGroups.value = data.groups
     }
   } catch {
-    hotGroups.value = fallbackHotGroups
+    hotGroups.value = []
   }
 })
 
