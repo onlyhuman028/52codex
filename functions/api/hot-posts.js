@@ -1,33 +1,33 @@
 const CACHE_SECONDS = 900
 const X_SEARCH_RESULT_COUNT = 50
 const X_SEARCH_DAYS = 7
-const DEFAULT_X_SEARCH_QUERY = 'codex lang:zh -is:retweet -is:reply'
+const DEFAULT_X_SEARCH_QUERY = 'Codex lang:zh -is:retweet -is:reply'
 const RECENT_DAYS = 7
 
 const fallbackGroups = [
   {
     source: 'X',
     tagClass: 's-x',
-    keyword: 'codex 案例',
-    moreHref: 'https://x.com/search?q=codex%20%E6%A1%88%E4%BE%8B&src=typed_query&f=live',
+    keyword: 'codex · 最近 7 天',
+    moreHref: 'https://x.com/search?q=Codex%20lang%3Azh%20since%3A2026-06-08%20until%3A2026-06-16&src=typed_query&f=live',
     items: [
       {
-        title: 'Arlan：把整个 Web 变成文件系统，让 Codex 直接读取文档',
-        author: 'Arlan',
-        meta: 'X 原帖 · 人工精选',
-        href: 'https://x.com/arlanr/status/2041215978957389908'
+        title: 'Ara Kharazian：Ramp AI Index 提到 Codex 发布后的业务采用变化',
+        author: 'Ara Kharazian',
+        meta: 'X 原帖 · 5 天前 · 最近 7 天相对热帖',
+        href: 'https://x.com/arakharazian/status/2064736003416604940'
       },
       {
-        title: 'GitHub：GPT-5.2-Codex 已在 GitHub Copilot 中推出',
-        author: 'GitHub',
-        meta: 'X 原帖 · 人工精选',
-        href: 'https://x.com/github/status/2011501527991546066'
+        title: 'Dan Shipper：转发 Codex Browser 反馈循环工作流',
+        author: 'Dan Shipper',
+        meta: 'X 原帖 · 最近 7 天 · 工作流讨论',
+        href: 'https://x.com/danshipper/status/2062936121818931434'
       },
       {
-        title: 'Vaibhav：介绍 Claude Code 工作流里的 Codex Plugin',
-        author: 'Vaibhav',
-        meta: 'X 原帖 · 人工精选',
-        href: 'https://x.com/reach_vb/status/2039251986357338257'
+        title: 'Neo：Daily AI Recap 提到 Codex Rate Limit Banking 和推荐活动',
+        author: 'Neo',
+        meta: 'X 原帖 · 3 天前 · AI 日报',
+        href: 'https://x.com/NeoAIForecast/article/2065373264411865095'
       }
     ]
   },
@@ -226,7 +226,13 @@ function mapXTweets(data) {
 
   return (data.data || [])
     .slice()
-    .filter((tweet) => getAgeHours(tweet.created_at, now) <= RECENT_DAYS * 24)
+    .filter((tweet) => {
+      const titleText = cleanTweetText(tweet.text)
+
+      return getAgeHours(tweet.created_at, now) <= RECENT_DAYS * 24
+        && hasCodexInTitle(titleText)
+        && hasChineseText(titleText)
+    })
     .sort((a, b) => getTweetScore(b, now) - getTweetScore(a, now))
     .slice(0, 3)
     .map((tweet) => {
@@ -551,6 +557,14 @@ function cleanTweetText(text) {
     .replace(/\s+/g, ' ')
     .trim()
     .slice(0, 70)
+}
+
+function hasCodexInTitle(text) {
+  return /\bCodex\b/i.test(text)
+}
+
+function hasChineseText(text) {
+  return /[\u3400-\u9fff]/.test(text)
 }
 
 function formatGitHubTitle(fullName) {

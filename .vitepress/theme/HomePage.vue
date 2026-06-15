@@ -30,7 +30,7 @@
               </div>
               <a :href="group.moreHref" target="_blank" class="hot-more" rel="noreferrer">更多案例</a>
             </div>
-            <div class="hot-row">
+            <div v-if="group.items.length" class="hot-row">
               <a v-for="item in group.items" :key="item.href" :href="item.href" target="_blank" class="hot-item" rel="noreferrer">
                 <div class="hot-item-main">
                   <div class="hot-title">{{ item.title }}</div>
@@ -42,6 +42,7 @@
                 </div>
               </a>
             </div>
+            <div v-else class="hot-platform-empty">{{ group.emptyText || '最近 7 天暂时没有抓到可确认的热帖。' }}</div>
           </div>
         </div>
         <div v-else class="hot-empty">最近 7 天暂时没有抓到可确认的 Codex 热帖。</div>
@@ -345,26 +346,26 @@ const fallbackHotGroups = [
   {
     source: 'X',
     tagClass: 's-x',
-    keyword: 'codex 案例',
-    moreHref: 'https://x.com/search?q=codex%20%E6%A1%88%E4%BE%8B&src=typed_query&f=live',
+    keyword: 'codex · 最近 7 天',
+    moreHref: 'https://x.com/search?q=Codex%20lang%3Azh%20since%3A2026-06-08%20until%3A2026-06-16&src=typed_query&f=live',
     items: [
       {
-        title: 'Arlan：把整个 Web 变成文件系统，让 Codex 直接读取文档',
-        author: 'Arlan',
-        meta: 'X 原帖 · 人工精选',
-        href: 'https://x.com/arlanr/status/2041215978957389908'
+        title: 'Ara Kharazian：Ramp AI Index 提到 Codex 发布后的业务采用变化',
+        author: 'Ara Kharazian',
+        meta: 'X 原帖 · 5 天前 · 最近 7 天相对热帖',
+        href: 'https://x.com/arakharazian/status/2064736003416604940'
       },
       {
-        title: 'GitHub：GPT-5.2-Codex 已在 GitHub Copilot 中推出',
-        author: 'GitHub',
-        meta: 'X 原帖 · 人工精选',
-        href: 'https://x.com/github/status/2011501527991546066'
+        title: 'Dan Shipper：转发 Codex Browser 反馈循环工作流',
+        author: 'Dan Shipper',
+        meta: 'X 原帖 · 最近 7 天 · 工作流讨论',
+        href: 'https://x.com/danshipper/status/2062936121818931434'
       },
       {
-        title: 'Vaibhav：介绍 Claude Code 工作流里的 Codex Plugin',
-        author: 'Vaibhav',
-        meta: 'X 原帖 · 人工精选',
-        href: 'https://x.com/reach_vb/status/2039251986357338257'
+        title: 'Neo：Daily AI Recap 提到 Codex Rate Limit Banking 和推荐活动',
+        author: 'Neo',
+        meta: 'X 原帖 · 3 天前 · AI 日报',
+        href: 'https://x.com/NeoAIForecast/article/2065373264411865095'
       }
     ]
   },
@@ -474,7 +475,7 @@ const fallbackHotGroups = [
   }
 ]
 
-const hotGroups = ref(fallbackHotGroups)
+const hotGroups = ref(mergeHotGroups([]))
 
 onMounted(async () => {
   try {
@@ -490,7 +491,7 @@ onMounted(async () => {
       hotGroups.value = mergeHotGroups(data.groups)
     }
   } catch {
-    hotGroups.value = fallbackHotGroups
+    hotGroups.value = mergeHotGroups([])
   }
 })
 
@@ -502,7 +503,7 @@ function isValidHotGroups(groups) {
       && typeof group.keyword === 'string'
       && typeof group.moreHref === 'string'
       && Array.isArray(group.items)
-      && group.items.length > 0
+      && (group.emptyText === undefined || typeof group.emptyText === 'string')
       && group.items.every((item) => {
         return item
           && typeof item.title === 'string'
