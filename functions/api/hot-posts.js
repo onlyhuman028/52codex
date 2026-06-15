@@ -9,31 +9,131 @@ const fallbackGroups = [
     source: 'X',
     tagClass: 's-x',
     keyword: 'codex 案例',
-    moreHref: 'https://x.com/search?q=codex%20%E6%A1%88%E4%BE%8B&src=typed_query&f=live'
+    moreHref: 'https://x.com/search?q=codex%20%E6%A1%88%E4%BE%8B&src=typed_query&f=live',
+    items: [
+      {
+        title: 'Arlan：把整个 Web 变成文件系统，让 Codex 直接读取文档',
+        author: 'Arlan',
+        meta: 'X 原帖 · 人工精选',
+        href: 'https://x.com/arlanr/status/2041215978957389908'
+      },
+      {
+        title: 'GitHub：GPT-5.2-Codex 已在 GitHub Copilot 中推出',
+        author: 'GitHub',
+        meta: 'X 原帖 · 人工精选',
+        href: 'https://x.com/github/status/2011501527991546066'
+      },
+      {
+        title: 'Vaibhav：介绍 Claude Code 工作流里的 Codex Plugin',
+        author: 'Vaibhav',
+        meta: 'X 原帖 · 人工精选',
+        href: 'https://x.com/reach_vb/status/2039251986357338257'
+      }
+    ]
   },
   {
     source: 'GitHub',
     tagClass: 's-github',
     keyword: 'codex 案例',
-    moreHref: 'https://github.com/search?q=codex+%E6%A1%88%E4%BE%8B&type=repositories&s=updated&o=desc'
+    moreHref: 'https://github.com/search?q=openai+codex&type=repositories&s=updated&o=desc',
+    items: [
+      {
+        title: 'xianyu110/gpt-codex：写给 Codex 小白用户的完整教程',
+        author: 'xianyu110',
+        meta: 'GitHub · 中文教程',
+        href: 'https://github.com/xianyu110/gpt-codex'
+      },
+      {
+        title: 'Ivesfsy/Codex：云原生 Codex CLI 快速入门指南',
+        author: 'Ivesfsy',
+        meta: 'GitHub · Codex CLI 教程',
+        href: 'https://github.com/Ivesfsy/Codex'
+      },
+      {
+        title: 'OpenAI Cookbook：用 Codex SDK 构建代码审查工作流',
+        author: 'openai',
+        meta: 'GitHub · 官方案例',
+        href: 'https://github.com/openai/openai-cookbook/blob/main/examples/codex/build_code_review_with_codex_sdk.md'
+      }
+    ]
   },
   {
     source: 'B站',
     tagClass: 's-bilibili',
     keyword: 'codex',
-    moreHref: 'https://search.bilibili.com/all?keyword=codex&from_source=web_search&spm_id_from=333.788&search_source=5&order=stow'
+    moreHref: 'https://search.bilibili.com/all?keyword=codex&from_source=web_search&spm_id_from=333.788&search_source=5&order=stow',
+    items: [
+      {
+        title: 'Codex (APP) 保姆级全攻略，海量实战教程，一期精通 Codex',
+        author: '技术爬爬虾',
+        meta: 'B站视频 · 人工精选',
+        href: 'https://www.bilibili.com/video/BV1Kk9kBAEJv/'
+      },
+      {
+        title: '全网最全！40 分钟全面掌握 Codex【附完整文档】',
+        author: '秋芝2046',
+        meta: 'B站视频 · 人工精选',
+        href: 'https://www.bilibili.com/video/BV1Nd596vEyU/'
+      },
+      {
+        title: 'Codex APP 保姆级使用教程，实战项目全流程讲解',
+        author: 'AI随风随风',
+        meta: 'B站视频 · 人工精选',
+        href: 'https://www.bilibili.com/video/BV1oJAoz2Emf/'
+      }
+    ]
   },
   {
     source: 'Reddit',
     tagClass: 's-reddit',
     keyword: 'OpenAI Codex case / build',
-    moreHref: 'https://www.reddit.com/r/codex/search/?q=build%20OR%20case&restrict_sr=1&sort=new'
+    moreHref: 'https://www.reddit.com/r/codex/search/?q=build%20OR%20case&restrict_sr=1&sort=new',
+    items: [
+      {
+        title: 'Reddit：What have you built so far using Codex?',
+        author: 'r/codex 社区',
+        meta: 'Reddit · 人工精选',
+        href: 'https://www.reddit.com/r/codex/comments/1tcgyu7/what_have_you_built_so_far_using_codex/'
+      },
+      {
+        title: 'Reddit：What is the biggest thing you build with Codex?',
+        author: 'r/codex 社区',
+        meta: 'Reddit · 人工精选',
+        href: 'https://www.reddit.com/r/codex/comments/1sx8dg4/what_is_the_biggest_thing_you_build_with_codex/'
+      },
+      {
+        title: 'Reddit：OpenAI is removing GPT-5.2 and GPT-5.3-Codex from ChatGPT login',
+        author: 'r/codex 社区',
+        meta: 'Reddit · 人工精选',
+        href: 'https://www.reddit.com/r/codex/comments/1tp8ujz/openai_is_removing_gpt52_and_gpt53codex_from/'
+      }
+    ]
   },
   {
     source: 'YouTube',
     tagClass: 's-youtube',
     keyword: 'codex 案例',
-    moreHref: 'https://www.youtube.com/results?search_query=codex+%E6%A1%88%E4%BE%8B'
+    moreHref: 'https://www.youtube.com/results?search_query=codex+%E6%A1%88%E4%BE%8B',
+    items: [
+      {
+        title: 'Codex Tutorial for Beginners：完整入门课程',
+        author: 'YouTube 创作者',
+        meta: 'YouTube · 人工精选',
+        href: 'https://www.youtube.com/watch?v=KXIdYEdOPys'
+      },
+      {
+        title: 'Master Codex in One Hour：用 Codex 做评论分析、Skill 和自动化',
+        author: 'YouTube 创作者',
+        meta: 'YouTube · 人工精选',
+        href: 'https://www.youtube.com/watch?v=3TdD8Qv5Tk8'
+      },
+      {
+        title: 'OpenAI：Computer use in Codex 多任务电脑操作演示',
+        author: 'OpenAI',
+        meta: 'YouTube · 官方演示',
+        href: 'https://www.youtube.com/watch?v=D_FCYsshMI4'
+      }
+    ]
   }
 ]
 
@@ -61,7 +161,7 @@ async function buildHotGroups(env) {
     buildYouTubeGroup(env)
   ])
 
-  return groups.filter(Boolean)
+  return mergeGroupsWithFallback(groups.filter(Boolean))
 }
 
 async function buildXGroup(env) {
@@ -162,8 +262,8 @@ function getTweetScore(tweet, now) {
 async function buildGitHubGroup(env) {
   try {
     const url = new URL('https://api.github.com/search/repositories')
-    url.searchParams.set('q', `codex pushed:>=${formatSearchDate(getRecentCutoffDate())}`)
-    url.searchParams.set('sort', 'stars')
+    url.searchParams.set('q', `openai codex in:name,description,readme pushed:>=${formatSearchDate(getRecentCutoffDate())}`)
+    url.searchParams.set('sort', 'updated')
     url.searchParams.set('order', 'desc')
     url.searchParams.set('per_page', '3')
     const data = await fetchJson(url, {
@@ -186,8 +286,34 @@ async function buildGitHubGroup(env) {
   }
 }
 
-function buildBilibiliGroup() {
-  return null
+async function buildBilibiliGroup() {
+  try {
+    const url = new URL('https://api.bilibili.com/x/web-interface/search/type')
+    url.searchParams.set('search_type', 'video')
+    url.searchParams.set('keyword', 'codex')
+    url.searchParams.set('order', 'pubdate')
+    url.searchParams.set('page', '1')
+    const data = await fetchJson(url, {
+      headers: {
+        Referer: 'https://search.bilibili.com/',
+        'User-Agent': '52codex-hot-posts/1.0'
+      }
+    })
+    const now = Date.now()
+    const items = (data.data?.result || [])
+      .filter((video) => isRecentTimestamp(video.pubdate, now))
+      .slice(0, 3)
+      .map((video) => ({
+        title: stripHtml(video.title),
+        author: video.author || 'B站创作者',
+        meta: `B站视频 · ${formatRelativeTime(video.pubdate * 1000, now)} · ${formatNumber(video.play)} 播放`,
+        href: getBilibiliHref(video)
+      }))
+
+    return items.length ? { ...fallbackGroups[2], keyword: 'codex · 最近 7 天', items } : null
+  } catch {
+    return null
+  }
 }
 
 async function buildRedditGroup() {
@@ -392,6 +518,31 @@ function isRecentDateString(value, now) {
 
 function isRecentTimestamp(value, now) {
   return Number.isFinite(value) && (now - value * 1000) <= RECENT_DAYS * 24 * 60 * 60 * 1000
+}
+
+function mergeGroupsWithFallback(groups) {
+  const bySource = new Map(groups.map((group) => [group.source, group]))
+
+  return fallbackGroups.map((fallbackGroup) => bySource.get(fallbackGroup.source) || fallbackGroup)
+}
+
+function getBilibiliHref(video) {
+  if (video.arcurl) {
+    return video.arcurl
+  }
+
+  if (video.bvid) {
+    return `https://www.bilibili.com/video/${video.bvid}/`
+  }
+
+  return fallbackGroups[2].moreHref
+}
+
+function stripHtml(value) {
+  return String(value || '')
+    .replace(/<[^>]+>/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
 }
 
 function cleanTweetText(text) {
