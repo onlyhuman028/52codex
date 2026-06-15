@@ -350,22 +350,22 @@ const fallbackHotGroups = [
     moreHref: 'https://x.com/search?q=Codex%20lang%3Azh%20since%3A2026-06-08%20until%3A2026-06-16&src=typed_query&f=live',
     items: [
       {
-        title: 'Ara Kharazian：Ramp AI Index 提到 Codex 发布后的业务采用变化',
-        author: 'Ara Kharazian',
-        meta: 'X 原帖 · 5 天前 · 最近 7 天相对热帖',
-        href: 'https://x.com/arakharazian/status/2064736003416604940'
+        title: 'Codex额度免费重置通告',
+        author: 'OpenAI',
+        meta: 'X 原帖 · 本周热帖',
+        href: 'https://x.com/OpenAI/status/2065225362544726371'
       },
       {
-        title: 'Dan Shipper：转发 Codex Browser 反馈循环工作流',
-        author: 'Dan Shipper',
-        meta: 'X 原帖 · 最近 7 天 · 工作流讨论',
-        href: 'https://x.com/danshipper/status/2062936121818931434'
+        title: 'GPT5.5+Codex 打造惊艳的动画网站',
+        author: 'viktoroddy',
+        meta: 'X 原帖 · 本周热帖',
+        href: 'https://x.com/viktoroddy/status/2062918204452663767'
       },
       {
-        title: 'Neo：Daily AI Recap 提到 Codex Rate Limit Banking 和推荐活动',
-        author: 'Neo',
-        meta: 'X 原帖 · 3 天前 · AI 日报',
-        href: 'https://x.com/NeoAIForecast/article/2065373264411865095'
+        title: '如何像专家一样使用Codex',
+        author: 'GeekCatX',
+        meta: 'X 原帖 · 本周热帖',
+        href: 'https://x.com/GeekCatX/status/2061373240258470154'
       }
     ]
   },
