@@ -360,9 +360,9 @@ const fallbackHotGroups = [
         href: 'https://x.com/search?q=codex%20lang%3Azh&src=typed_query&f=live'
       },
       {
-        title: '接口失败时显示搜索入口，不编造热帖数据',
-        author: '52codex',
-        meta: 'fallback · 等待接口返回真实热帖',
+        title: '搜索 Codex 实战案例：看看最近大家在做什么',
+        author: 'X 搜索',
+        meta: '搜索入口 · 保留可直接打开结果',
         href: 'https://x.com/search?q=codex%20lang%3Azh&src=typed_query&f=live'
       }
     ]

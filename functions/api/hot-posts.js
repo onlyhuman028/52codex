@@ -433,9 +433,9 @@ function buildXSearchFallbackGroup(query) {
         href
       },
       {
-        title: '若这里仍显示搜索入口，请检查 X_BEARER_TOKEN',
-        author: '52codex',
-        meta: 'fallback · 未编造热帖数据',
+        title: '搜索 Codex 实战案例：看看最近大家在做什么',
+        author: 'X 搜索',
+        meta: '搜索入口 · 保留可直接打开结果',
         href
       }
     ]
