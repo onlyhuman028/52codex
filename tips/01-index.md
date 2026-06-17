@@ -27,6 +27,7 @@ Codex 使用经验库。解决你最常遇到的问题，来自真实使用中�
 - [Giffgaff 境外卡激活教程](/tips/11-giffgaff-activation) — 实体 SIM、eSIM、充值激活、长期保号
 - [怎么用 ChatGPT 账号给 OpenClaw 配 Codex 模型](/tips/12-openclaw-chatgpt-codex) — OpenClaw、ChatGPT OAuth、Codex 模型和额度提醒
 - [怎么在 Codex 里运行 Claude Code](/tips/13-run-claude-code-in-codex) — 安装 Claude Code、在 Codex 终端启动、排查网络配置
+- [Codex 怎么操控电脑](/tips/14-codex-computer-control) — Computer Use、Chrome 扩展和内置浏览器怎么选
 - [怎么防止 Codex 乱改代码](/tips/04-agents-md) — 用 AGENTS.md 划定行为边界
 
 ## 工程化
