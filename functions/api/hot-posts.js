@@ -12,22 +12,22 @@ const fallbackGroups = [
     moreHref: 'https://x.com/search?q=Codex%20lang%3Azh%20since%3A2026-06-08%20until%3A2026-06-16&src=typed_query&f=live',
     items: [
       {
-        title: 'Codex额度免费重置通告',
-        author: 'OpenAI',
+        title: 'Codex 公认最强的 6个 Skill',
+        author: 'KyrieCheungYep',
         meta: 'X 原帖 · 本周热帖',
-        href: 'https://x.com/OpenAI/status/2065225362544726371'
+        href: 'https://x.com/KyrieCheungYep/status/2068306688651018272'
       },
       {
-        title: 'GPT5.5+Codex 打造惊艳的动画网站',
-        author: 'viktoroddy',
+        title: '让Codex APP 自动配置支持第三方API',
+        author: 'wei_wang',
         meta: 'X 原帖 · 本周热帖',
-        href: 'https://x.com/viktoroddy/status/2062918204452663767'
+        href: 'https://x.com/wei_wang/status/2067443263276003667'
       },
       {
-        title: '如何像专家一样使用Codex',
-        author: 'GeekCatX',
+        title: '普通人平时到底都拿 Codex 干什么？',
+        author: 'jianghaikuo666',
         meta: 'X 原帖 · 本周热帖',
-        href: 'https://x.com/GeekCatX/status/2061373240258470154'
+        href: 'https://x.com/jianghaikuo666/status/2066205008010567995'
       }
     ]
   },
