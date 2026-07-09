@@ -7,12 +7,12 @@ description: 汇总 Codex 官方入口、社区项目、学习资料和推荐工
 
 Codex 相关的优质资源汇总，持续更新。
 
-::: tip 最新消息！
-OpenAI 6月11日推出了一个活动：每邀请一个好友加入 Codex，就帮你自动重置一次周额度用量😅，限3个好友。
+::: tip 最新消息：GPT-5.6 发布
+OpenAI 官方预告，GPT-5.6 Sol 将和 Terra、Luna 一起于 2026 年 7 月 9 日公开发布，预览访问也在全球范围扩展。
 
-而且可以重复使用，每当你想重置的时候就可以去邀请好友...
+对 Codex 用户来说，接下来最值得关注的是：Sol、Terra、Luna 是否出现在 Codex 的模型选择里，以及不同模型对应的速度、推理强度和额度消耗。具体可用范围以 Codex App 和 OpenAI 官方说明为准。
 
-![Codex 使用量重置提示](./assets/codex-reset-quota.png)
+来源：[OpenAI 官方 X](https://x.com/OpenAI)。
 :::
 
 
@@ -44,7 +44,8 @@ OpenAI 6月11日推出了一个活动：每邀请一个好友加入 Codex，就�
 | [mdnice](https://mdnice.com) | 公众号 Markdown 排版工具 |
 | [VitePress](https://vitepress.dev) | 静态站点生成器 |
 | [Cloudflare Pages](https://pages.cloudflare.com) | 免费静态站点部署 |
-| [智合智充值](https://www.91gpt.com.cn | GPT plus 充值平台 |
+| [ChatGPT · Codex IP 风险检测](https://ip.net.coffee/gpt/) | 检测当前网络访问 ChatGPT / Codex 的 IP 风险 |
+| [智合智充值](https://www.91gpt.com.cn) | GPT plus 充值平台 |
 
 ::: tip 推荐资源
 如果你发现了好的 Codex 相关资源，欢迎留言告知我们。

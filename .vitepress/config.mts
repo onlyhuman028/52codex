@@ -35,6 +35,16 @@ const siteKeywords = [
   'Codex 自动化',
   'Codex 插件',
   'Codex 心法',
+  'GPT-5.6',
+  'GPT-5.6 Sol',
+  'GPT-5.6 Terra',
+  'GPT-5.6 Luna',
+  'Codex 5.6',
+  'Codex 5.6 Sol',
+  'Codex 5.6 Terra',
+  'Codex 5.6 Luna',
+  'Codex GPT-5.6',
+  'Codex 模型选择',
 ].join(', ')
 
 const noindexPages = new Set([

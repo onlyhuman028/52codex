@@ -146,6 +146,6 @@ Codex 会带着截图和元素上下文去改代码。
 
 ## 推荐阅读
 
-- [Codex 插件与技能怎么用](/plugins/01-index)
+- [Codex 插件与技能怎么用](/plugins/)
 - [怎么让 Codex 越用越顺手](/tips/02-make-codex-better)
 - [Codex 的 /goal 怎么用](/tips/05-goals)
