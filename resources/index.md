@@ -18,6 +18,7 @@ OpenAI 官方预告，GPT-5.6 Sol 将和 Terra、Luna 一起于 2026 年 7 月 9
 
 ## 官方资源
 
+- [GPT-5.6 Sol、Terra、Luna 发布消息](https://x.com/OpenAI) — OpenAI 官方预告，GPT-5.6 Sol 将和 Terra、Luna 一起公开发布，预览访问也在全球范围扩展
 - [Codex 官网](https://openai.com/codex) — 下载、介绍、更新日志
 - [Codex 官方X账号](https://x.com/OpenAIDevs) —  Codex 官方更新
 - [OpenAI cli 开源项目](https://github.com/openai/codex) — Codex cli 仓库
