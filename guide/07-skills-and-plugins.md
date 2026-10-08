@@ -4,7 +4,7 @@ description: 解释 Codex 里插件和 Skill 的区别，带新手认识插件�
 tags: [Codex, 插件, Skill]
 order: 7
 level: 1
-date: 2026-06-02
+date: 2026-10-08
 ---
 
 # Codex 插件与技能：插件区怎么用
@@ -147,8 +147,4 @@ Skill 的好处是：你不用每次都把同一套要求重新说一遍。Codex
 - [调用 Skill 写 PPT](/cases/04-skill-ppt)
 - [调用自动化插件搜索小红书](/cases/08-auto-xiaohongshu)
 
-## 待补充
-
-- 插件区每个入口的详细说明
-- Skill 创建后的测试和调用步骤
-- 常用插件推荐列表
+ 
