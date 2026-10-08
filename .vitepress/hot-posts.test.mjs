@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, test } from 'node:test'
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
-import { isUsefulCodexContent } from './theme/hot-posts-rules.mjs'
+import { isUsefulCodexContent, selectHotPosts } from './theme/hot-posts-rules.mjs'
 
 const original = { fetch, caches: globalThis.caches, setTimeout, Date }
 const now = Date.parse('2026-10-07T08:00:00Z')
@@ -245,9 +245,33 @@ test('content signals belong to the Codex topic rather than another item in a ro
     ['Codex 登录失败，有没有完整教程？', '', false],
     ['求助：Codex 安装步骤在哪里可以找到？', '', false],
     ['Codex 登录报错，有没有解决方法？亲测重装没用。', '', false],
+    ['Codex 安装教程没用，登录还是失败。', '', false],
+    ['Codex 的配置太垃圾了，完全不好用。', '', false],
+    ['Codex 又新增了，好用！', '', false],
+    ['Codex 安装报错，解决方法：删除旧配置后重新安装，恢复正常。', '', true],
     ['其他工具的教程', '原来还有 Codex。', false],
     ['mycodex 中文教程', '', false],
     ['Codex 中文教程，扫码加群购买课程', '', false]
   ]
   for (const [title, body, expected] of cases) assert.equal(isUsefulCodexContent(title, body), expected, title)
+})
+
+test('same-author near duplicates do not crowd out distinct work or another author', () => {
+  const text = 'Codex 实战教程：自动整理客户回访记录，提取客户姓名和联系方式，生成每周统计报表，并把待处理事项导出到表格。'
+  const candidate = (id, authorKey, heat, extra = {}) => ({ text, authorKey, heat,
+    item: { href: `https://x.com/test/status/${id}`, publishedAt: date() }, ...extra })
+  const items = selectHotPosts([
+    candidate('original', 'a', 100), candidate('repeat', 'a', 90, { text: `${text}附图。` }),
+    candidate('other-author', 'b', 80), candidate('different-case', 'a', 70, { text: 'Codex 中文教程：搭建库存管理工具，支持物品入库和出库。' })
+  ], now)
+  assert.deepEqual(items.map((item) => item.href.split('/').pop()), ['original', 'other-author', 'different-case'])
+})
+
+test('deployment bypasses the old cached ranking and uses newly screened results', async () => {
+  globalThis.caches.default.match = async (key) => new URL(key.url).searchParams.get('hot-posts-version') === '2'
+    ? response({ groups: [{ source: 'X', status: 'live', items: [{ title: '投资：美股、Codex', meta: '10万浏览',
+      publishedAt: date(), href: 'https://x.com/old/status/1' }] }] }) : null
+  globalThis.fetch = async (url) => new URL(url).hostname === 'api.x.com' ? xResponse([tweet('fresh')]) : response({})
+  const x = (await groups({ X_BEARER_TOKEN: 'test-token' }))[0]
+  assert.deepEqual(x.items.map((item) => item.href.split('/').pop()), ['fresh'])
 })

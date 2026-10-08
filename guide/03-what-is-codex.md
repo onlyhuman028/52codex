@@ -4,7 +4,7 @@ description: 面向新手介绍 OpenAI Codex 的定位、和 Claude Code 的区�
 tags: [Codex, 新手入门, Computer Use, Automations]
 order: 3
 level: 1
-date: 2026-06-01
+date: 2026-10-08
 ---
 
 # Codex 是什么？新手能用它做什么
@@ -44,11 +44,10 @@ Codex 是 OpenAI 于 2025 年 10 月上线的一款 AI 助手。早期它主要�
 
 Codex 和 Claude Code 都是非常优秀的 AI 编程和智能体工具。
 
-下面这张图是一个简单对比：
+下面这张图是一个简单对比，来自aihot：
 
-![](./assets/03-what-is-codex/codex-claude-compare.png)
+![](./assets/03-what-is-codex/gpt6.1.png)
 
-原文观点认为，随着 GPT-5.5 能力超过 Opus 4.7，目前 Codex 的口碑开始超过 Claude Code。
 
 原因不只是模型能力，也和使用体验有关。原文里提到，OpenAI 对中国用户更友好：额度经常重置，账号使用限制相对少；而 Anthropic 更贵，也更容易遇到封号、KYC 等问题。
 

@@ -3,11 +3,12 @@ const CODEX = /\bcodex\b/i
 const HAN = /[\u3400-\u9fff]/
 const PROMOTION = /扫码|私信.{0,8}(购买|领取|进群|加群)|加[我微]|限时优惠|付费课程|课程.{0,8}(购买|优惠)|代充|代购|账号出售|抽奖|返佣|推广码/
 const QUESTION = /求助|请问|有没有|有谁|有啥|怎么办|咋整|怎么回事|谁能|求推荐|怎么.{0,12}(解决|修复|登录|登陆)/
-const SOLUTION = /解决方法|解决办法|解决方案|解决了|修复了|恢复正常|排查过程|原因是|方法(?:是|如下)|步骤|操作方法|可以通过|只[需要]|完整教程|详细教程|保姆级/
+const COMPLAINT = /没用|无效|失败|报错|故障|异常|无法|垃圾|不好用|再也不用/
+const SOLUTION = /解决方法|解决办法|解决方案|解决了|修复了|恢复正常|排查过程|原因是|方法(?:是|如下)|步骤|操作方法|可以通过|只[需要]|完整教程|详细教程|保姆级|(?:修复|排查|解决|处理)(?:教程|指南|方法|步骤)/
 const GUIDE = /教程|入门|指南|攻略|实战|案例|工作流|技巧|经验|步骤|配置|安装|部署|自动化|提示词|\bprompt\b|\bskills?\b|插件|实践/i
 const ACTION = /做[了出成]|制作|搭建|创建|生成|整理|分析|构建|批量|完成|改造|实现|root|修复|解决|接入|导出|提取|抓取|转换/i
 const UPDATE = /发布|上线|新增|更新|支持|开放|推出|移除|下线|调整/
-const CHANGE = /功能|版本|模型|价格|定价|额度|限制|权限|平台|登录|登陆|账户|账号|支持|新增|移除|下线|\d+\.\d+/
+const CHANGE = /功能|版本|模型|价格|定价|额度|限制|权限|平台|登录|登陆|账户|账号|定时任务|电脑操作|上下文|\b(?:API|SDK|MCP|Windows|macOS|Linux|GPT-\d)\b|\d+\.\d+/i
 
 export function isUsefulCodexContent(title, body = '') {
   const text = `${title || ''}\n${body || ''}`.replace(/https?:\/\/\S+/g, '').trim()
@@ -24,7 +25,7 @@ export function isUsefulCodexContent(title, body = '') {
     const index = clause.search(CODEX)
     return clause.slice(Math.max(0, index - 40), index + 100)
   })
-  if (QUESTION.test(text) && !hasSolution) return false
+  if ((QUESTION.test(text) || COMPLAINT.test(text)) && !hasSolution) return false
   return contexts.some((context) => GUIDE.test(context)
     || /(?:用|让|通过|借助).{0,8}\bcodex\b/i.test(context) && ACTION.test(context)
     || UPDATE.test(context) && CHANGE.test(context))
