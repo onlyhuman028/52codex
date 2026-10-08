@@ -1,30 +1,31 @@
 export const RECENT_DAYS = 7
-export const DEFAULT_X_SEARCH_QUERY = 'Codex lang:zh -is:retweet -is:reply'
 
 const historicalGroups = [
   {
     source: 'X',
     tagClass: 's-x',
-    keyword: 'Codex · 历史精选',
-    moreHref: '',
+    status: 'curated',
+    keyword: 'Codex · X 人工精选',
+    notice: '人工挑选适合新手的 Codex 更新、教程与实战，按精选顺序展示。',
+    moreHref: 'https://x.com/search?q=Codex%20lang%3Azh&src=typed_query&f=top',
     items: [
       {
-        title: 'Codex 公认最强的 6个 Skill',
-        author: 'KyrieCheungYep',
-        meta: 'X 原帖 · 历史精选',
-        href: 'https://x.com/KyrieCheungYep/status/2068306688651018272'
+        title: 'Codex 团队的 28 天计划：每天改进或重置额度',
+        author: 'Tibo（@thsottiaux）',
+        meta: 'X 原帖 · 2026-10-04 · 人工精选',
+        href: 'https://x.com/thsottiaux/status/2106845241357824205'
       },
       {
-        title: '让Codex APP 自动配置支持第三方API',
-        author: 'wei_wang',
-        meta: 'X 原帖 · 历史精选',
-        href: 'https://x.com/wei_wang/status/2067443263276003667'
+        title: '用 Codex + GPT-6.1 Sol 制作 Motion Video：实操教程',
+        author: '李岳（@liyue_ai）',
+        meta: 'X 原帖 · 2026-10-02 · 人工精选',
+        href: 'https://x.com/liyue_ai/status/2105937541732200691'
       },
       {
-        title: '普通人平时到底都拿 Codex 干什么？',
-        author: 'jianghaikuo666',
-        meta: 'X 原帖 · 历史精选',
-        href: 'https://x.com/jianghaikuo666/status/2066205008010567995'
+        title: '万字长文｜Codex 从入门到精通',
+        author: 'Miles Ma（@miles_mazy）',
+        meta: 'X 原帖 · 2026-08-23 · 人工精选',
+        href: 'https://x.com/miles_mazy/status/2091339513134010554'
       }
     ]
   },
@@ -134,23 +135,15 @@ const historicalGroups = [
   }
 ]
 
-export function recentSearchQuery(query = DEFAULT_X_SEARCH_QUERY, now = Date.now()) {
-  const since = new Date(now - RECENT_DAYS * 86400000).toISOString().slice(0, 10)
-  const until = new Date(now + 86400000).toISOString().slice(0, 10)
-  // Old date operators in a custom query must not freeze the search window.
-  const text = String(query).replace(/\b(?:since|until|since_time|until_time):\S+/g, '').trim()
-  return `${text || DEFAULT_X_SEARCH_QUERY} since:${since} until:${until}`
-}
-
 export function getFallbackHotGroups(now = Date.now()) {
-  return historicalGroups.map((group) => ({
+  return historicalGroups.map((group) => group.status === 'curated'
+    ? { ...group, items: group.items.map((item) => ({ ...item })) }
+    : ({
     ...group,
     status: 'fallback',
     keyword: 'Codex · 历史精选',
     notice: '暂无可用实时热帖，以下为历史精选，未计入本周热度。',
-    moreHref: group.source === 'X'
-      ? `https://x.com/search?q=${encodeURIComponent(recentSearchQuery(undefined, now))}&src=typed_query&f=top`
-      : group.moreHref,
+    moreHref: group.moreHref,
     items: group.items.map((item) => ({ ...item, meta: `${item.meta.replace(/ · (人工精选|历史精选)/g, '')} · 历史精选` }))
   }))
 }
@@ -167,6 +160,8 @@ export function safeHref(value) {
 export function mergeHotGroups(groups, now = Date.now()) {
   const bySource = new Map((Array.isArray(groups) ? groups : []).filter(Boolean).map((group) => [group.source, group]))
   return getFallbackHotGroups(now).map((fallback) => {
+    // The editorial selection is authoritative, including with an old API/CDN payload.
+    if (fallback.status === 'curated') return fallback
     const group = bySource.get(fallback.source)
     if (!group || group.status !== 'live' || !Array.isArray(group.items)) return fallback
     const items = group.items.filter((item) => item

@@ -1,5 +1,5 @@
 import {
-  RECENT_DAYS, DEFAULT_X_SEARCH_QUERY, recentSearchQuery,
+  RECENT_DAYS,
   getFallbackHotGroups, mergeHotGroups, isRecent, safeHref, fetchJsonWithTimeout
 } from '../../.vitepress/theme/hot-posts-data.mjs'
 import { selectHotPosts } from '../../.vitepress/theme/hot-posts-rules.mjs'
@@ -12,7 +12,7 @@ export async function onRequestGet({ request, env = {}, waitUntil }) {
   const cache = globalThis.caches?.default
   const cacheUrl = new URL(request.url)
   // Avoid serving the previous payload format or yesterday's search links.
-  cacheUrl.searchParams.set('hot-posts-version', '3')
+  cacheUrl.searchParams.set('hot-posts-version', '4')
   cacheUrl.searchParams.set('day', new Date().toISOString().slice(0, 10))
   const cacheKey = new Request(cacheUrl)
   try {
@@ -23,7 +23,7 @@ export async function onRequestGet({ request, env = {}, waitUntil }) {
     }
   } catch { /* A cache failure should not disable the feed. */ }
 
-  const builders = [buildXGroup, buildGitHubGroup, buildBilibiliGroup, buildRedditGroup, buildYouTubeGroup]
+  const builders = [buildGitHubGroup, buildBilibiliGroup, buildRedditGroup, buildYouTubeGroup]
   const groups = mergeHotGroups(await Promise.all(builders.map((build) => withPlatformDeadline((signal) => build(env, signal)))))
   const response = jsonResponse({ updatedAt: new Date().toISOString(), groups })
   if (cache) {
@@ -58,88 +58,6 @@ function liveGroup(source, items, keyword) {
   if (!items.length) return null
   const base = getFallbackHotGroups().find((group) => group.source === source)
   return { ...base, status: 'live', notice: '', keyword, items }
-}
-
-async function buildXGroup(env, signal) {
-  const provider = String(env.X_PROVIDER || 'official').toLowerCase()
-  let data
-  if (provider === 'socialdata') {
-    if (!env.SOCIALDATA_API_KEY) return null
-    const url = new URL('https://api.socialdata.tools/twitter/search')
-    // SocialData uses website search operators, unlike the official v2 API.
-    const query = String(env.X_SEARCH_QUERY || 'Codex lang:zh -filter:retweets -filter:replies')
-      .replace(/-is:retweet\b/g, '-filter:retweets').replace(/-is:reply\b/g, '-filter:replies')
-    url.searchParams.set('query', recentSearchQuery(query))
-    url.searchParams.set('type', 'Top')
-    const result = await fetchJsonWithTimeout(url, { signal, headers: {
-      Authorization: `Bearer ${env.SOCIALDATA_API_KEY}`, Accept: 'application/json'
-    } })
-    data = {
-      data: (result.tweets || []).map((tweet) => ({
-        id: tweet.id_str, text: tweet.full_text || tweet.text, created_at: tweet.tweet_created_at,
-        author_id: tweet.user?.id_str,
-        referenced_tweets: tweet.retweeted_status ? [{ type: 'retweeted' }] : [],
-        in_reply_to_user_id: tweet.in_reply_to_user_id_str,
-        public_metrics: { like_count: tweet.favorite_count, retweet_count: tweet.retweet_count,
-          reply_count: tweet.reply_count, quote_count: tweet.quote_count, bookmark_count: tweet.bookmark_count,
-          impression_count: tweet.views_count }
-      })),
-      includes: { users: (result.tweets || []).map((tweet) => ({
-        id: tweet.user?.id_str, name: tweet.user?.name, username: tweet.user?.screen_name
-      })) }
-    }
-  } else if (provider === 'official') {
-    const token = env.X_BEARER_TOKEN
-    if (!token) return null
-    const mode = String(env.X_POST_SOURCE || env.X_SOURCE_MODE || '').toLowerCase()
-    const useIds = ['ids', 'fixed', 'manual', 'pinned'].includes(mode) || ['1', 'true', 'yes'].includes(String(env.X_USE_POST_IDS || '').toLowerCase())
-    const url = new URL(useIds ? 'https://api.x.com/2/tweets' : 'https://api.x.com/2/tweets/search/recent')
-    if (useIds) {
-      const ids = splitEnvList(env.X_POST_IDS)
-      if (!ids.length) return null
-      url.searchParams.set('ids', ids.slice(0, 10).join(','))
-    } else {
-      // Remove fixed dates; start_time below owns the rolling seven-day window.
-      url.searchParams.set('query', String(env.X_SEARCH_QUERY || DEFAULT_X_SEARCH_QUERY).replace(/\b(?:since|until|since_time|until_time):\S+/g, '').trim() || DEFAULT_X_SEARCH_QUERY)
-      url.searchParams.set('max_results', '50')
-      url.searchParams.set('sort_order', 'relevancy')
-      url.searchParams.set('start_time', new Date(Date.now() - RECENT_DAYS * 86400000 + 1000).toISOString())
-    }
-    url.searchParams.set('post.fields', 'created_at,public_metrics,note_post')
-    url.searchParams.set('expansions', 'author_id,in_reply_to_user_id,referenced_posts')
-    url.searchParams.set('user.fields', 'name,username')
-    data = await fetchJsonWithTimeout(url, { signal, headers: { Authorization: `Bearer ${token}` } })
-  } else return null
-
-  const now = Date.now()
-  const users = new Map((data.includes?.users || []).map((user) => [user.id, user]))
-  const items = selectHotPosts((data.data || [])
-    .filter((tweet) => tweet.id && isRecent(tweet.created_at, now)
-      && !tweet.in_reply_to_user_id && !(tweet.referenced_posts || tweet.referenced_tweets || []).some((ref) => ['retweeted', 'reposted'].includes(ref.type))
-      && tweetEngagement(tweet) > 0)
-    .map((tweet) => {
-      const user = users.get(tweet.author_id)
-      const author = user?.name || user?.username || 'X 作者'
-      const metrics = tweet.public_metrics || {}
-      const primary = count(metrics.impression_count) > 0 ? `${formatNumber(metrics.impression_count)} 浏览`
-        : count(metrics.like_count) > 0 ? `${formatNumber(metrics.like_count)} 赞`
-        : `${formatNumber(count(metrics.retweet_count ?? metrics.repost_count) + count(metrics.reply_count) + count(metrics.quote_count) + count(metrics.bookmark_count))} 次互动`
-      const text = cleanTweetText(tweet.note_post?.text || tweet.text)
-      return { text, heat: tweetEngagement(tweet), authorKey: tweet.author_id,
-        item: { title: text.slice(0, 90), author,
-        meta: `X 原帖 · ${formatRelativeTime(tweet.created_at, now)} · ${primary}`,
-        publishedAt: tweet.created_at, href: `https://x.com/${user?.username || 'i'}/status/${tweet.id}` } }
-    }), now)
-  return liveGroup('X', items, 'Codex 中文 · 最近 7 天 · 内容筛选与时效热度')
-}
-
-function tweetEngagement(tweet) {
-  const m = tweet.public_metrics || {}
-  const interaction = count(m.like_count) * 10 + count(m.retweet_count ?? m.repost_count) * 20
-    + count(m.quote_count) * 16 + count(m.reply_count) * 4 + count(m.bookmark_count) * 24
-  // Views are exposure, not an endorsement. They can add at most 10% to real
-  // interaction, and cannot qualify a post by themselves.
-  return interaction + Math.min(count(m.impression_count) * 0.001, interaction * 0.1)
 }
 
 async function buildGitHubGroup(env, signal) {
@@ -240,7 +158,7 @@ async function buildYouTubeGroup(env, signal) {
 }
 
 function jsonResponse(body) {
-  const ttl = body.groups.every((group) => group.status === 'fallback') ? DEGRADED_CACHE_SECONDS : CACHE_SECONDS
+  const ttl = body.groups.some((group) => group.status === 'live') ? CACHE_SECONDS : DEGRADED_CACHE_SECONDS
   return new Response(JSON.stringify(body), { headers: {
     'content-type': 'application/json; charset=utf-8',
     'cache-control': `public, max-age=${ttl}, s-maxage=${ttl}`,
@@ -250,7 +168,6 @@ function jsonResponse(body) {
 
 function splitEnvList(value) { return String(value || '').split(',').map((item) => item.trim()).filter(Boolean) }
 function stripHtml(value) { return String(value || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim() }
-function cleanTweetText(value) { return String(value || '').replace(/\s*https:\/\/t\.co\/\S+/g, '').replace(/\s+/g, ' ').trim() }
 function count(value) { const number = Number(value); return Number.isFinite(number) && number > 0 ? number : 0 }
 function formatRelativeTime(value, now) {
   const age = (now - (typeof value === 'number' ? value : Date.parse(value))) / 3600000

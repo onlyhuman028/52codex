@@ -2,6 +2,7 @@ import { afterEach, beforeEach, test } from 'node:test'
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import { isUsefulCodexContent, selectHotPosts } from './theme/hot-posts-rules.mjs'
+import { getFallbackHotGroups, mergeHotGroups } from './theme/hot-posts-data.mjs'
 
 const original = { fetch, caches: globalThis.caches, setTimeout, Date }
 const now = Date.parse('2026-10-07T08:00:00Z')
@@ -33,13 +34,50 @@ async function groups(env = {}) {
   return (await result.json()).groups
 }
 
-const tweet = (id, options = {}) => ({ id, text: `Codex 中文实战 ${id}`, author_id: 'u1',
-  created_at: date(), public_metrics: { like_count: 10 }, ...options })
-const xResponse = (tweets) => response({ data: tweets, includes: { users: [{ id: 'u1', name: '测试作者', username: 'tester' }] } })
+const curatedLinks = [
+  'https://x.com/thsottiaux/status/2106845241357824205',
+  'https://x.com/liyue_ai/status/2105937541732200691',
+  'https://x.com/miles_mazy/status/2091339513134010554'
+]
 
-test('offline fallback is historical, Chinese, and the search window moves with today', async () => {
+test('X shows the three manual selections in editorial order even offline', async () => {
+  const x = (await groups())[0]
+  assert.equal(x.status, 'curated')
+  assert.deepEqual(x.items.map((item) => item.href), curatedLinks)
+  assert.match(x.keyword, /人工精选/)
+  assert.doesNotMatch(x.keyword + x.notice, /最近 7 天|暂无可用实时热帖|本周热度/)
+})
+
+test('old X provider settings cannot trigger an automatic or paid X request', async () => {
+  const requests = []
+  globalThis.fetch = async (address) => { requests.push(new URL(address).hostname); return response({}) }
+  for (const env of [
+    { X_PROVIDER: 'socialdata', SOCIALDATA_API_KEY: 'test-token' },
+    { X_PROVIDER: 'official', X_BEARER_TOKEN: 'test-token', X_POST_SOURCE: 'ids', X_POST_IDS: '123' }
+  ]) {
+    assert.deepEqual((await groups(env))[0].items.map((item) => item.href), curatedLinks)
+  }
+  assert.ok(!requests.includes('api.socialdata.tools'))
+  assert.ok(!requests.includes('api.x.com'))
+})
+
+test('frontend merge and stale API cache cannot replace the curated X cards', async () => {
+  const old = { updatedAt: date(), groups: [{ source: 'X', status: 'live', keyword: '最近 7 天',
+    items: [{ title: '无关 Codex 内容', meta: '10 万浏览', href: 'https://x.com/old/status/1', publishedAt: date() }] }] }
+  assert.deepEqual(mergeHotGroups(old.groups)[0].items.map((item) => item.href), curatedLinks)
+  globalThis.caches.default.match = async () => response(old)
+  assert.deepEqual((await groups())[0].items.map((item) => item.href), curatedLinks)
+})
+
+test('manual selections do not age out when there are no new posts', () => {
+  const x = getFallbackHotGroups(Date.parse('2027-01-01T00:00:00Z'))[0]
+  assert.equal(x.status, 'curated')
+  assert.deepEqual(x.items.map((item) => item.href), curatedLinks)
+})
+
+test('offline non-X fallback is historical and Chinese', async () => {
   const data = await groups()
-  for (const group of data) {
+  for (const group of data.filter((group) => group.source !== 'X')) {
     assert.equal(group.status, 'fallback')
     assert.doesNotMatch(group.keyword, /最近 7 天/)
     for (const item of group.items) {
@@ -47,37 +85,6 @@ test('offline fallback is historical, Chinese, and the search window moves with 
       assert.match(item.title, /[\u3400-\u9fff]/)
     }
   }
-  assert.match(new URL(data[0].moreHref).searchParams.get('q'), /since:2026-09-30 until:2026-10-08/)
-})
-
-test('X searches and ranks only recent Chinese Codex posts with engagement', async () => {
-  globalThis.fetch = async (url) => new URL(url).hostname === 'api.x.com' ? xResponse([
-    tweet('1', { public_metrics: { like_count: 5 } }),
-    tweet('2', { created_at: date(24), public_metrics: { like_count: 500 } }),
-    tweet('3', { created_at: date(200) }),
-    tweet('4', { created_at: date(-1) }),
-    tweet('5', { text: 'Codex English tutorial' }),
-    tweet('6', { text: '无关中文话题' }),
-    tweet('7', { public_metrics: {} }),
-    tweet('8', { created_at: 'invalid' }),
-    tweet('9', { referenced_tweets: [{ type: 'retweeted', id: '1' }] })
-  ]) : response({})
-  const x = (await groups({ X_BEARER_TOKEN: 'test-token' }))[0]
-  assert.equal(x.status, 'live')
-  assert.deepEqual(x.items.map((item) => item.href.split('/').pop()), ['2', '1'])
-  assert.equal(x.items[0].publishedAt, date(24))
-  assert.match(x.items[0].meta, /500 赞/)
-})
-
-test('SocialData can supply Chinese X originals using the documented tweet fields', async () => {
-  globalThis.fetch = async (url) => new URL(url).hostname === 'api.socialdata.tools'
-    ? response({ tweets: [{ id_str: '123', full_text: 'Codex 中文工作流', tweet_created_at: date(),
-      favorite_count: 100, retweet_count: 2, views_count: 2000, user: { id_str: 'u', name: '作者', screen_name: 'author' } }] })
-    : response({})
-  const x = (await groups({ X_PROVIDER: 'socialdata', SOCIALDATA_API_KEY: 'test-token' }))[0]
-  assert.equal(x.status, 'live')
-  assert.equal(x.items[0].href, 'https://x.com/author/status/123')
-  assert.match(x.items[0].meta, /浏览/)
 })
 
 test('Bilibili sorts by heat and rejects stale, future, unrelated and English videos', async () => {
@@ -107,18 +114,6 @@ test('slow response body expires while fast platforms still appear', async () =>
 test('cache failures do not take down the hot posts endpoint', async () => {
   globalThis.caches = { default: { match: async () => { throw new Error('cache down') }, put: async () => { throw new Error('cache down') } } }
   assert.equal((await groups()).length, 5)
-})
-
-test('X accepts current post field names and excludes reposts in current responses', async () => {
-  globalThis.fetch = async (address) => {
-    const url = new URL(address)
-    if (url.hostname !== 'api.x.com') return response({})
-    if (!url.searchParams.get('post.fields')?.includes('created_at')) return new Response('', { status: 400 })
-    return xResponse([tweet('10', { referenced_posts: [{ type: 'retweeted', id: '11' }] }), tweet('11')])
-  }
-  const x = (await groups({ X_BEARER_TOKEN: 'test-token' }))[0]
-  assert.equal(x.status, 'live')
-  assert.deepEqual(x.items.map((item) => item.href.split('/').pop()), ['11'])
 })
 
 test('GitHub uses Chinese descriptions, recent updates and cumulative stars without admitting English projects', async () => {
@@ -154,11 +149,11 @@ test('Reddit ranks recent Chinese posts by score and rejects future or English p
 
 test('a cached post that ages beyond seven days becomes historical fallback', async () => {
   globalThis.caches.default.match = async () => response({ updatedAt: date(2), groups: [{
-    source: 'X', status: 'live', keyword: '最近 7 天', items: [{ title: 'Codex 中文', meta: '5 赞',
-      publishedAt: date(169), href: 'https://x.com/test/status/1' }] }] })
-  const x = (await groups())[0]
-  assert.equal(x.status, 'fallback')
-  assert.doesNotMatch(x.items[0].meta, /本周/)
+    source: 'B站', status: 'live', keyword: '最近 7 天', items: [{ title: 'Codex 中文', meta: '5 播放',
+      publishedAt: date(169), href: 'https://www.bilibili.com/video/old/' }] }] })
+  const bili = (await groups()).find((group) => group.source === 'B站')
+  assert.equal(bili.status, 'fallback')
+  assert.doesNotMatch(bili.items[0].meta, /本周/)
 })
 
 test('slow headers are aborted and still return usable fallback', async () => {
@@ -168,48 +163,6 @@ test('slow headers are aborted and still return usable fallback', async () => {
   await groups()
   assert.ok(signals.length > 0)
   assert.ok(signals.every((signal) => signal.aborted))
-})
-
-test('X rejects incidental mentions and unanswered complaints, but keeps cases and solutions', async () => {
-  globalThis.fetch = async (url) => new URL(url).hostname === 'api.x.com' ? xResponse([
-    tweet('list', { text: '想象一下这辈子都不会接触到：港卡、美股、纳斯达克100、标普500、复利、雅思7.0、Codex。', public_metrics: { like_count: 10000 } }),
-    tweet('help', { text: '这咋整啊？退出了一下Codex再来登录就要验证手机号了，以前从来不要，我没有手机号码，有啥好办法？', public_metrics: { like_count: 9000 } }),
-    tweet('case', { text: '让 Codex 帮我把余下的几台小米路由器也 root 了。ROM 降级、SSH 注入、重启固化，一条龙完成。', public_metrics: { like_count: 100 } }),
-    tweet('solution', { text: 'Codex 登录报错怎么办？解决方法：关闭代理后重新登录，亲测恢复正常。', public_metrics: { like_count: 50 } }),
-    tweet('ad', { text: 'Codex 实战教程限时优惠，扫码加群领取，私信购买课程。', public_metrics: { like_count: 8000 } }),
-    tweet('praise', { text: 'Codex 太厉害了，真的无敌！', public_metrics: { like_count: 7000 } })
-  ]) : response({})
-  const x = (await groups({ X_BEARER_TOKEN: 'test-token' }))[0]
-  assert.deepEqual(x.items.map((item) => item.href.split('/').pop()), ['case', 'solution'])
-})
-
-test('X favors interaction over huge view counts and does not admit views alone', async () => {
-  globalThis.fetch = async (url) => new URL(url).hostname === 'api.x.com' ? xResponse([
-    tweet('views', { public_metrics: { impression_count: 1000000, like_count: 1 } }),
-    tweet('useful', { public_metrics: { impression_count: 100, like_count: 30, bookmark_count: 20 } }),
-    tweet('views-only', { public_metrics: { impression_count: 2000000 } })
-  ]) : response({})
-  const x = (await groups({ X_BEARER_TOKEN: 'test-token' }))[0]
-  assert.deepEqual(x.items.map((item) => item.href.split('/').pop()), ['useful', 'views'])
-})
-
-test('X halves heat each day and removes repeated content from the same author', async () => {
-  globalThis.fetch = async (url) => new URL(url).hostname === 'api.x.com' ? xResponse([
-    tweet('old', { text: 'Codex 中文入门教程：从安装到完成第一个项目', created_at: date(72), public_metrics: { like_count: 100 } }),
-    tweet('new', { text: 'Codex Skill 配置教程：自动整理业务报表', created_at: date(1), public_metrics: { like_count: 20 } }),
-    tweet('repeat', { text: 'Codex Skill 配置教程：自动整理业务报表！https://t.co/copy', created_at: date(2), public_metrics: { like_count: 10 } }),
-    tweet('different', { text: 'Codex 工作流：批量生成客户回访记录', author_id: 'u2', created_at: date(3), public_metrics: { like_count: 5 } })
-  ]) : response({})
-  const x = (await groups({ X_BEARER_TOKEN: 'test-token' }))[0]
-  assert.deepEqual(x.items.map((item) => item.href.split('/').pop()), ['new', 'old', 'different'])
-})
-
-test('all rejected X candidates use marked historical fallback rather than filling the live feed', async () => {
-  globalThis.fetch = async (url) => new URL(url).hostname === 'api.x.com'
-    ? xResponse([tweet('help', { text: 'Codex 登录又失败了，有没有人知道怎么办？' })]) : response({})
-  const x = (await groups({ X_BEARER_TOKEN: 'test-token' }))[0]
-  assert.equal(x.status, 'fallback')
-  assert.match(x.notice, /历史精选/)
 })
 
 test('other platforms apply content screening and use body text to recognize solved questions', async () => {
@@ -270,15 +223,6 @@ test('same-author near duplicates do not crowd out distinct work or another auth
     candidate('other-author', 'b', 80), candidate('different-case', 'a', 70, { text: 'Codex 中文教程：搭建库存管理工具，支持物品入库和出库。' })
   ], now)
   assert.deepEqual(items.map((item) => item.href.split('/').pop()), ['original', 'other-author', 'different-case'])
-})
-
-test('deployment bypasses the old cached ranking and uses newly screened results', async () => {
-  globalThis.caches.default.match = async (key) => new URL(key.url).searchParams.get('hot-posts-version') === '2'
-    ? response({ groups: [{ source: 'X', status: 'live', items: [{ title: '投资：美股、Codex', meta: '10万浏览',
-      publishedAt: date(), href: 'https://x.com/old/status/1' }] }] }) : null
-  globalThis.fetch = async (url) => new URL(url).hostname === 'api.x.com' ? xResponse([tweet('fresh')]) : response({})
-  const x = (await groups({ X_BEARER_TOKEN: 'test-token' }))[0]
-  assert.deepEqual(x.items.map((item) => item.href.split('/').pop()), ['fresh'])
 })
 
 test('a shared channel description does not merge tutorials about different tasks', () => {
