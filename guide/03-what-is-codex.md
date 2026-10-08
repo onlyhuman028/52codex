@@ -35,6 +35,10 @@ Codex 是 OpenAI 于 2025 年 10 月上线的一款 AI 助手。早期它主要�
 - 从解决编程问题，到帮你处理电脑软件问题
 - 从等待你下命令，到逐步具备主动探索和执行任务的能力
 
+**Codex的用户增长**
+![](./assets/03-what-is-codex/codexgrow.jpeg)
+
+
 官方资源：
 
 - Codex 官网：[https://openai.com/zh-Hans-CN/codex/](https://openai.com/zh-Hans-CN/codex/)
