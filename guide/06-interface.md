@@ -4,7 +4,7 @@ description: 新手快速认识 Codex 桌面 App 界面，理解对话区、项�
 tags: [Codex, 新手入门]
 order: 6
 level: 1
-date: 2026-10-08
+date: 2026-10-09
 ---
 
 # Codex 界面全览：对话区、项目区和权限怎么用
