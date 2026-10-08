@@ -17,19 +17,20 @@
         <div class="section-header">
           <div>
             <h2 class="section-title">网络热帖</h2>
-            <p class="section-desc">优先抓取最近 7 天内的 Codex 讨论，缺少实时数据时保留可直接打开的具体原文</p>
+            <p class="section-desc">最近 7 天的 Codex 中文内容，按互动、播放或项目累计收藏排序；历史精选单独标注</p>
           </div>
-          <span class="section-hint">点击直接跳转原文</span>
+          <span class="section-hint">{{ hotUpdatedAt ? `数据获取于 ${hotUpdatedAt}（北京时间）` : '点击直接跳转原文' }}</span>
         </div>
         <div v-if="hotGroups.length" class="hot-list">
           <div v-for="group in hotGroups" :key="group.source" class="hot-platform">
             <div class="hot-platform-header">
               <div class="hot-platform-meta">
                 <span :class="['source-tag', group.tagClass]">{{ group.source }}</span>
-                <span class="hot-keyword">搜索词：{{ group.keyword }}</span>
+                <span class="hot-keyword">{{ group.keyword }}</span>
               </div>
-              <a :href="group.moreHref" target="_blank" class="hot-more" rel="noreferrer">更多案例</a>
+              <a :href="group.moreHref" target="_blank" class="hot-more" rel="noreferrer">查看更多</a>
             </div>
+            <p v-if="group.notice" class="hot-platform-notice">{{ group.notice }}</p>
             <div v-if="group.items.length" class="hot-row">
               <a v-for="item in group.items" :key="item.href" :href="item.href" target="_blank" class="hot-item" rel="noreferrer">
                 <div class="hot-item-main">
@@ -337,186 +338,28 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
+import { getFallbackHotGroups, mergeHotGroups, fetchJsonWithTimeout } from './hot-posts-data.mjs'
 import { guidePages } from './navPages'
 
 const featuredGuidePages = guidePages.slice(0, 4)
 
-const fallbackHotGroups = [
-  {
-    source: 'X',
-    tagClass: 's-x',
-    keyword: 'codex · 最近 7 天',
-    moreHref: 'https://x.com/search?q=Codex%20lang%3Azh%20since%3A2026-06-08%20until%3A2026-06-16&src=typed_query&f=live',
-    items: [
-      {
-        title: 'Codex 公认最强的 6个 Skill',
-        author: 'KyrieCheungYep',
-        meta: 'X 原帖 · 本周热帖',
-        href: 'https://x.com/KyrieCheungYep/status/2068306688651018272'
-      },
-      {
-        title: '让Codex APP 自动配置支持第三方API',
-        author: 'wei_wang',
-        meta: 'X 原帖 · 本周热帖',
-        href: 'https://x.com/wei_wang/status/2067443263276003667'
-      },
-      {
-        title: '普通人平时到底都拿 Codex 干什么？',
-        author: 'jianghaikuo666',
-        meta: 'X 原帖 · 本周热帖',
-        href: 'https://x.com/jianghaikuo666/status/2066205008010567995'
-      }
-    ]
-  },
-  {
-    source: 'GitHub',
-    tagClass: 's-github',
-    keyword: 'codex 案例',
-    moreHref: 'https://github.com/search?q=openai+codex&type=repositories&s=updated&o=desc',
-    items: [
-      {
-        title: 'xianyu110/gpt-codex：写给 Codex 小白用户的完整教程',
-        author: 'xianyu110',
-        meta: 'GitHub · 中文教程',
-        href: 'https://github.com/xianyu110/gpt-codex'
-      },
-      {
-        title: 'Ivesfsy/Codex：云原生 Codex CLI 快速入门指南',
-        author: 'Ivesfsy',
-        meta: 'GitHub · Codex CLI 教程',
-        href: 'https://github.com/Ivesfsy/Codex'
-      },
-      {
-        title: 'OpenAI Cookbook：用 Codex SDK 构建代码审查工作流',
-        author: 'openai',
-        meta: 'GitHub · 官方案例',
-        href: 'https://github.com/openai/openai-cookbook/blob/main/examples/codex/build_code_review_with_codex_sdk.md'
-      }
-    ]
-  },
-  {
-    source: 'B站',
-    tagClass: 's-bilibili',
-    keyword: 'codex',
-    moreHref: 'https://search.bilibili.com/all?keyword=codex&from_source=web_search&spm_id_from=333.788&search_source=5&order=stow',
-    items: [
-      {
-        title: 'Codex (APP) 保姆级全攻略，海量实战教程，一期精通 Codex',
-        author: '技术爬爬虾',
-        meta: 'B站视频 · 人工精选',
-        href: 'https://www.bilibili.com/video/BV1Kk9kBAEJv/'
-      },
-      {
-        title: '全网最全！40 分钟全面掌握 Codex【附完整文档】',
-        author: '秋芝2046',
-        meta: 'B站视频 · 人工精选',
-        href: 'https://www.bilibili.com/video/BV1Nd596vEyU/'
-      },
-      {
-        title: 'Codex APP 保姆级使用教程，实战项目全流程讲解',
-        author: 'AI随风随风',
-        meta: 'B站视频 · 人工精选',
-        href: 'https://www.bilibili.com/video/BV1oJAoz2Emf/'
-      }
-    ]
-  },
-  {
-    source: 'Reddit',
-    tagClass: 's-reddit',
-    keyword: 'OpenAI Codex case / build',
-    moreHref: 'https://www.reddit.com/r/codex/search/?q=build%20OR%20case&restrict_sr=1&sort=new',
-    items: [
-      {
-        title: 'Reddit：What have you built so far using Codex?',
-        author: 'r/codex 社区',
-        meta: 'Reddit · 人工精选',
-        href: 'https://www.reddit.com/r/codex/comments/1tcgyu7/what_have_you_built_so_far_using_codex/'
-      },
-      {
-        title: 'Reddit：What is the biggest thing you build with Codex?',
-        author: 'r/codex 社区',
-        meta: 'Reddit · 人工精选',
-        href: 'https://www.reddit.com/r/codex/comments/1sx8dg4/what_is_the_biggest_thing_you_build_with_codex/'
-      },
-      {
-        title: 'Reddit：OpenAI is removing GPT-5.2 and GPT-5.3-Codex from ChatGPT login',
-        author: 'r/codex 社区',
-        meta: 'Reddit · 人工精选',
-        href: 'https://www.reddit.com/r/codex/comments/1tp8ujz/openai_is_removing_gpt52_and_gpt53codex_from/'
-      }
-    ]
-  },
-  {
-    source: 'YouTube',
-    tagClass: 's-youtube',
-    keyword: 'codex 案例',
-    moreHref: 'https://www.youtube.com/results?search_query=codex+%E6%A1%88%E4%BE%8B',
-    items: [
-      {
-        title: 'Codex Tutorial for Beginners：完整入门课程',
-        author: 'YouTube 创作者',
-        meta: 'YouTube · 人工精选',
-        href: 'https://www.youtube.com/watch?v=KXIdYEdOPys'
-      },
-      {
-        title: 'Master Codex in One Hour：用 Codex 做评论分析、Skill 和自动化',
-        author: 'YouTube 创作者',
-        meta: 'YouTube · 人工精选',
-        href: 'https://www.youtube.com/watch?v=3TdD8Qv5Tk8'
-      },
-      {
-        title: 'OpenAI：Computer use in Codex 多任务电脑操作演示',
-        author: 'OpenAI',
-        meta: 'YouTube · 官方演示',
-        href: 'https://www.youtube.com/watch?v=D_FCYsshMI4'
-      }
-    ]
-  }
-]
+const hotGroups = ref(getFallbackHotGroups())
+const hotUpdatedAt = ref('')
+const hotRequestController = new AbortController()
 
-const hotGroups = ref(mergeHotGroups([]))
-
+onUnmounted(() => hotRequestController.abort())
 onMounted(async () => {
+  // A static build may have been generated days ago; refresh the date links now.
+  hotGroups.value = getFallbackHotGroups()
   try {
-    const response = await fetch('/api/hot-posts')
-
-    if (!response.ok) {
-      return
-    }
-
-    const data = await response.json()
-
-    if (isValidHotGroups(data.groups)) {
-      hotGroups.value = mergeHotGroups(data.groups)
+    const data = await fetchJsonWithTimeout('/api/hot-posts', { signal: hotRequestController.signal }, 8000)
+    hotGroups.value = mergeHotGroups(data.groups)
+    if (hotGroups.value.some((group) => group.status === 'live') && Number.isFinite(Date.parse(data.updatedAt))) {
+      hotUpdatedAt.value = new Date(data.updatedAt).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false })
     }
   } catch {
-    hotGroups.value = mergeHotGroups([])
+    hotGroups.value = getFallbackHotGroups()
   }
 })
-
-function isValidHotGroups(groups) {
-  return Array.isArray(groups) && groups.every((group) => {
-    return group
-      && typeof group.source === 'string'
-      && typeof group.tagClass === 'string'
-      && typeof group.keyword === 'string'
-      && typeof group.moreHref === 'string'
-      && Array.isArray(group.items)
-      && (group.emptyText === undefined || typeof group.emptyText === 'string')
-      && group.items.every((item) => {
-        return item
-          && typeof item.title === 'string'
-          && typeof item.meta === 'string'
-          && typeof item.href === 'string'
-          && (item.author === undefined || typeof item.author === 'string')
-      })
-  })
-}
-
-function mergeHotGroups(groups) {
-  const bySource = new Map(groups.map((group) => [group.source, group]))
-
-  return fallbackHotGroups.map((group) => bySource.get(group.source) || group)
-}
 </script>

@@ -468,6 +468,14 @@ select {
   min-height: 26px;
 }
 
+.hot-platform-notice,
+.hot-platform-empty {
+  margin: 0;
+  color: var(--ink-mute);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
 .hot-platform-meta {
   display: flex;
   align-items: center;
