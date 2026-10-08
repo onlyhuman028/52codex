@@ -3,7 +3,7 @@
     <section class="hero">
       <div class="hero-inner">
         <span class="hero-badge fade-up">从编程神器到全能助手</span>
-        <h1 class="fade-up fade-up-d1">大家在用 Codex<br>做什么<span class="hero-accent">好玩的</span>？</h1>
+        <h1 class="fade-up fade-up-d1">借助 Codex，<br>构建你<span class="hero-accent">想要的一切</span></h1>
         <p class="fade-up fade-up-d2">技术小白的Codex 实践站。不用写代码，把脑子里的想法变成能用的工具。</p>
         <div class="hero-actions fade-up fade-up-d3">
           <a href="/cases/" class="btn btn-primary">查看案例</a>

@@ -249,6 +249,11 @@ test('content signals belong to the Codex topic rather than another item in a ro
     ['Codex 的配置太垃圾了，完全不好用。', '', false],
     ['Codex 又新增了，好用！', '', false],
     ['Codex 安装报错，解决方法：删除旧配置后重新安装，恢复正常。', '', true],
+    ['Codex 怎么配置？', '', false],
+    ['想求一份 Codex 配置教程。', '', false],
+    ['Codex 登录报错怎么办？', 'Excel 导出失败，解决方法是重新启动 Excel。', false],
+    ['Codex 登录报错怎么办，解决方法：关闭代理后重新登录。', '', true],
+    ['Codex 配置教程：如何设置第三方 API', '', true],
     ['其他工具的教程', '原来还有 Codex。', false],
     ['mycodex 中文教程', '', false],
     ['Codex 中文教程，扫码加群购买课程', '', false]
@@ -274,4 +279,15 @@ test('deployment bypasses the old cached ranking and uses newly screened results
   globalThis.fetch = async (url) => new URL(url).hostname === 'api.x.com' ? xResponse([tweet('fresh')]) : response({})
   const x = (await groups({ X_BEARER_TOKEN: 'test-token' }))[0]
   assert.deepEqual(x.items.map((item) => item.href.split('/').pop()), ['fresh'])
+})
+
+test('a shared channel description does not merge tutorials about different tasks', () => {
+  const body = '这个频道分享实用工具的使用方法、注意事项和操作演示，面向没有编程基础的读者。我们会介绍资料准备、需求整理、操作界面、文件管理、数据导入、结果校验、日常维护和版本发布，帮助大家理解从想法到成品的完整过程。每期视频都会记录环境设置、运行条件、使用限制、常见误区、改进方向与后续学习建议。演示素材仅用于练习，实际应用时请根据自己的场景调整字段和流程。欢迎在评论区交流实践经验，提出你希望看到的应用主题，后续内容会继续围绕业务办公、个人效率和团队协作展开。'
+  const candidate = (id, text, heat) => ({ text, body, authorKey: 'same-channel', heat,
+    item: { href: `https://www.youtube.com/watch?v=${id}`, publishedAt: date() } })
+  const items = selectHotPosts([
+    candidate('inventory', 'Codex 实战：制作库存管理工具', 100),
+    candidate('customers', 'Codex 实战：制作客户管理工具', 90)
+  ], now)
+  assert.deepEqual(items.map((item) => new URL(item.href).searchParams.get('v')), ['inventory', 'customers'])
 })

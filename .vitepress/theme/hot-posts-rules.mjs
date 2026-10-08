@@ -2,7 +2,8 @@
 const CODEX = /\bcodex\b/i
 const HAN = /[\u3400-\u9fff]/
 const PROMOTION = /扫码|私信.{0,8}(购买|领取|进群|加群)|加[我微]|限时优惠|付费课程|课程.{0,8}(购买|优惠)|代充|代购|账号出售|抽奖|返佣|推广码/
-const QUESTION = /求助|请问|有没有|有谁|有啥|怎么办|咋整|怎么回事|谁能|求推荐|怎么.{0,12}(解决|修复|登录|登陆)/
+const REQUEST = /求助|请问|有没有|有谁|有啥|咋整|谁能|求推荐|求一份|想求|在哪里|哪里找/
+const QUESTION = /求助|请问|有没有|有谁|有啥|怎么办|咋整|怎么回事|谁能|求推荐|求一份|想求|怎么|如何|为什么|是什么|在哪里|哪里找/
 const COMPLAINT = /没用|无效|失败|报错|故障|异常|无法|垃圾|不好用|再也不用/
 const SOLUTION = /解决方法|解决办法|解决方案|解决了|修复了|恢复正常|排查过程|原因是|方法(?:是|如下)|步骤|操作方法|可以通过|只[需要]|完整教程|详细教程|保姆级|(?:修复|排查|解决|处理)(?:教程|指南|方法|步骤)/
 const GUIDE = /教程|入门|指南|攻略|实战|案例|工作流|技巧|经验|步骤|配置|安装|部署|自动化|提示词|\bprompt\b|\bskills?\b|插件|实践/i
@@ -13,10 +14,15 @@ const CHANGE = /功能|版本|模型|价格|定价|额度|限制|权限|平台|�
 export function isUsefulCodexContent(title, body = '') {
   const text = `${title || ''}\n${body || ''}`.replace(/https?:\/\/\S+/g, '').trim()
   if (!CODEX.test(text) || !HAN.test(text) || PROMOTION.test(text)) return false
-  const sentences = text.split(/[。！？!?；;\n]/)
+  const sentences = text.match(/[^。！？!?；;\n]+[。！？!?；;]?/g) || []
   // Asking for "解决方法/完整教程" is not evidence of supplying an answer.
-  const hasSolution = sentences.some((sentence) => !QUESTION.test(sentence)
-    && !/没用|无效|未解决|没有解决|待补充/.test(sentence) && SOLUTION.test(sentence))
+  const answerClauses = sentences.filter((sentence) => CODEX.test(sentence)
+    || !/\b(?:Excel|Cursor|Claude|Gemini|Photoshop)\b|剪映/i.test(sentence)).flatMap((sentence) => sentence.split(/[,，]/))
+  const hasSolution = answerClauses.some((sentence) => (!QUESTION.test(sentence)
+    || /教程|指南|实战|案例|操作步骤/.test(sentence) && !REQUEST.test(sentence) && !/[？?]/.test(sentence))
+    && !/没用|无效|未解决|没有解决|待补充|垃圾|不好用/.test(sentence)
+    && (CODEX.test(sentence) || !/\b(?:Excel|Cursor|Claude|Gemini|Photoshop)\b|剪映/i.test(sentence))
+    && (SOLUTION.test(sentence) || /教程|指南|实战|案例|操作步骤/.test(sentence)))
   // Keep the useful signal close to Codex, instead of accepting a keyword buried
   // in a market roundup, model list or unrelated tutorial later in the post.
   const clauses = sentences.filter((clause) => CODEX.test(clause)
@@ -43,7 +49,7 @@ export function selectHotPosts(candidates, now = Date.now()) {
   for (const candidate of ranked) {
     if (selected.some((previous) => previous.item.href === candidate.item.href
       || candidate.authorKey && previous.authorKey === candidate.authorKey
-      && repeatedContent(`${previous.text}\n${previous.body || ''}`, `${candidate.text}\n${candidate.body || ''}`))) continue
+      && repeatedContent(previous.text, candidate.text))) continue
     selected.push(candidate)
     if (selected.length === 3) break
   }
