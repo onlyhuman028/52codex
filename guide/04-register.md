@@ -126,7 +126,7 @@ ChatGPT 和 Codex 都属于 OpenAI 账号体系。你只要注册一个 ChatGPT 
 充值平台：
 
 - 智合智 AI：[www.91gpt.com.cn](https://www.91gpt.com.cn)
-- 备用域名：[www.58ai.site](https://www.58ai.site)
+- 备用域名：[www.99gpt.site](https://www.99gpt.site)
 
 所谓“代充”，就是帮你往自己的 ChatGPT 官网账号充值。
 
@@ -157,7 +157,7 @@ ChatGPT 和 Codex 都属于 OpenAI 账号体系。你只要注册一个 ChatGPT 
 充值入口：
 
 - [www.91gpt.com.cn](https://www.91gpt.com.cn)
-- [www.58ai.site](https://www.58ai.site)
+- [www.99gpt.site](https://www.99gpt.site)
 
 建议复制到电脑浏览器打开。
 
@@ -187,7 +187,8 @@ ChatGPT 和 Codex 都属于 OpenAI 账号体系。你只要注册一个 ChatGPT 
 
 1. 先验证你购买的卡密
 2. 登录自己的 GPT 账号
-3. 获取 token，常见地址是 `https://chatgpt.com/api/auth/session`
+3. 获取 token，地址是 `https://chatgpt.com/api/auth/session`
+注意，要从登录GPT的页面跳转到上面的这个网页，有时候会报错。应该新开一个标签页。
 4. 将 token 粘贴到充值网站的充值框
 5. 核实账号信息
 6. 点击充值
