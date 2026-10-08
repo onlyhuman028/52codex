@@ -17,7 +17,8 @@
         <div class="section-header">
           <div>
             <h2 class="section-title">网络热帖</h2>
-            <p class="section-desc">最近 7 天的 Codex 中文内容，按互动、播放或项目累计收藏排序；历史精选单独标注</p>
+            <p class="section-desc">最近 7 天的 Codex 中文教程、实战与重要更新，先筛选内容，再按热度与时效排序；历史精选单独标注</p>
+            <p class="hot-platform-notice">排除顺带提及、广告和无解答的求助；热度每 24 小时减半，同一作者的重复内容只留一条。GitHub 收藏为累计数据。</p>
           </div>
           <span class="section-hint">{{ hotUpdatedAt ? `数据获取于 ${hotUpdatedAt}（北京时间）` : '点击直接跳转原文' }}</span>
         </div>

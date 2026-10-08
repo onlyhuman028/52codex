@@ -2,6 +2,7 @@ import {
   RECENT_DAYS, DEFAULT_X_SEARCH_QUERY, recentSearchQuery,
   getFallbackHotGroups, mergeHotGroups, isRecent, safeHref, fetchJsonWithTimeout
 } from '../../.vitepress/theme/hot-posts-data.mjs'
+import { selectHotPosts } from '../../.vitepress/theme/hot-posts-rules.mjs'
 
 const CACHE_SECONDS = 900
 const DEGRADED_CACHE_SECONDS = 60
@@ -11,7 +12,7 @@ export async function onRequestGet({ request, env = {}, waitUntil }) {
   const cache = globalThis.caches?.default
   const cacheUrl = new URL(request.url)
   // Avoid serving the previous payload format or yesterday's search links.
-  cacheUrl.searchParams.set('hot-posts-version', '2')
+  cacheUrl.searchParams.set('hot-posts-version', '3')
   cacheUrl.searchParams.set('day', new Date().toISOString().slice(0, 10))
   const cacheKey = new Request(cacheUrl)
   try {
@@ -112,12 +113,10 @@ async function buildXGroup(env, signal) {
 
   const now = Date.now()
   const users = new Map((data.includes?.users || []).map((user) => [user.id, user]))
-  const items = (data.data || [])
-    .filter((tweet) => tweet.id && isRecent(tweet.created_at, now) && chineseCodex(cleanTweetText(tweet.note_post?.text || tweet.text))
+  const items = selectHotPosts((data.data || [])
+    .filter((tweet) => tweet.id && isRecent(tweet.created_at, now)
       && !tweet.in_reply_to_user_id && !(tweet.referenced_posts || tweet.referenced_tweets || []).some((ref) => ['retweeted', 'reposted'].includes(ref.type))
       && tweetEngagement(tweet) > 0)
-    .sort((a, b) => decayedScore(tweetEngagement(b), b.created_at, now) - decayedScore(tweetEngagement(a), a.created_at, now))
-    .slice(0, 3)
     .map((tweet) => {
       const user = users.get(tweet.author_id)
       const author = user?.name || user?.username || 'X 作者'
@@ -125,18 +124,22 @@ async function buildXGroup(env, signal) {
       const primary = count(metrics.impression_count) > 0 ? `${formatNumber(metrics.impression_count)} 浏览`
         : count(metrics.like_count) > 0 ? `${formatNumber(metrics.like_count)} 赞`
         : `${formatNumber(count(metrics.retweet_count ?? metrics.repost_count) + count(metrics.reply_count) + count(metrics.quote_count) + count(metrics.bookmark_count))} 次互动`
-      return { title: cleanTweetText(tweet.note_post?.text || tweet.text).slice(0, 90), author,
+      const text = cleanTweetText(tweet.note_post?.text || tweet.text)
+      return { text, heat: tweetEngagement(tweet), authorKey: tweet.author_id,
+        item: { title: text.slice(0, 90), author,
         meta: `X 原帖 · ${formatRelativeTime(tweet.created_at, now)} · ${primary}`,
-        publishedAt: tweet.created_at, href: `https://x.com/${user?.username || 'i'}/status/${tweet.id}` }
-    })
-  return liveGroup('X', items, 'Codex 中文 · 最近 7 天 · 互动热度')
+        publishedAt: tweet.created_at, href: `https://x.com/${user?.username || 'i'}/status/${tweet.id}` } }
+    }), now)
+  return liveGroup('X', items, 'Codex 中文 · 最近 7 天 · 内容筛选与时效热度')
 }
 
 function tweetEngagement(tweet) {
   const m = tweet.public_metrics || {}
-  return count(m.impression_count) * 0.08 + count(m.like_count) * 10
-    + count(m.retweet_count ?? m.repost_count) * 20 + count(m.quote_count) * 16
-    + count(m.reply_count) * 6 + count(m.bookmark_count) * 8
+  const interaction = count(m.like_count) * 10 + count(m.retweet_count ?? m.repost_count) * 20
+    + count(m.quote_count) * 16 + count(m.reply_count) * 4 + count(m.bookmark_count) * 24
+  // Views are exposure, not an endorsement. They can add at most 10% to real
+  // interaction, and cannot qualify a post by themselves.
+  return interaction + Math.min(count(m.impression_count) * 0.001, interaction * 0.1)
 }
 
 async function buildGitHubGroup(env, signal) {
@@ -151,16 +154,16 @@ async function buildGitHubGroup(env, signal) {
     ...(env.GITHUB_TOKEN ? { Authorization: `Bearer ${env.GITHUB_TOKEN}` } : {})
   } })
   const now = Date.now()
-  const items = (data.items || [])
-    .filter((repo) => isRecent(repo.pushed_at, now) && chineseCodex(`${repo.full_name} ${repo.description || ''}`)
+  const items = selectHotPosts((data.items || [])
+    .filter((repo) => isRecent(repo.pushed_at, now)
       && count(repo.stargazers_count) > 0 && safeHref(repo.html_url))
-    .sort((a, b) => count(b.stargazers_count) - count(a.stargazers_count))
-    .slice(0, 3)
-    .map((repo) => ({ title: `${repo.full_name}：${stripHtml(repo.description).slice(0, 90)}`,
+    .map((repo) => ({ text: `${repo.full_name}：${stripHtml(repo.description)}`,
+      heat: count(repo.stargazers_count), authorKey: repo.owner?.login,
+      item: { title: `${repo.full_name}：${stripHtml(repo.description).slice(0, 90)}`,
       author: repo.owner?.login || repo.full_name.split('/')[0],
       meta: `GitHub · ${formatRelativeTime(repo.pushed_at, now)}更新 · ${formatNumber(repo.stargazers_count)} 收藏（累计）`,
-      publishedAt: repo.pushed_at, href: repo.html_url }))
-  const group = liveGroup('GitHub', items, 'Codex 中文项目 · 最近 7 天更新 · 累计收藏')
+      publishedAt: repo.pushed_at, href: repo.html_url } })), now)
+  const group = liveGroup('GitHub', items, 'Codex 中文项目 · 最近 7 天更新 · 累计收藏与更新时效')
   if (group) group.moreHref = `https://github.com/search?q=${encodeURIComponent(query)}&type=repositories&s=stars&o=desc`
   return group
 }
@@ -176,16 +179,15 @@ async function buildBilibiliGroup(_env, signal) {
     Referer: 'https://search.bilibili.com/', 'User-Agent': '52codex-hot-posts/1.0'
   } })
   const now = Date.now()
-  const items = (data.data?.result || [])
-    .filter((video) => isRecent(count(video.pubdate) * 1000, now) && chineseCodex(stripHtml(video.title))
+  const items = selectHotPosts((data.data?.result || [])
+    .filter((video) => isRecent(count(video.pubdate) * 1000, now)
       && count(video.play) > 0 && (video.bvid || safeHref(video.arcurl)))
-    .sort((a, b) => count(b.play) - count(a.play))
-    .slice(0, 3)
-    .map((video) => ({ title: stripHtml(video.title), author: video.author || 'B站创作者',
+    .map((video) => ({ text: stripHtml(video.title), heat: count(video.play), authorKey: String(video.mid || video.author || ''),
+      item: { title: stripHtml(video.title), author: video.author || 'B站创作者',
       meta: `B站视频 · ${formatRelativeTime(count(video.pubdate) * 1000, now)} · ${formatNumber(video.play)} 播放`,
       publishedAt: new Date(count(video.pubdate) * 1000).toISOString(),
-      href: video.bvid ? `https://www.bilibili.com/video/${video.bvid}/` : video.arcurl }))
-  const group = liveGroup('B站', items, 'Codex 中文 · 最近 7 天 · 播放热度')
+      href: video.bvid ? `https://www.bilibili.com/video/${video.bvid}/` : video.arcurl } })), now)
+  const group = liveGroup('B站', items, 'Codex 中文 · 最近 7 天 · 播放与时效热度')
   if (group) group.moreHref = 'https://search.bilibili.com/all?keyword=codex&order=click&pubtime=7'
   return group
 }
@@ -194,15 +196,15 @@ async function buildRedditGroup(_env, signal) {
   const url = 'https://www.reddit.com/r/codex/search.json?q=Codex&restrict_sr=1&sort=top&t=week&limit=50'
   const data = await fetchJsonWithTimeout(url, { signal, headers: { 'User-Agent': '52codex-hot-posts/1.0' } })
   const now = Date.now()
-  const items = (data.data?.children || []).map(({ data }) => data)
-    .filter((post) => post && isRecent(count(post.created_utc) * 1000, now) && chineseCodex(post.title)
+  const items = selectHotPosts((data.data?.children || []).map(({ data }) => data)
+    .filter((post) => post && isRecent(count(post.created_utc) * 1000, now) && /[\u3400-\u9fff]/.test(post.title)
       && !post.over_18 && !post.stickied && count(post.score) > 0 && typeof post.permalink === 'string' && post.permalink.startsWith('/r/'))
-    .sort((a, b) => count(b.score) - count(a.score))
-    .slice(0, 3)
-    .map((post) => ({ title: post.title, author: post.author ? `u/${post.author}` : 'r/codex 社区',
+    .map((post) => ({ text: post.title, body: post.selftext, heat: count(post.score),
+      authorKey: post.author === '[deleted]' ? '' : post.author,
+      item: { title: post.title, author: post.author ? `u/${post.author}` : 'r/codex 社区',
       meta: `r/codex · ${formatRelativeTime(count(post.created_utc) * 1000, now)} · ${formatNumber(post.score)} 净赞 · ${formatNumber(post.num_comments)} 评论`,
-      publishedAt: new Date(count(post.created_utc) * 1000).toISOString(), href: `https://www.reddit.com${post.permalink}` }))
-  const group = liveGroup('Reddit', items, 'Codex 中文 · 最近 7 天 · 净赞热度')
+      publishedAt: new Date(count(post.created_utc) * 1000).toISOString(), href: `https://www.reddit.com${post.permalink}` } })), now)
+  const group = liveGroup('Reddit', items, 'Codex 中文 · 最近 7 天 · 净赞与时效热度')
   if (group) group.moreHref = 'https://www.reddit.com/r/codex/search/?q=Codex&restrict_sr=1&sort=top&t=week'
   return group
 }
@@ -226,15 +228,15 @@ async function buildYouTubeGroup(env, signal) {
     .forEach(([key, value]) => url.searchParams.set(key, value))
   const data = await fetchJsonWithTimeout(url, { signal })
   const now = Date.now()
-  const items = (data.items || [])
-    .filter((video) => video.id && isRecent(video.snippet?.publishedAt, now) && chineseCodex(video.snippet?.title)
+  const items = selectHotPosts((data.items || [])
+    .filter((video) => video.id && isRecent(video.snippet?.publishedAt, now) && /[\u3400-\u9fff]/.test(video.snippet?.title)
       && count(video.statistics?.viewCount) > 0)
-    .sort((a, b) => count(b.statistics.viewCount) - count(a.statistics.viewCount))
-    .slice(0, 3)
-    .map((video) => ({ title: video.snippet.title, author: video.snippet.channelTitle || 'YouTube 创作者',
+    .map((video) => ({ text: video.snippet.title, body: video.snippet.description,
+      heat: count(video.statistics.viewCount), authorKey: video.snippet.channelId || video.snippet.channelTitle,
+      item: { title: video.snippet.title, author: video.snippet.channelTitle || 'YouTube 创作者',
       meta: `YouTube · ${formatRelativeTime(video.snippet.publishedAt, now)} · ${formatNumber(video.statistics.viewCount)} 播放`,
-      publishedAt: video.snippet.publishedAt, href: `https://www.youtube.com/watch?v=${video.id}` }))
-  return liveGroup('YouTube', items, 'Codex 中文 · 最近 7 天 · 播放热度')
+      publishedAt: video.snippet.publishedAt, href: `https://www.youtube.com/watch?v=${video.id}` } })), now)
+  return liveGroup('YouTube', items, 'Codex 中文 · 最近 7 天 · 播放与时效热度')
 }
 
 function jsonResponse(body) {
@@ -249,9 +251,7 @@ function jsonResponse(body) {
 function splitEnvList(value) { return String(value || '').split(',').map((item) => item.trim()).filter(Boolean) }
 function stripHtml(value) { return String(value || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim() }
 function cleanTweetText(value) { return String(value || '').replace(/\s*https:\/\/t\.co\/\S+/g, '').replace(/\s+/g, ' ').trim() }
-function chineseCodex(text) { return /codex/i.test(String(text || '')) && /[\u3400-\u9fff]/.test(String(text || '')) }
 function count(value) { const number = Number(value); return Number.isFinite(number) && number > 0 ? number : 0 }
-function decayedScore(engagement, createdAt, now) { return engagement / (1 + (now - Date.parse(createdAt)) / 86400000) }
 function formatRelativeTime(value, now) {
   const age = (now - (typeof value === 'number' ? value : Date.parse(value))) / 3600000
   if (age < 1) return `${Math.max(1, Math.floor(age * 60))} 分钟前`

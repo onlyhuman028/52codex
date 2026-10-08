@@ -27,6 +27,7 @@
 
 - .vitepress/：VitePress 配置、主题、样式、构建相关文件
 - .vitepress/theme/：Layout、HomePage、导航数据、评论组件、全站 CSS
+- codex-reset/ ：codex 重置情况监控
 - guide/：新手指南
 - tips/：实用技巧
 - cases/：精选案例
@@ -47,7 +48,7 @@
 
 
 - 首页：自定义 Vue 组件 `HomePage.vue`
-- 首页板块：Hero、网络热帖、精选案例、上手指南、实用技巧、插件与技能、FAQ、Footer
+- 首页板块：Hero、 codex 重置监控、网络热帖、精选案例、上手指南、实用技巧、插件与技能、FAQ、Footer
 - 全站布局：`Layout.vue` 控制导航、文章外壳、元信息、推荐阅读、留言、Footer
 - 导航：一级导航固定；`guide`、`tips`、`cases`、`plugins` 的二级导航自动生成
 - 详情页：Markdown + frontmatter

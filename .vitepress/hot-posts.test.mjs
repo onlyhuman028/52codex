@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, test } from 'node:test'
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
+import { isUsefulCodexContent } from './theme/hot-posts-rules.mjs'
 
 const original = { fetch, caches: globalThis.caches, setTimeout, Date }
 const now = Date.parse('2026-10-07T08:00:00Z')
@@ -167,4 +168,86 @@ test('slow headers are aborted and still return usable fallback', async () => {
   await groups()
   assert.ok(signals.length > 0)
   assert.ok(signals.every((signal) => signal.aborted))
+})
+
+test('X rejects incidental mentions and unanswered complaints, but keeps cases and solutions', async () => {
+  globalThis.fetch = async (url) => new URL(url).hostname === 'api.x.com' ? xResponse([
+    tweet('list', { text: '想象一下这辈子都不会接触到：港卡、美股、纳斯达克100、标普500、复利、雅思7.0、Codex。', public_metrics: { like_count: 10000 } }),
+    tweet('help', { text: '这咋整啊？退出了一下Codex再来登录就要验证手机号了，以前从来不要，我没有手机号码，有啥好办法？', public_metrics: { like_count: 9000 } }),
+    tweet('case', { text: '让 Codex 帮我把余下的几台小米路由器也 root 了。ROM 降级、SSH 注入、重启固化，一条龙完成。', public_metrics: { like_count: 100 } }),
+    tweet('solution', { text: 'Codex 登录报错怎么办？解决方法：关闭代理后重新登录，亲测恢复正常。', public_metrics: { like_count: 50 } }),
+    tweet('ad', { text: 'Codex 实战教程限时优惠，扫码加群领取，私信购买课程。', public_metrics: { like_count: 8000 } }),
+    tweet('praise', { text: 'Codex 太厉害了，真的无敌！', public_metrics: { like_count: 7000 } })
+  ]) : response({})
+  const x = (await groups({ X_BEARER_TOKEN: 'test-token' }))[0]
+  assert.deepEqual(x.items.map((item) => item.href.split('/').pop()), ['case', 'solution'])
+})
+
+test('X favors interaction over huge view counts and does not admit views alone', async () => {
+  globalThis.fetch = async (url) => new URL(url).hostname === 'api.x.com' ? xResponse([
+    tweet('views', { public_metrics: { impression_count: 1000000, like_count: 1 } }),
+    tweet('useful', { public_metrics: { impression_count: 100, like_count: 30, bookmark_count: 20 } }),
+    tweet('views-only', { public_metrics: { impression_count: 2000000 } })
+  ]) : response({})
+  const x = (await groups({ X_BEARER_TOKEN: 'test-token' }))[0]
+  assert.deepEqual(x.items.map((item) => item.href.split('/').pop()), ['useful', 'views'])
+})
+
+test('X halves heat each day and removes repeated content from the same author', async () => {
+  globalThis.fetch = async (url) => new URL(url).hostname === 'api.x.com' ? xResponse([
+    tweet('old', { text: 'Codex 中文入门教程：从安装到完成第一个项目', created_at: date(72), public_metrics: { like_count: 100 } }),
+    tweet('new', { text: 'Codex Skill 配置教程：自动整理业务报表', created_at: date(1), public_metrics: { like_count: 20 } }),
+    tweet('repeat', { text: 'Codex Skill 配置教程：自动整理业务报表！https://t.co/copy', created_at: date(2), public_metrics: { like_count: 10 } }),
+    tweet('different', { text: 'Codex 工作流：批量生成客户回访记录', author_id: 'u2', created_at: date(3), public_metrics: { like_count: 5 } })
+  ]) : response({})
+  const x = (await groups({ X_BEARER_TOKEN: 'test-token' }))[0]
+  assert.deepEqual(x.items.map((item) => item.href.split('/').pop()), ['new', 'old', 'different'])
+})
+
+test('all rejected X candidates use marked historical fallback rather than filling the live feed', async () => {
+  globalThis.fetch = async (url) => new URL(url).hostname === 'api.x.com'
+    ? xResponse([tweet('help', { text: 'Codex 登录又失败了，有没有人知道怎么办？' })]) : response({})
+  const x = (await groups({ X_BEARER_TOKEN: 'test-token' }))[0]
+  assert.equal(x.status, 'fallback')
+  assert.match(x.notice, /历史精选/)
+})
+
+test('other platforms apply content screening and use body text to recognize solved questions', async () => {
+  globalThis.fetch = async (address) => {
+    const host = new URL(address).hostname
+    if (host === 'www.reddit.com') return response({ data: { children: [
+      { data: { title: 'Codex 登录失败怎么办？', selftext: '解决方法：关闭代理后重新登录，亲测恢复正常。', author: 'helper',
+        score: 20, created_utc: (now - hour) / 1000, permalink: '/r/codex/comments/solved/' } },
+      { data: { title: 'Codex 登录失败怎么办？', author: 'asker', score: 1000,
+        created_utc: (now - hour) / 1000, permalink: '/r/codex/comments/unsolved/' } }
+    ] } })
+    if (host === 'api.bilibili.com') return response({ data: { result: [
+      { bvid: 'tutorial', title: 'Codex 中文实战教程', pubdate: (now - hour) / 1000, play: 100 },
+      { bvid: 'ad', title: 'Codex 教程，扫码加群，私信购买', pubdate: (now - hour) / 1000, play: 100000 }
+    ] } })
+    return response({})
+  }
+  const data = await groups()
+  assert.deepEqual(data.find((g) => g.source === 'Reddit').items.map((i) => i.href), ['https://www.reddit.com/r/codex/comments/solved/'])
+  assert.deepEqual(data.find((g) => g.source === 'B站').items.map((i) => i.href), ['https://www.bilibili.com/video/tutorial/'])
+})
+
+test('content signals belong to the Codex topic rather than another item in a roundup', () => {
+  const cases = [
+    ['分享投资经验：港卡、美股、标普500、复利、Codex、雅思7.0。', '', false],
+    ['想学的工具有：Excel、Codex、剪映。下面是剪映的实战教程。', '', false],
+    ['最近试过 Codex、Excel、剪映。Excel 导出报错怎么办？解决方法如下。', '', false],
+    ['Codex 新增定时任务功能，可以每天自动整理报表。', '', true],
+    ['Codex 中文教程：从安装到制作第一个工具', '', true],
+    ['让 Codex 帮我做客户管理工具，完成了导入和提醒功能。', '', true],
+    ['Codex 怎么登录？', '步骤：在设置中退出账户后重新登录。', true],
+    ['Codex 怎么登录？', '没有手机号，求助！', false],
+    ['Codex 登录失败，有没有完整教程？', '', false],
+    ['求助：Codex 安装步骤在哪里可以找到？', '', false],
+    ['Codex 登录报错，有没有解决方法？亲测重装没用。', '', false],
+    ['其他工具的教程', '原来还有 Codex。', false],
+    ['mycodex 中文教程', '', false],
+    ['Codex 中文教程，扫码加群购买课程', '', false]
+  ]
+  for (const [title, body, expected] of cases) assert.equal(isUsefulCodexContent(title, body), expected, title)
 })
