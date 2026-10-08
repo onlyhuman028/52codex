@@ -9,6 +9,8 @@ date: 2026-10-08
 
 # GPT 注册与订阅：新手怎么开通 ChatGPT Plus
 
+要使用Codex，必须先注册一个ChatGPT账号，然后使用ChatGPT登录Codex
+
 免费版 ChatGPT 可以体验基础对话，也可以试用 Codex，但用量很小，很快会达到额度上限。还容易跳境外手机短信验证。
 
 如果你想稳定使用 Codex，包括桌面 App、Cloud 任务、多 Agent 并行等能力，建议至少准备一个付费套餐。
