@@ -150,6 +150,11 @@ select {
   background: var(--canvas-soft);
 }
 
+.nav-item[aria-current='page'] {
+  color: var(--ink);
+  background: var(--canvas-soft);
+}
+
 .nav-item.has-dropdown::after {
   display: inline-block;
   width: 0;
@@ -2007,7 +2012,7 @@ select {
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .nav-links {
     display: none;
   }

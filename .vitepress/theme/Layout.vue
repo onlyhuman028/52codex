@@ -19,6 +19,7 @@ const activeDropdown = ref('')
 let dropdownCloseTimer: ReturnType<typeof window.setTimeout> | undefined
 
 const isHome = computed(() => route.path === '/')
+const isResetMonitor = computed(() => route.path.replace(/\/$/, '') === '/codex-reset')
 const isCasePost = computed(() => route.path.startsWith('/cases/') && route.path !== '/cases/')
 const isResourceUtilityPage = computed(() => (
   route.path === '/resources'
@@ -26,12 +27,12 @@ const isResourceUtilityPage = computed(() => (
   || route.path === '/resources/comment-admin'
 ))
 const isArticlePost = computed(() => {
-  if (isHome.value || route.path === '/coming-soon' || isResourceUtilityPage.value) return false
+  if (isHome.value || isResetMonitor.value || route.path === '/coming-soon' || isResourceUtilityPage.value) return false
 
   return !route.path.endsWith('/')
 })
 const showComments = computed(() => {
-  if (isHome.value || route.path === '/coming-soon' || isResourceUtilityPage.value) return false
+  if (isHome.value || isResetMonitor.value || route.path === '/coming-soon' || isResourceUtilityPage.value) return false
 
   return route.path === '/guide/' || !route.path.endsWith('/')
 })
@@ -359,6 +360,7 @@ watch(
         </a>
 
         <div class="nav-links">
+          <a href="/codex-reset" class="nav-item" :aria-current="isResetMonitor ? 'page' : undefined" @click="closeDropdown">Codex 重置监控</a>
           <a href="/#hot-posts" class="nav-item">网络热帖</a>
 
           <div
@@ -453,6 +455,7 @@ watch(
         <button class="mobile-close" type="button" aria-label="关闭导航菜单" @click="closeMobile">×</button>
       </div>
       <div class="mobile-body">
+        <a href="/codex-reset" :aria-current="isResetMonitor ? 'page' : undefined" @click="closeMobile">Codex 重置监控</a>
         <a href="/#hot-posts" @click="closeMobile">网络热帖</a>
         <a href="/guide/" @click="closeMobile">上手指南</a>
         <a v-for="page in guidePages" :key="`mobile-${page.link}`" :href="page.link" class="sub-link" @click="closeMobile">{{ page.text }}</a>
@@ -479,6 +482,7 @@ watch(
     </div>
 
     <Content v-if="isHome" />
+    <Content v-else-if="isResetMonitor" />
 
     <main v-else class="article-page">
       <article class="article-wrapper" :class="{ 'article-wrapper-wide': route.path === '/resources/wechat' }">
