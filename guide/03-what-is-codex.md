@@ -44,9 +44,17 @@ Codex 是 OpenAI 于 2025 年 10 月上线的一款 AI 助手。早期它主要�
 - Codex 官网：[https://openai.com/zh-Hans-CN/codex/](https://openai.com/zh-Hans-CN/codex/)
 - OpenAI 对 Codex 的介绍：[《人们在工作中如何利用 Codex 协作？》](https://openai.com/codex/for-work/)
 
-## Codex 和 GPT、ChatGPT 有什么区别
+## GPT、Chat、Work 和 Codex 有什么区别
 
-都是OpenAI公司的产品，GPT是AI大模型，ChatGPT是基于GPT的对话AI，Codex 是基于GPT的编程+复杂任务自动化处理 AI
+GPT 是 AI 大模型；Chat、Work 和 Codex 都在 ChatGPT 体系中。
+
+- Chat：问答、解释和短文改写。
+- Work：整理资料、生成文件和执行多步骤任务。
+- Codex：更侧重编程、项目开发和代码维护。
+
+Work 和 Codex 都可使用授权的文件、插件和工具，并且共用额度。
+
+来源：[ChatGPT Work 入门](https://learn.chatgpt.com/docs/get-started-with-work)、[额度说明](https://learn.chatgpt.com/docs/pricing)。
 
 Codex 也支持使用第三方开源AI，小白知道就行了。
 

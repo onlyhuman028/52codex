@@ -123,9 +123,11 @@ openclaw models set <提供商/模型 ID>
 
 ## 额度怎么理解
 
-ChatGPT 的普通对话额度和 Codex 额度通常不是一回事。
+Chat 是普通对话入口；ChatGPT Work 与 Codex 共用额度，Work 不提供另一份独立额度。
 
-用 OpenClaw 养龙虾时，消耗的是 Codex 相关额度。重度使用时，可能会影响你在 Codex 里的编程额度。
+用 OpenClaw 养龙虾时，消耗的是 Codex 相关额度。重度使用时，可能会影响你在 Work 和 Codex 中的可用额度。
+
+来源：[OpenAI 额度说明](https://learn.chatgpt.com/docs/pricing)。
 
 如果你每天都高频使用，可以考虑单独准备一个 ChatGPT Plus 账号专门给 OpenClaw 用。
 

@@ -1,6 +1,6 @@
 ---
 title: 常见问题
-description: 解答 Codex 新手最常遇到的问题，包括 Codex 是什么、不会编程能不能用、和 ChatGPT 的区别、费用、改错代码和额度限制。
+description: 解答 Codex 新手最常遇到的问题，包括 Codex 是什么、不会编程能不能用、Chat、Work 与 Codex 的区别、费用、改错代码和共享额度。
 ---
 
 # 常见问题
@@ -19,11 +19,11 @@ Codex 是 OpenAI 推出的助力构建并交付产品的 AI 编程智能体 — 
 
 [AI编程常识](/guide/02-what-is-vibe-coding)。
 
-## Codex 和 ChatGPT 有什么区别？
+## Chat、Work 和 Codex 有什么区别？
 
-ChatGPT 是对话聊天工具，Codex 是项目级编程助手。Codex 按项目管理代码，有文件系统访问权限，可以直接操作你的电脑，支持插件和自动化任务。简单说：ChatGPT 帮你回答问题，Codex 帮你做事情。
+Chat、Work 和 Codex 都在 ChatGPT 体系中。Chat 适合问答、解释和短文改写；Work 适合整理资料、生成文档、表格和 PPT、执行多步骤任务；Codex 更侧重编程、项目开发和代码维护。Work 和 Codex 都可以在授权范围内使用文件、插件和工具。ChatGPT Work 与 Codex 共用额度，不能把 Work 当成另一份独立额度。
 
-可以简单理解为，Codex是由ChatGPT 驱动的新一代智能体。
+来源：[ChatGPT Work 入门](https://learn.chatgpt.com/docs/get-started-with-work)、[额度说明](https://learn.chatgpt.com/docs/pricing)。
 
 ## Codex 需要付费吗？
 

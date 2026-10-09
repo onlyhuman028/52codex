@@ -8,6 +8,7 @@
         <div class="hero-actions fade-up fade-up-d3">
           <a href="/cases/" class="btn btn-primary">查看案例</a>
           <a href="/guide/" class="btn btn-secondary">开始学习</a>
+          <a href="https://www.99gpt.site" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Codex会员</a>
         </div>
       </div>
     </section>
@@ -193,7 +194,7 @@
             <h3>/goal 长任务怎么拆</h3>
             <p>迁移、重构、修测试这类长任务，要写清目标、检查点和停止条件。</p>
           </a>
-          <a href="/tips/08-prevent-bad-edits" class="tip-card">
+          <a href="/guide/" class="tip-card">
             <div class="tip-meta">
               <span>避坑</span>
               <span>安全边界</span>
@@ -247,25 +248,25 @@
           <a href="/plugins/" class="section-link">查看全部</a>
         </div>
         <div class="tip-grid">
-          <a href="/plugins/computer-use" class="tip-card">
+          <a href="/guide/" class="tip-card">
             <div class="plugin-icon">CU</div>
             <h3>Computer Use</h3>
             <p class="plugin-sub">桌面控制 · 官方插件 <span class="plugin-stars">★★★★★</span></p>
             <p>控制 Mac 应用、点击、输入、截图，让 Codex 像人一样操作你的电脑。</p>
           </a>
-          <a href="/plugins/playwright" class="tip-card">
+          <a href="/guide/" class="tip-card">
             <div class="plugin-icon">PW</div>
             <h3>Playwright MCP</h3>
             <p class="plugin-sub">浏览器自动化 · 社区插件 <span class="plugin-stars">★★★★☆</span></p>
             <p>网页自动化、数据抓取、表单填写，精准的浏览器控制。</p>
           </a>
-          <a href="/plugins/automations" class="tip-card">
+          <a href="/guide/" class="tip-card">
             <div class="plugin-icon">AT</div>
             <h3>Automations</h3>
             <p class="plugin-sub">定时任务 · 官方功能 <span class="plugin-stars">★★★★★</span></p>
             <p>设定 Cron 定时任务，让 Codex 每天自动执行工作流。</p>
           </a>
-          <a href="/plugins/custom-skill" class="tip-card">
+          <a href="/guide/" class="tip-card">
             <div class="plugin-icon">SK</div>
             <h3>自定义 Skill</h3>
             <p class="plugin-sub">能力扩展 · 自建 <span class="plugin-stars">★★★★★</span></p>
@@ -288,8 +289,8 @@
             <div class="faq-body">完全可以。Codex 的核心理念就是 Vibe Coding，你用自然语言描述需求，Codex 帮你写代码。你需要的是说清楚你要什么的能力，不是编程能力。本站大量案例都来自不会编程的业务人员。</div>
           </details>
           <details class="faq-item">
-            <summary>Codex 和 ChatGPT 有什么区别？</summary>
-            <div class="faq-body">ChatGPT 是对话聊天工具，Codex 是项目级编程助手。Codex 按项目管理代码，有文件系统访问权限，可以直接操作你的电脑，支持插件和自动化任务。简单说：ChatGPT 帮你回答问题，Codex 帮你做事情。</div>
+            <summary>Chat、Work 和 Codex 有什么区别？</summary>
+            <div class="faq-body">Chat、Work 和 Codex 都在 ChatGPT 体系中。Chat 适合问答、解释和短文改写；Work 适合整理资料、生成文档、表格和 PPT、执行多步骤任务；Codex 更侧重编程、项目开发和代码维护。Work 和 Codex 都可以在授权范围内使用文件、插件和工具。ChatGPT Work 与 Codex 共用额度，不能把 Work 当成另一份独立额度。</div>
           </details>
           <details class="faq-item">
             <summary>为什么 Codex 会改错代码？</summary>
