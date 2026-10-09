@@ -11,6 +11,7 @@ const siteKeywords = [
   'Codex 实战',
   'Codex 入门',
   'Codex 免费',
+  'Codex 重置',
   'Codex 新手',
   'Codex 小白',
   '不会编程',
