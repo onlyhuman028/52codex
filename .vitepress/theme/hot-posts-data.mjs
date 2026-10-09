@@ -71,13 +71,13 @@ const historicalGroups = [
         title: '全网最全！40 分钟全面掌握 Codex【附完整文档】',
         author: '秋芝2046',
         meta: 'B站视频 · 人工精选',
-        href: 'https://www.bilibili.com/video/BV1Nd596vEyU/'
+        href: 'https://www.bilibili.com/video/BV1Zgud6LEoh/?spm_id_from=333.337.search-card.all.click'
       },
       {
         title: 'Codex APP 保姆级使用教程，实战项目全流程讲解',
         author: 'AI随风随风',
         meta: 'B站视频 · 人工精选',
-        href: 'https://www.bilibili.com/video/BV1oJAoz2Emf/'
+        href: 'https://www.bilibili.com/cheese/play/ss442362500?csource=private_space_class_null&spm_id_from=333.1387.0.0'
       }
     ]
   },
