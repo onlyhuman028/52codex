@@ -7,10 +7,10 @@ description: 汇总 Codex 官方入口、社区项目、学习资料和推荐工
 
 Codex 相关的优质资源汇总，持续更新。
 
-::: tip 最新消息：GPT-5.6 发布
-OpenAI 官方预告，GPT-5.6 Sol 将和 Terra、Luna 一起于 2026 年 7 月 9 日公开发布，预览访问也在全球范围扩展。
-
-对 Codex 用户来说，接下来最值得关注的是：Sol、Terra、Luna 是否出现在 Codex 的模型选择里，以及不同模型对应的速度、推理强度和额度消耗。具体可用范围以 Codex App 和 OpenAI 官方说明为准。
+::: tip 最新消息：GPT-6.1  发布
+OpenAI 已于 2026 年 9月 公开发布 。
+ 
+ 10月开启28天焕新服务，每天发布一个codex新功能，或者给一次额度重置卡。
 
 来源：[OpenAI 官方 X](https://x.com/OpenAI)。
 :::
@@ -18,7 +18,7 @@ OpenAI 官方预告，GPT-5.6 Sol 将和 Terra、Luna 一起于 2026 年 7 月 9
 
 ## 官方资源
 
-- [GPT-5.6 Sol、Terra、Luna 发布消息](https://x.com/OpenAI) — OpenAI 官方预告，GPT-5.6 Sol 将和 Terra、Luna 一起公开发布，预览访问也在全球范围扩展
+- [GPT-6  发布消息](https://x.com/OpenAI) — OpenAI 官方 已经发布GPT6  
 - [Codex 官网](https://openai.com/codex) — 下载、介绍、更新日志
 - [Codex 官方X账号](https://x.com/OpenAIDevs) —  Codex 官方更新
 - [OpenAI cli 开源项目](https://github.com/openai/codex) — Codex cli 仓库
