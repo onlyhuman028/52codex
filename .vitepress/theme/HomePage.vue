@@ -8,7 +8,7 @@
         <div class="hero-actions fade-up fade-up-d3">
           <a href="/cases/" class="btn btn-primary">查看案例</a>
           <a href="/guide/" class="btn btn-secondary">开始学习</a>
-          <a href="https://www.99gpt.site" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Codex会员</a>
+          <a href="https://www.99gpt.site" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Codex充值</a>
         </div>
       </div>
     </section>
