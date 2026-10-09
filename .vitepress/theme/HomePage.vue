@@ -36,7 +36,7 @@
               <a v-for="item in group.items" :key="item.href" :href="item.href" target="_blank" class="hot-item" rel="noreferrer">
                 <div class="hot-item-main">
                   <div class="hot-title">{{ item.title }}</div>
-                  <div v-if="item.author" class="hot-author">作者：{{ item.author }}</div>
+                  <HotAuthor v-if="item.author" :author="item.author" :avatar="item.avatar" />
                 </div>
                 <div class="hot-item-footer">
                   <span class="hot-time">{{ item.meta }}</span>
@@ -342,6 +342,7 @@
 import { onMounted, onUnmounted, ref } from 'vue'
 import { getFallbackHotGroups, mergeHotGroups, fetchJsonWithTimeout } from './hot-posts-data.mjs'
 import { guidePages } from './navPages'
+import HotAuthor from './HotAuthor.vue'
 
 const featuredGuidePages = guidePages.slice(0, 4)
 

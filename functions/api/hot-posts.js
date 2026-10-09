@@ -12,7 +12,7 @@ export async function onRequestGet({ request, env = {}, waitUntil }) {
   const cache = globalThis.caches?.default
   const cacheUrl = new URL(request.url)
   // Avoid serving the previous payload format or yesterday's search links.
-  cacheUrl.searchParams.set('hot-posts-version', '4')
+  cacheUrl.searchParams.set('hot-posts-version', '5')
   cacheUrl.searchParams.set('day', new Date().toISOString().slice(0, 10))
   const cacheKey = new Request(cacheUrl)
   try {
@@ -79,6 +79,7 @@ async function buildGitHubGroup(env, signal) {
       heat: count(repo.stargazers_count), authorKey: repo.owner?.login,
       item: { title: `${repo.full_name}：${stripHtml(repo.description).slice(0, 90)}`,
       author: repo.owner?.login || repo.full_name.split('/')[0],
+      avatar: safeHref(repo.owner?.avatar_url) ? repo.owner.avatar_url : '',
       meta: `GitHub · ${formatRelativeTime(repo.pushed_at, now)}更新 · ${formatNumber(repo.stargazers_count)} 收藏（累计）`,
       publishedAt: repo.pushed_at, href: repo.html_url } })), now)
   const group = liveGroup('GitHub', items, 'Codex 中文项目 · 最近 7 天更新 · 累计收藏与更新时效')

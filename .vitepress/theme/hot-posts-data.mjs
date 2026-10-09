@@ -12,18 +12,21 @@ const historicalGroups = [
       {
         title: 'Codex 团队的 28 天计划：每天改进或重置额度',
         author: 'Tibo（@thsottiaux）',
+        avatar: '/images/authors/thsottiaux.jpg',
         meta: 'X 原帖 · 2026-10-04 · 人工精选',
         href: 'https://x.com/thsottiaux/status/2106845241357824205'
       },
       {
         title: '用 Codex + GPT-6.1 Sol 制作 Motion Video：实操教程',
         author: '李岳（@liyue_ai）',
+        avatar: '/images/authors/liyue-ai.jpg',
         meta: 'X 原帖 · 2026-10-02 · 人工精选',
         href: 'https://x.com/liyue_ai/status/2105937541732200691'
       },
       {
         title: '万字长文｜Codex 从入门到精通',
         author: 'Miles Ma（@miles_mazy）',
+        avatar: '/images/authors/miles-mazy.jpg',
         meta: 'X 原帖 · 2026-08-23 · 人工精选',
         href: 'https://x.com/miles_mazy/status/2091339513134010554'
       }
@@ -38,18 +41,21 @@ const historicalGroups = [
       {
         title: 'xianyu110/gpt-codex：写给 Codex 小白用户的完整教程',
         author: 'xianyu110',
+        avatar: 'https://github.com/xianyu110.png?size=64',
         meta: 'GitHub · 中文教程',
         href: 'https://github.com/xianyu110/gpt-codex'
       },
       {
         title: 'Ivesfsy/Codex：云原生 Codex CLI 快速入门指南',
         author: 'Ivesfsy',
+        avatar: 'https://github.com/Ivesfsy.png?size=64',
         meta: 'GitHub · Codex CLI 教程',
         href: 'https://github.com/Ivesfsy/Codex'
       },
       {
         title: 'OpenAI Cookbook：用 Codex SDK 构建代码审查工作流',
         author: 'openai',
+        avatar: 'https://github.com/openai.png?size=64',
         meta: 'GitHub · 官方案例',
         href: 'https://github.com/openai/openai-cookbook/blob/main/examples/codex/build_code_review_with_codex_sdk.md'
       }
