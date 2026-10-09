@@ -27,7 +27,7 @@ ChatGPT 是对话聊天工具，Codex 是项目级编程助手。Codex 按项目
 
 ## Codex 需要付费吗？
 
-免费用户可以使用Codex。Codex 必须 ChatGPT Plus 及以上付费会员才能用。Plus 每月 $20，Pro 两个档次每月 $100 和$200。Pro 的额度是 Plus 的 5-10 倍。专业软件开发人员，高频使用建议 Pro。
+免费用户可以使用Codex，但额度有限，底层模型也略低。Plus 每月 $20，Pro 三个档次每月 $100 和$200、$500。Pro 的额度是 Plus 的 5-10 -25倍。专业软件开发人员，高频使用建议 Pro。
 
 GPT账号开通、PLUS订阅详见 [GPT账号申请教程](/guide/04-register)。
 
@@ -39,7 +39,7 @@ GPT账号开通、PLUS订阅详见 [GPT账号申请教程](/guide/04-register)�
 
 ## 额度用超了怎么办？
 
-Codex 是滚动 5 小时重置 1 次额度。要么等重置，要么升级到 Pro。省额度技巧见 [额度怎么省](/tips/06-save-quota)。
+Codex 是滚动 5 小时重置 1 次额度， Pro用户不受限制。要么等重置，要么升级到 Pro。省额度技巧见 [额度怎么省](/tips/06-save-quota)。
 
 ## 如何正确使用 Codex？
 
