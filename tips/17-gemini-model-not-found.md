@@ -5,7 +5,7 @@ tags: [新手入门, 插件]
 level: 1
 date: 2026-10-15
 author: 热心网友
-authorLink: https://作者主页地址
+authorLink: https://blog-er7.pages.dev/posts/20261016-timezone/
 ---
 
 # 17 Gemini找不到模型怎么办
