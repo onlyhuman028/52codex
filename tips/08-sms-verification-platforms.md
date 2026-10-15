@@ -138,10 +138,7 @@ OpenAI 目前不支持更换账号绑定手机号。一旦旧号码收不到码�
 
 如果是主力账号，不建议长期依赖。
 
-来源：
-
-- [sui yi](https://x.com/suiyi929580/status/2056288539688808893)
-- [贝贝](https://x.com/sankenainai/status/2056993844470890498)
+ 
 
 ## 方案四：开启 Google Authenticator 或二步验证
 
@@ -160,12 +157,7 @@ OpenAI 目前不支持更换账号绑定手机号。一旦旧号码收不到码�
 - Recovery Codes
 - 可长期接码的真实手机号
 
-来源：
-
-- [贝贝](https://x.com/sankenainai/status/2056993844470890498)
-- [Jason Young](https://x.com/Jason_Young1231/status/2061709730792575266)
-- [Vincent Yang](https://x.com/m1ssuo/status/2061757466770370594)
-
+ 
 
 
 ## 方案五：优化 IP 画像

@@ -30,6 +30,7 @@ Codex 使用经验库。解决你最常遇到的问题，来自真实使用中�
 - [Codex 怎么操控电脑](/tips/14-codex-computer-control) — Computer Use、Chrome 扩展和内置浏览器怎么选
 - [GPT-5.6 Sol 提示词指南](/tips/15-gpt-5-6-sol-prompt-guide) — 官方提示原则、写法拆解和 Codex 可复制案例
 - [这些Pro用户还能享受20x Plus](/tips/16-pro-200-20x-plus) — Pro 200 老用户资格、10 月 29 日截止时间和重订条件
+- [Gemini找不到模型怎么办](/tips/17-gemini-model-not-found) — 按用户反馈尝试用 Chrome 插件调整浏览器时区
 - [怎么防止 Codex 乱改代码](/tips/04-agents-md) — 用 AGENTS.md 划定行为边界
 
 ## 工程化
