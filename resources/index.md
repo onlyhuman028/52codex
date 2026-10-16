@@ -28,6 +28,7 @@ OpenAI 已于 2026 年 9月 公开发布 。
 ## 社区项目
 
 
+- [报错查询](./01-codex-error-lookup) — 按报错关键词查找 Codex 问题说明和处理步骤
 - [awesome-design-md](https://github.com/VoltAgent/awesome-design-md) — 31 个知名网站的 DESIGN.md 合集
 - [OpenClaw 中文站](https://www.91openclaw.site) — OpenClaw 安装部署和使用指南
 
