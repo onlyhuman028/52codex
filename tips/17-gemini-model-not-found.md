@@ -1,5 +1,5 @@
 ---
-title: 17 Codex 找不到模型怎么办
+title: 17 Codex 报错找不到模型怎么办
 description: 使用 Codex 时遇到 "Model not found"（找不到模型），可以尝试检查浏览器时区。 
 tags: [新手入门, 插件]
 level: 1
@@ -8,13 +8,13 @@ author: 热心网友
 authorLink: https://blog-er7.pages.dev/posts/20261016-timezone/
 ---
 
-# 17 Gemini找不到模型怎么办
+# 17 Codex 报错找不到模型怎么办
 
-Codex 报 `Model not found`（找不到模型）时，可尝试检查浏览器时区。
+Codex 报 `Model not found`（找不到模型）时，或者提示`无法加载工作区`，可尝试检查浏览器时区。
 
 有用户反馈：浏览器时区与代理出口 IP 所在地时区不一致时，可能遇到此报错。
 
-可尝试用 Chrome 时区插件将两者调为一致。
+可尝试用 Chrome 时区插件将两者调为一致。以上两个报错大概率会修复。
 
 ## 操作步骤
 

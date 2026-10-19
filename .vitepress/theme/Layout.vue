@@ -431,6 +431,7 @@ watch(
               <a href="/resources/#社区项目" @click="closeDropdown">社区资源</a>
               <a href="/resources/#工具推荐" @click="closeDropdown">推荐工具</a>
               <a href="/resources/#学习资料" @click="closeDropdown">学习资料</a>
+              <a href="https://www.91gpt.com.cn" target="_blank" rel="noreferrer" @click="closeDropdown">GPT代充</a>
             </div>
           </div>
 
@@ -477,6 +478,7 @@ watch(
         <a href="/resources/#社区项目" class="sub-link" @click="closeMobile">社区资源</a>
         <a href="/resources/#工具推荐" class="sub-link" @click="closeMobile">推荐工具</a>
         <a href="/resources/#学习资料" class="sub-link" @click="closeMobile">学习资料</a>
+        <a href="https://www.91gpt.com.cn" class="sub-link" target="_blank" rel="noreferrer" @click="closeMobile">GPT代充</a>
         <a href="/faq" @click="closeMobile">FAQ</a>
       </div>
     </div>
