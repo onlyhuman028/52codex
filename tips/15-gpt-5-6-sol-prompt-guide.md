@@ -1,4 +1,6 @@
 ---
+status: published
+category: 用法技巧
 title: 15 赶紧收藏！GPT-5.6 Sol 提示词指南+案例大全
 navTitle: 15 GPT-5.6 Sol 提示词指南
 description: OpenAI 官方 GPT-5.6 Sol 提示指南的中文实用版。用通俗案例讲清怎样精简提示词、写明目标和验收标准、划定权限、安排工具、控制停止条件，并附上适合 Codex 项目修改、排错、审查和前端任务的可复制模板。

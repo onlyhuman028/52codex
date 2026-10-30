@@ -1,4 +1,7 @@
 ---
+status: published
+featured: true
+category: 用法技巧
 title: 09 如何让 Codex 不断进化？
 description: 让 Codex 定期复盘，沉淀复用规则清单。
 tags: [Codex, 提示词, 项目规范, AGENTS.md]

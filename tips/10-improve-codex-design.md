@@ -1,4 +1,6 @@
 ---
+status: published
+category: 用法技巧
 title: 10 如何提升 Codex 的设计美感？
 description: Codex 做出来的页面不好看，很多时候不是模型不会设计，而是缺少明确的设计规则。本文教你用 DESIGN.md、参考风格和检查清单，让 Codex 输出更稳定、更统一的界面。
 tags: [Codex, 提示词, 项目规范, 做网站]

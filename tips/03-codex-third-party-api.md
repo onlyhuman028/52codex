@@ -1,4 +1,7 @@
 ---
+status: published
+featured: true
+category: 用法技巧
 title: 03 Codex 如何接入第三方 API
 description: 用 Codex++ 给 Codex 接入国产模型、中转站 GPT 或 Claude，按步骤完成下载安装、Mac 安全设置、添加供应商、测试连通和切回官方模型。
 tags: [Codex, 插件, 自动化, 新手入门]

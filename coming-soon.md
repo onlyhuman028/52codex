@@ -1,4 +1,5 @@
 ---
+noindex: true
 title: 即将上线
 ---
 

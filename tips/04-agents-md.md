@@ -1,4 +1,7 @@
 ---
+status: published
+featured: true
+category: 工程化
 title: 04 AGENTS 怎么写？ 
 description: AGENTS.md 是 Codex 项目中的核心规则文件。本文介绍如何用 /init 生成初始文件，并维护项目说明、常用命令、工作规则和完成标准。
 tags: [Codex, AGENTS.md, 项目规范, 提示词]

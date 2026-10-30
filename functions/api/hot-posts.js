@@ -12,7 +12,7 @@ export async function onRequestGet({ request, env = {}, waitUntil }) {
   const cache = globalThis.caches?.default
   const cacheUrl = new URL(request.url)
   // Avoid serving the previous payload format or yesterday's search links.
-  cacheUrl.searchParams.set('hot-posts-version', '5')
+  cacheUrl.searchParams.set('hot-posts-version', '6')
   cacheUrl.searchParams.set('day', new Date().toISOString().slice(0, 10))
   const cacheKey = new Request(cacheUrl)
   try {
@@ -23,8 +23,8 @@ export async function onRequestGet({ request, env = {}, waitUntil }) {
     }
   } catch { /* A cache failure should not disable the feed. */ }
 
-  const builders = [buildGitHubGroup, buildBilibiliGroup, buildRedditGroup, buildYouTubeGroup]
-  const groups = mergeHotGroups(await Promise.all(builders.map((build) => withPlatformDeadline((signal) => build(env, signal)))))
+  const builders = [['GitHub', buildGitHubGroup], ['B站', buildBilibiliGroup], ['Reddit', buildRedditGroup], ['YouTube', buildYouTubeGroup]]
+  const groups = mergeHotGroups(await Promise.all(builders.map(([source, build]) => withPlatformDeadline(source, (signal) => build(env, signal)))))
   const response = jsonResponse({ updatedAt: new Date().toISOString(), groups })
   if (cache) {
     const save = cache.put(cacheKey, response.clone()).catch(() => {})
@@ -34,7 +34,7 @@ export async function onRequestGet({ request, env = {}, waitUntil }) {
   return response
 }
 
-async function withPlatformDeadline(task) {
+async function withPlatformDeadline(source, task) {
   const controller = new AbortController()
   let timer
   try {
@@ -48,14 +48,14 @@ async function withPlatformDeadline(task) {
       })
     ])
   } catch {
-    return null
+    return { source, status: 'fallback', reason: 'source-error' }
   } finally {
     clearTimeout(timer)
   }
 }
 
 function liveGroup(source, items, keyword) {
-  if (!items.length) return null
+  if (!items.length) return { source, status: 'fallback', reason: 'no-content' }
   const base = getFallbackHotGroups().find((group) => group.source === source)
   return { ...base, status: 'live', notice: '', keyword, items }
 }
@@ -71,6 +71,7 @@ async function buildGitHubGroup(env, signal) {
     Accept: 'application/vnd.github+json', 'User-Agent': '52codex-hot-posts',
     ...(env.GITHUB_TOKEN ? { Authorization: `Bearer ${env.GITHUB_TOKEN}` } : {})
   } })
+  if (!Array.isArray(data.items)) throw new Error('Invalid source response')
   const now = Date.now()
   const items = selectHotPosts((data.items || [])
     .filter((repo) => isRecent(repo.pushed_at, now)
@@ -97,6 +98,7 @@ async function buildBilibiliGroup(_env, signal) {
   const data = await fetchJsonWithTimeout(url, { signal, headers: {
     Referer: 'https://search.bilibili.com/', 'User-Agent': '52codex-hot-posts/1.0'
   } })
+  if (data.code || !Array.isArray(data.data?.result)) throw new Error('Invalid source response')
   const now = Date.now()
   const items = selectHotPosts((data.data?.result || [])
     .filter((video) => isRecent(count(video.pubdate) * 1000, now)
@@ -114,6 +116,7 @@ async function buildBilibiliGroup(_env, signal) {
 async function buildRedditGroup(_env, signal) {
   const url = 'https://www.reddit.com/r/codex/search.json?q=Codex&restrict_sr=1&sort=top&t=week&limit=50'
   const data = await fetchJsonWithTimeout(url, { signal, headers: { 'User-Agent': '52codex-hot-posts/1.0' } })
+  if (!Array.isArray(data.data?.children)) throw new Error('Invalid source response')
   const now = Date.now()
   const items = selectHotPosts((data.data?.children || []).map(({ data }) => data)
     .filter((post) => post && isRecent(count(post.created_utc) * 1000, now) && /[\u3400-\u9fff]/.test(post.title)
@@ -130,7 +133,7 @@ async function buildRedditGroup(_env, signal) {
 
 async function buildYouTubeGroup(env, signal) {
   const apiKey = env.YOUTUBE_API_KEY
-  if (!apiKey) return null
+  if (!apiKey) return { source: 'YouTube', status: 'fallback', reason: 'missing-config' }
   let ids = splitEnvList(env.YOUTUBE_VIDEO_IDS)
   if (!ids.length) {
     const url = new URL('https://www.googleapis.com/youtube/v3/search')
@@ -139,13 +142,15 @@ async function buildYouTubeGroup(env, signal) {
       publishedAfter: new Date(Date.now() - RECENT_DAYS * 86400000).toISOString(), key: apiKey })
       .forEach(([key, value]) => url.searchParams.set(key, value))
     const data = await fetchJsonWithTimeout(url, { signal })
+    if (!Array.isArray(data.items)) throw new Error('Invalid source response')
     ids = (data.items || []).map((item) => item.id?.videoId).filter(Boolean)
   }
-  if (!ids.length) return null
+  if (!ids.length) return { source: 'YouTube', status: 'fallback', reason: 'no-content' }
   const url = new URL('https://www.googleapis.com/youtube/v3/videos')
   Object.entries({ part: 'snippet,statistics', id: ids.slice(0, 25).join(','), key: apiKey })
     .forEach(([key, value]) => url.searchParams.set(key, value))
   const data = await fetchJsonWithTimeout(url, { signal })
+  if (!Array.isArray(data.items)) throw new Error('Invalid source response')
   const now = Date.now()
   const items = selectHotPosts((data.items || [])
     .filter((video) => video.id && isRecent(video.snippet?.publishedAt, now) && /[\u3400-\u9fff]/.test(video.snippet?.title)

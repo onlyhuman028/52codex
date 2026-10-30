@@ -1,4 +1,6 @@
 ---
+status: published
+category: 用法技巧
 title: 14 Codex 怎么操控电脑
 description: Codex 操控电脑主要有 Computer Use、Chrome 扩展和内置浏览器三种方式。本文用精简版说明它们的区别、适合场景和选择顺序，帮新手判断什么时候用登录浏览器，什么时候用桌面控制，什么时候用开发沙盒。
 tags: [Codex, Computer Use, 插件, 自动化]

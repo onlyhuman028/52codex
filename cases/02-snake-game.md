@@ -1,4 +1,8 @@
 ---
+status: published
+category: 做网站
+featured: true
+featuredOrder: 1
 title: 02 写一个武侠版贪吃蛇
 description: 这个案例演示如何在 Codex 桌面 App 中完成一个贪吃蛇小游戏，从新建项目、输入需求、审核实施，到运行测试和继续优化，适合新手理解“写、改、测”的闭环。
 tags: [Codex, Vibe Coding, 新手入门, 实战案例]

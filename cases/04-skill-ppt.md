@@ -1,4 +1,8 @@
 ---
+status: coming-soon
+category: 内容创作
+featured: true
+featuredOrder: 5
 title: 04 调用 Skill 写 PPT
 description: 用 Codex 调用 Skill 完成 PPT 生成任务，理解素材准备、结构输出和文件交付流程。
 tags: [Codex, Skill, PPT, 实战案例]

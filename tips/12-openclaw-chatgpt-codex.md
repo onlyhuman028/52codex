@@ -1,4 +1,6 @@
 ---
+status: published
+category: 用法技巧
 title: 12 怎么用Codex养龙虾(OpenClaw)？
 description: OpenClaw 支持通过 ChatGPT OAuth 使用 Codex 相关模型。本文按 4.24 版界面整理配置步骤，包括模型登录、模型列表查看、默认模型设置和额度注意事项。
 tags: [Codex, 插件, 自动化, 新手入门]

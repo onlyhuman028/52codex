@@ -1,4 +1,7 @@
 ---
+status: published
+featured: true
+category: 工程化
 title: 05 Codex“目标”功能怎么用？
 description: 当一个任务不是一次对话就能完成时，可以用 /goal 给 Codex 设置目标。本文用简单例子讲清什么时候用、怎么写停止条件，以及如何避免目标太大太模糊。
 tags: [Codex, 自动化, 提示词, 项目规范]

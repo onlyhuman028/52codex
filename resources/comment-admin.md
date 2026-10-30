@@ -1,4 +1,5 @@
 ---
+noindex: true
 title: 留言管理
 description: 审核我爱CodeX站内留言
 ---

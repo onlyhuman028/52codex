@@ -1,4 +1,5 @@
 ---
+status: published
 title: 03 Codex 是什么？
 description: 面向新手介绍 OpenAI Codex 的定位、和 Claude Code 的区别，以及基本用途。
 tags: [Codex, 新手入门, Computer Use, Automations]

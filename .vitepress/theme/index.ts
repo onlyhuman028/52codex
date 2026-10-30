@@ -4,6 +4,7 @@ import Layout from './Layout.vue'
 import CommentAdmin from './CommentAdmin.vue'
 import HomePage from './HomePage.vue'
 import CodexResetMonitor from './CodexResetMonitor.vue'
+import ContentList from './ContentList.vue'
 import './style.css'
 
 export default {
@@ -13,5 +14,6 @@ export default {
     app.component('CommentAdmin', CommentAdmin)
     app.component('HomePage', HomePage)
     app.component('CodexResetMonitor', CodexResetMonitor)
+    app.component('ContentList', ContentList)
   }
 } satisfies Theme

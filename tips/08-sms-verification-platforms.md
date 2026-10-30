@@ -1,4 +1,7 @@
 ---
+status: published
+featured: true
+category: 用法技巧
 title: 08 Codex 弹出手机短信验证怎么办？
 description: Codex OAuth 登录突然要求 SMS 或 WhatsApp 验证时，一次性接码平台可能不再适合主力账号。本文整理海外实体手机号、Giffgaff、WhatsApp 接码、Authenticator、IP 画像和 API Key 备份等方案。
 tags: [Codex, 新手入门, 自动化]

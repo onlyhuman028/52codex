@@ -60,74 +60,19 @@
           </div>
           <a href="/cases/" class="section-link">查看全部</a>
         </div>
-        <div class="case-filters">
-          <span class="filter-tag active">全部</span>
-          <span class="filter-tag">做网站</span>
-          <span class="filter-tag">自动化</span>
-          <span class="filter-tag">建系统</span>
-          <span class="filter-tag">内容创作</span>
-          <span class="filter-tag">数据处理</span>
-          <span class="filter-tag">环境搭建</span>
+        <div class="case-filters" role="group" aria-label="案例分类">
+          <button v-for="category in caseCategories" :key="category" type="button" class="filter-tag"
+            :class="{ active: selectedCategory === category }" :aria-pressed="selectedCategory === category"
+            @click="selectedCategory = category">{{ category }}</button>
         </div>
+        <p class="case-filter-count" role="status">{{ visibleCases.length }} 个案例</p>
         <div class="card-grid">
-          <a href="/cases/02-snake-game" class="card">
-            <div class="card-cover">
-              <img src="/cases/assets/11-snake-game/final-game-with-image.png" alt="写一个武侠版贪吃蛇案例封面">
-            </div>
+          <a v-for="page in visibleCases" :key="page.link" :href="contentDestination(page)" class="card">
+            <div class="card-cover"><img v-if="page.cover" :src="page.cover" :alt="page.coverAlt" loading="lazy" decoding="async"></div>
             <div class="card-body">
-              <div class="card-tags"><span class="lv lv1">Lv.1</span><span class="tag-pill">小游戏</span></div>
-              <h3>写一个武侠版贪吃蛇</h3>
-              <p>从新建项目、输入需求、审核实施，到运行测试和继续优化。</p>
-            </div>
-          </a>
-          <a href="/cases/06-auto-collect-posts" class="card">
-            <div class="card-cover">
-              <img src="/cases/assets/06-auto-collect-posts/cover.svg" alt="自动搜集公众号热帖案例封面">
-            </div>
-            <div class="card-body">
-              <div class="card-tags"><span class="lv lv2">Lv.2</span><span class="tag-pill">自动化</span></div>
-              <h3>自动搜集公众号热帖</h3>
-              <p>用 Computer Use 控制微信搜一搜，定时抓取关键词热帖。</p>
-            </div>
-          </a>
-          <a href="/cases/05-install-openclaw" class="card">
-            <div class="card-cover">
-              <img src="/cases/assets/05-install-openclaw/cover.svg" alt="用 Computer Use 安装龙虾案例封面">
-            </div>
-            <div class="card-body">
-              <div class="card-tags"><span class="lv lv2">Lv.2</span><span class="tag-pill">环境搭建</span></div>
-              <h3>用 Computer Use 安装龙虾</h3>
-              <p>让 Codex 自动安装 OpenClaw、配置 API Key、启动 Web UI。</p>
-            </div>
-          </a>
-          <a href="/cases/09-goal-mode-project" class="card">
-            <div class="card-cover">
-              <img src="/cases/assets/09-goal-mode-project/cover.svg" alt="目标模式开发软件项目案例封面">
-            </div>
-            <div class="card-body">
-              <div class="card-tags"><span class="lv lv3">Lv.3</span><span class="tag-pill">建系统</span></div>
-              <h3>目标/Goal 模式开发软件项目</h3>
-              <p>用 Goal 模式拆解并推进软件项目，学习从设计规范到持续开发的完整流程。</p>
-            </div>
-          </a>
-          <a href="/cases/04-skill-ppt" class="card">
-            <div class="card-cover">
-              <img src="/cases/assets/04-skill-ppt/cover.svg" alt="调用 Skill 写 PPT 案例封面">
-            </div>
-            <div class="card-body">
-              <div class="card-tags"><span class="lv lv1">Lv.1</span><span class="tag-pill">内容创作</span></div>
-              <h3>调用 Skill 写 PPT</h3>
-              <p>用 Codex 调用 Skill 完成 PPT 生成任务，理解素材准备、结构输出和文件交付流程。</p>
-            </div>
-          </a>
-          <a href="/cases/10-weekly-plan-system" class="card">
-            <div class="card-cover">
-              <img src="/cases/assets/10-weekly-plan-system/cover.svg" alt="编写周计划管理系统案例封面">
-            </div>
-            <div class="card-body">
-              <div class="card-tags"><span class="lv lv3">Lv.3</span><span class="tag-pill">建系统</span></div>
-              <h3>编写一个周计划管理系统</h3>
-              <p>把日常计划、任务安排和每周复盘做成可持续维护的小工具。</p>
+              <div class="card-tags"><span :class="`lv lv${page.level}`">Lv.{{ page.level }}</span><span class="tag-pill">{{ page.category }}</span><span class="content-status" :class="`content-status-${page.status}`">{{ page.statusLabel }}</span></div>
+              <h3>{{ page.text.replace(/^\d+\s*/, '') }}</h3>
+              <p>{{ page.description || '内容正在整理，完成后开放阅读。' }}</p>
             </div>
           </a>
         </div>
@@ -161,78 +106,10 @@
           <a href="/tips/01-index" class="section-link">查看全部</a>
         </div>
         <div class="tip-grid tip-grid-featured">
-          <a href="/tips/02-make-codex-better" class="tip-card tip-card-featured">
-            <div class="tip-meta">
-              <span>用法技巧</span>
-              <span>入门必看</span>
-            </div>
-            <h3>怎么让 Codex 越用越顺手</h3>
-            <p>记忆管理、偏好设置、项目规范，让 Codex 越来越懂你的习惯。</p>
-            <span class="tip-action">开始优化</span>
-          </a>
-          <a href="/tips/03-codex-third-party-api" class="tip-card">
-            <div class="tip-meta">
-              <span>扩展配置</span>
-              <span>进阶</span>
-            </div>
-            <h3>Codex 怎么接入第三方 API</h3>
-            <p>用 Codex++ 接入国产模型、中转站 GPT 或 Claude，保留图形化设置。</p>
-          </a>
-          <a href="/tips/04-agents-md" class="tip-card">
-            <div class="tip-meta">
-              <span>项目规范</span>
-              <span>模板</span>
-            </div>
-            <h3>AGENTS.md 怎么写</h3>
-            <p>从实战模板出发，手把手教你写好项目规范文档。</p>
-          </a>
-          <a href="/tips/05-goals" class="tip-card">
-            <div class="tip-meta">
-              <span>项目管理</span>
-              <span>长任务</span>
-            </div>
-            <h3>/goal 长任务怎么拆</h3>
-            <p>迁移、重构、修测试这类长任务，要写清目标、检查点和停止条件。</p>
-          </a>
-          <a href="/guide/" class="tip-card">
-            <div class="tip-meta">
-              <span>避坑</span>
-              <span>安全边界</span>
-            </div>
-            <h3>怎么防止 Codex 乱改代码</h3>
-            <p>用 AGENTS.md 划定行为边界，让 Codex 只改该改的地方。</p>
-          </a>
-          <a href="/tips/09-self-evolution" class="tip-card">
-            <div class="tip-meta">
-              <span>工作流</span>
-              <span>复用</span>
-            </div>
-            <h3>怎么让 Codex 自我进化</h3>
-            <p>让 Codex 自己总结经验、优化 Prompt、建立可复用的工作流。</p>
-          </a>
-          <a href="/tips/06-save-quota" class="tip-card">
-            <div class="tip-meta">
-              <span>额度策略</span>
-              <span>省钱</span>
-            </div>
-            <h3>额度怎么省</h3>
-            <p>少浪费上下文和无效交互，用 Prompt、模型选择和检查点控制消耗。</p>
-          </a>
-          <a href="/tips/07-chatgpt-codex-phone-verification" class="tip-card">
-            <div class="tip-meta">
-              <span>账号安全</span>
-              <span>登录验证</span>
-            </div>
-            <h3>手机号二次验证怎么办</h3>
-            <p>用高级账号安全和通行密钥减少短信依赖，先讲清恢复密钥风险。</p>
-          </a>
-          <a href="/tips/08-sms-verification-platforms" class="tip-card">
-            <div class="tip-meta">
-              <span>账号验证</span>
-              <span>手机号</span>
-            </div>
-            <h3>接码平台和实体卡一览</h3>
-            <p>临时接码适合一次验证，长期账号更建议准备可复用实体 SIM 卡。</p>
+          <a v-for="(page, index) in featuredTips" :key="page.link" :href="contentDestination(page)" class="tip-card" :class="{ 'tip-card-featured': index === 0 }">
+            <div class="tip-meta"><span>{{ page.category }}</span><span class="content-status" :class="`content-status-${page.status}`">{{ page.statusLabel }}</span></div>
+            <h3>{{ page.text.replace(/^\d+\s*/, '') }}</h3>
+            <p>{{ page.description }}</p>
           </a>
         </div>
       </div>
@@ -328,9 +205,9 @@
           <div class="footer-links">
             <a href="/resources/wechat#wechat">公众号</a>
             <a href="/resources/wechat#wechat-group">微信交流群</a>
-            <a href="#" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="https://github.com/onlyhuman028/52codex" target="_blank" rel="noreferrer">GitHub</a>
             <a href="mailto:hello@52codex.site">联系邮箱</a>
-            <a href="#">投稿</a>
+            <a href="mailto:hello@52codex.site?subject=52codex%20投稿">投稿</a>
           </div>
         </div>
       </div>
@@ -339,12 +216,18 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { getFallbackHotGroups, mergeHotGroups, fetchJsonWithTimeout } from './hot-posts-data.mjs'
-import { guidePages } from './navPages'
+import { casePages, guidePages, tipPages } from './navPages'
+import { contentDestination, filterCases, selectFeatured } from './content-policy.mjs'
 import HotAuthor from './HotAuthor.vue'
 
-const featuredGuidePages = guidePages.slice(0, 4)
+const featuredGuidePages = guidePages.filter(page => page.recommendable).slice(0, 4)
+const featuredTips = selectFeatured(tipPages)
+const selectedCategory = ref('全部')
+const homeCases = selectFeatured(casePages)
+const caseCategories = ['全部', ...new Set(homeCases.map(page => page.category).filter(Boolean))]
+const visibleCases = computed(() => filterCases(homeCases, selectedCategory.value))
 
 const hotGroups = ref(getFallbackHotGroups())
 const hotUpdatedAt = ref('')

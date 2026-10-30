@@ -1,4 +1,5 @@
 ---
+noindex: true
 title: 资源集锦
 head:
   - - meta

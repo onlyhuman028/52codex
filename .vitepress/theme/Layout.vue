@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useData, useRoute } from 'vitepress'
 import { Content } from 'vitepress/dist/client/app/components/Content.js'
 import Comments from './Comments.vue'
-import { casePages, guidePages, pluginToolPages, skillPages, tipPages } from './navPages'
+import ArticleToc from './ArticleToc.vue'
+import { contentDestination, filterReadingLinks, normalizeContentUrl } from './content-policy.mjs'
+import { copyText, navigationIndex } from './interaction-utils.mjs'
+import { contentPages, casePages, guidePages, pluginToolPages, skillPages, tipPages } from './navPages'
 
 type ReadingLink = {
   label: string
@@ -14,6 +17,7 @@ type ReadingLink = {
 
 const route = useRoute()
 const { frontmatter } = useData()
+const currentContent = computed(() => contentPages.find(page => page.link === normalizeContentUrl(route.path)))
 const mobileOpen = ref(false)
 const activeDropdown = ref('')
 let dropdownCloseTimer: ReturnType<typeof window.setTimeout> | undefined
@@ -58,7 +62,7 @@ const levelClass = computed(() => {
   return level ? `lv lv${level}` : ''
 })
 const articleCover = computed(() => {
-  const cover = frontmatter.value.cover
+  const cover = currentContent.value?.cover || frontmatter.value.cover
   return typeof cover === 'string' && cover ? cover : ''
 })
 const articleCoverAlt = computed(() => {
@@ -212,18 +216,8 @@ const crossSectionLinks: Record<string, ReadingLink[]> = {
     },
   ],
 }
-const recommendationExcludedLinks = new Set([
-  '/guide/16-publish-project',
-  '/cases/02-snake-game',
-  '/cases/03-improve-old-project',
-  '/cases/04-skill-ppt',
-  '/cases/09-goal-mode-project',
-  '/cases/05-install-openclaw',
-  '/cases/10-weekly-plan-system',
-])
-
-function isRecommendablePage(page: { text: string; link: string }) {
-  return !recommendationExcludedLinks.has(page.link) && page.text !== '即将上线'
+function isRecommendablePage(page: { recommendable: boolean }) {
+  return page.recommendable
 }
 
 const nextReadings = computed(() => {
@@ -263,7 +257,7 @@ const nextReadings = computed(() => {
   ]
 
   const seen = new Set<string>()
-  return candidates
+  return filterReadingLinks(candidates, contentPages)
     .filter((item) => item.link !== current)
     .filter((item) => {
       if (seen.has(item.link)) return false
@@ -300,10 +294,46 @@ function toggleDropdown(name: string) {
 function scheduleDropdownClose() {
   cancelDropdownClose()
   dropdownCloseTimer = window.setTimeout(() => {
+    if (document.activeElement?.closest('.nav-item.has-dropdown')) return
     activeDropdown.value = ''
     dropdownCloseTimer = undefined
   }, 240)
 }
+
+function handleNavKey(event: KeyboardEvent, name: string) {
+  const container = event.currentTarget as HTMLElement
+  const trigger = container.querySelector<HTMLButtonElement>('.nav-dropdown-trigger')
+  if (event.key === 'Escape') {
+    event.preventDefault()
+    closeDropdown()
+    trigger?.focus()
+    return
+  }
+  const links = Array.from(container.querySelectorAll<HTMLAnchorElement>('.nav-dropdown a'))
+  const index = navigationIndex(event.key, links.indexOf(document.activeElement as HTMLAnchorElement), links.length)
+  if (index !== null) {
+    event.preventDefault()
+    openDropdown(name)
+    nextTick(() => links[index]?.focus())
+  }
+}
+
+function handleMobileKey(event: KeyboardEvent) {
+  if (event.key === 'Escape') { closeMobile(); return }
+  if (event.key !== 'Tab') return
+  const links = Array.from((event.currentTarget as HTMLElement).querySelectorAll<HTMLElement>('a, button'))
+  const first = links[0], last = links.at(-1)
+  if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus() }
+  else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus() }
+}
+
+watch(mobileOpen, async open => {
+  await nextTick()
+  if (open) document.querySelector<HTMLElement>('.mobile-overlay .mobile-close')?.focus()
+  else document.querySelector<HTMLElement>('.nav-hamburger')?.focus()
+})
+
+onUnmounted(cancelDropdownClose)
 
 function decoratePromptBlocks() {
   document.querySelectorAll<HTMLElement>('.custom-block.tip').forEach((block) => {
@@ -316,16 +346,19 @@ function decoratePromptBlocks() {
     button.type = 'button'
     button.className = 'prompt-copy'
     button.textContent = '复制'
+    button.setAttribute('aria-live', 'polite')
     button.addEventListener('click', async () => {
       const text = Array.from(block.childNodes)
         .filter((node) => node !== title && node !== button)
         .map((node) => node.textContent || '')
         .join('')
         .trim()
-      await navigator.clipboard.writeText(text)
-      button.textContent = '已复制'
+      const copied = await copyText(text)
+      button.textContent = copied ? '已复制' : '复制失败，请重试'
+      button.setAttribute('aria-label', copied ? 'Prompt 已复制' : '复制失败，请检查剪贴板权限后重试')
       window.setTimeout(() => {
         button.textContent = '复制'
+        button.setAttribute('aria-label', '复制 Prompt')
       }, 1800)
     })
     block.appendChild(button)
@@ -367,12 +400,13 @@ watch(
             class="nav-item has-dropdown"
             :class="{ open: activeDropdown === 'guide' }"
             @mouseenter="openDropdown('guide')"
-            @click.self="toggleDropdown('guide')"
+            @keydown="handleNavKey($event, 'guide')"
+            @focusout="!$event.currentTarget.contains($event.relatedTarget) && closeDropdown()"
           >
-            上手指南
-            <div class="nav-dropdown" @mouseenter="openDropdown('guide')">
+            <button type="button" class="nav-dropdown-trigger" :aria-expanded="activeDropdown === 'guide'" aria-controls="nav-menu-guide" @click="toggleDropdown('guide')">上手指南</button>
+            <div id="nav-menu-guide" class="nav-dropdown" @mouseenter="openDropdown('guide')">
               <a href="/guide/" @click="closeDropdown">01 学习路线图</a>
-              <a v-for="page in guidePages" :key="page.link" :href="page.link" @click="closeDropdown">{{ page.text }}</a>
+              <a v-for="page in guidePages" :key="page.link" :href="contentDestination(page)" @click="closeDropdown">{{ page.text }}<span v-if="page.status !== 'published'" class="content-status" :class="`content-status-${page.status}`">{{ page.statusLabel }}</span></a>
             </div>
           </div>
 
@@ -380,11 +414,12 @@ watch(
             class="nav-item has-dropdown"
             :class="{ open: activeDropdown === 'tips' }"
             @mouseenter="openDropdown('tips')"
-            @click.self="toggleDropdown('tips')"
+            @keydown="handleNavKey($event, 'tips')"
+            @focusout="!$event.currentTarget.contains($event.relatedTarget) && closeDropdown()"
           >
-            实用技巧
-            <div class="nav-dropdown" @mouseenter="openDropdown('tips')">
-              <a v-for="page in tipPages" :key="page.link" :href="page.link" @click="closeDropdown">{{ page.text }}</a>
+            <button type="button" class="nav-dropdown-trigger" :aria-expanded="activeDropdown === 'tips'" aria-controls="nav-menu-tips" @click="toggleDropdown('tips')">实用技巧</button>
+            <div id="nav-menu-tips" class="nav-dropdown" @mouseenter="openDropdown('tips')">
+              <a v-for="page in tipPages" :key="page.link" :href="contentDestination(page)" @click="closeDropdown">{{ page.text }}<span v-if="page.status !== 'published'" class="content-status" :class="`content-status-${page.status}`">{{ page.statusLabel }}</span></a>
             </div>
           </div>
 
@@ -392,14 +427,15 @@ watch(
             class="nav-item has-dropdown"
             :class="{ open: activeDropdown === 'cases' }"
             @mouseenter="openDropdown('cases')"
-            @click.self="toggleDropdown('cases')"
+            @keydown="handleNavKey($event, 'cases')"
+            @focusout="!$event.currentTarget.contains($event.relatedTarget) && closeDropdown()"
           >
-            精选案例
-            <div class="nav-dropdown" @mouseenter="openDropdown('cases')">
+            <button type="button" class="nav-dropdown-trigger" :aria-expanded="activeDropdown === 'cases'" aria-controls="nav-menu-cases" @click="toggleDropdown('cases')">精选案例</button>
+            <div id="nav-menu-cases" class="nav-dropdown" @mouseenter="openDropdown('cases')">
               <a href="/cases/" @click="closeDropdown">案例总览</a>
               <template v-for="group in casePageGroups" :key="group.label">
                 <div class="dd-divider">{{ group.label }}</div>
-                <a v-for="page in group.pages" :key="page.link" :href="page.link" @click="closeDropdown">{{ page.text }}</a>
+                <a v-for="page in group.pages" :key="page.link" :href="contentDestination(page)" @click="closeDropdown">{{ page.text }}<span v-if="page.status !== 'published'" class="content-status" :class="`content-status-${page.status}`">{{ page.statusLabel }}</span></a>
               </template>
             </div>
           </div>
@@ -408,14 +444,15 @@ watch(
             class="nav-item has-dropdown"
             :class="{ open: activeDropdown === 'plugins' }"
             @mouseenter="openDropdown('plugins')"
-            @click.self="toggleDropdown('plugins')"
+            @keydown="handleNavKey($event, 'plugins')"
+            @focusout="!$event.currentTarget.contains($event.relatedTarget) && closeDropdown()"
           >
-            插件与技能
-            <div class="nav-dropdown" @mouseenter="openDropdown('plugins')">
+            <button type="button" class="nav-dropdown-trigger" :aria-expanded="activeDropdown === 'plugins'" aria-controls="nav-menu-plugins" @click="toggleDropdown('plugins')">插件与技能</button>
+            <div id="nav-menu-plugins" class="nav-dropdown" @mouseenter="openDropdown('plugins')">
               <div v-if="skillPages.length" class="dd-divider">技能</div>
-              <a v-for="page in skillPages" :key="page.link" :href="page.link" @click="closeDropdown">{{ page.text }}</a>
+              <a v-for="page in skillPages" :key="page.link" :href="contentDestination(page)" @click="closeDropdown">{{ page.text }}<span v-if="page.status !== 'published'" class="content-status" :class="`content-status-${page.status}`">{{ page.statusLabel }}</span></a>
               <div v-if="pluginToolPages.length" class="dd-divider">插件</div>
-              <a v-for="page in pluginToolPages" :key="page.link" :href="page.link" @click="closeDropdown">{{ page.text }}</a>
+              <a v-for="page in pluginToolPages" :key="page.link" :href="contentDestination(page)" @click="closeDropdown">{{ page.text }}<span v-if="page.status !== 'published'" class="content-status" :class="`content-status-${page.status}`">{{ page.statusLabel }}</span></a>
             </div>
           </div>
 
@@ -423,10 +460,11 @@ watch(
             class="nav-item has-dropdown"
             :class="{ open: activeDropdown === 'resources' }"
             @mouseenter="openDropdown('resources')"
-            @click.self="toggleDropdown('resources')"
+            @keydown="handleNavKey($event, 'resources')"
+            @focusout="!$event.currentTarget.contains($event.relatedTarget) && closeDropdown()"
           >
-            资源集锦
-            <div class="nav-dropdown" @mouseenter="openDropdown('resources')">
+            <button type="button" class="nav-dropdown-trigger" :aria-expanded="activeDropdown === 'resources'" aria-controls="nav-menu-resources" @click="toggleDropdown('resources')">资源集锦</button>
+            <div id="nav-menu-resources" class="nav-dropdown" @mouseenter="openDropdown('resources')">
               <a href="/resources/#官方资源" @click="closeDropdown">官方资源</a>
               <a href="/resources/#社区项目" @click="closeDropdown">社区资源</a>
               <a href="/resources/#工具推荐" @click="closeDropdown">推荐工具</a>
@@ -438,13 +476,13 @@ watch(
           <a href="/faq" class="nav-item" @click="closeDropdown">FAQ</a>
         </div>
 
-        <button class="nav-hamburger" type="button" aria-label="打开导航菜单" @click="mobileOpen = true">
+        <button class="nav-hamburger" type="button" :aria-expanded="mobileOpen" aria-controls="mobile-navigation" aria-label="打开导航菜单" @click="mobileOpen = true">
           <span></span><span></span><span></span>
         </button>
       </div>
     </nav>
 
-    <div class="mobile-overlay" :class="{ open: mobileOpen }">
+    <div id="mobile-navigation" class="mobile-overlay" :class="{ open: mobileOpen }" :inert="!mobileOpen" :aria-hidden="!mobileOpen" role="dialog" aria-label="站点导航" aria-modal="true" @keydown="handleMobileKey">
       <div class="mobile-header">
         <a href="/" class="nav-logo" @click="closeMobile">
           <svg class="nav-logo-mark" viewBox="0 0 36 36" aria-hidden="true">
@@ -459,20 +497,20 @@ watch(
         <a href="/codex-reset" :aria-current="isResetMonitor ? 'page' : undefined" @click="closeMobile">Codex 重置监控</a>
         <a href="/#hot-posts" @click="closeMobile">网络热帖</a>
         <a href="/guide/" @click="closeMobile">上手指南</a>
-        <a v-for="page in guidePages" :key="`mobile-${page.link}`" :href="page.link" class="sub-link" @click="closeMobile">{{ page.text }}</a>
+        <a v-for="page in guidePages" :key="`mobile-${page.link}`" :href="contentDestination(page)" class="sub-link" @click="closeMobile">{{ page.text }}<span v-if="page.status !== 'published'" class="content-status" :class="`content-status-${page.status}`">{{ page.statusLabel }}</span></a>
         <a href="/tips/01-index" @click="closeMobile">实用技巧</a>
-        <a v-for="page in tipPages" :key="`mobile-${page.link}`" :href="page.link" class="sub-link" @click="closeMobile">{{ page.text }}</a>
+        <a v-for="page in tipPages" :key="`mobile-${page.link}`" :href="contentDestination(page)" class="sub-link" @click="closeMobile">{{ page.text }}<span v-if="page.status !== 'published'" class="content-status" :class="`content-status-${page.status}`">{{ page.statusLabel }}</span></a>
         <a href="/cases/" @click="closeMobile">精选案例</a>
         <a href="/cases/" class="sub-link" @click="closeMobile">案例总览</a>
         <template v-for="group in casePageGroups" :key="`mobile-${group.label}`">
           <div class="mobile-divider">{{ group.label }}</div>
-          <a v-for="page in group.pages" :key="`mobile-${page.link}`" :href="page.link" class="sub-link" @click="closeMobile">{{ page.text }}</a>
+          <a v-for="page in group.pages" :key="`mobile-${page.link}`" :href="contentDestination(page)" class="sub-link" @click="closeMobile">{{ page.text }}<span v-if="page.status !== 'published'" class="content-status" :class="`content-status-${page.status}`">{{ page.statusLabel }}</span></a>
         </template>
         <a href="/plugins/" @click="closeMobile">插件与技能</a>
         <div v-if="skillPages.length" class="mobile-divider">技能</div>
-        <a v-for="page in skillPages" :key="`mobile-${page.link}`" :href="page.link" class="sub-link" @click="closeMobile">{{ page.text }}</a>
+        <a v-for="page in skillPages" :key="`mobile-${page.link}`" :href="contentDestination(page)" class="sub-link" @click="closeMobile">{{ page.text }}<span v-if="page.status !== 'published'" class="content-status" :class="`content-status-${page.status}`">{{ page.statusLabel }}</span></a>
         <div v-if="pluginToolPages.length" class="mobile-divider">插件</div>
-        <a v-for="page in pluginToolPages" :key="`mobile-${page.link}`" :href="page.link" class="sub-link" @click="closeMobile">{{ page.text }}</a>
+        <a v-for="page in pluginToolPages" :key="`mobile-${page.link}`" :href="contentDestination(page)" class="sub-link" @click="closeMobile">{{ page.text }}<span v-if="page.status !== 'published'" class="content-status" :class="`content-status-${page.status}`">{{ page.statusLabel }}</span></a>
         <a href="/resources/" @click="closeMobile">资源集锦</a>
         <a href="/resources/#官方资源" class="sub-link" @click="closeMobile">官方资源</a>
         <a href="/resources/#社区项目" class="sub-link" @click="closeMobile">社区资源</a>
@@ -508,11 +546,9 @@ watch(
           <span v-if="displayDate">·</span>
           <span>作者</span>
           <a :href="articleAuthor.href" target="_blank" rel="noreferrer">{{ articleAuthor.name }}</a>
-          <template v-if="isCasePost">
-            <span>·</span>
-            <span>阅读约 8 分钟</span>
-            <span>·</span>
-            <span>额度消耗 ≈ 30%</span>
+          <template v-if="currentContent && !currentContent.isIndex">
+            <span>·</span><span>阅读约 {{ currentContent.readingMinutes }} 分钟（估算）</span>
+            <template v-if="currentContent.quotaUsage"><span>·</span><span :title="currentContent.quotaUsage.source">额度消耗 {{ currentContent.quotaUsage.value }}%（实测记录）</span></template>
           </template>
         </div>
         <div v-if="isCasePost" class="article-cover">
@@ -520,6 +556,8 @@ watch(
           <div v-else class="article-cover-inner">封面图</div>
         </div>
 
+        <p v-if="currentContent && currentContent.status !== 'published'" class="content-state-notice" role="status">{{ currentContent.statusLabel }}：{{ currentContent.status === 'improving' ? '本文仍有素材或步骤需要补充，请结合原文说明阅读。' : '内容正在整理，完成后开放阅读。' }}</p>
+        <ArticleToc v-if="isArticlePost && currentContent?.status !== 'coming-soon'" />
         <div class="article-content">
           <Content />
         </div>
@@ -563,8 +601,9 @@ watch(
           <div class="footer-links">
             <a href="/resources/wechat#wechat">公众号</a>
             <a href="/resources/wechat#wechat-group">微信交流群</a>
-            <a href="#" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="https://github.com/onlyhuman028/52codex" target="_blank" rel="noreferrer">GitHub</a>
             <a href="mailto:hello@52codex.site">联系邮箱</a>
+            <a href="mailto:hello@52codex.site?subject=52codex%20投稿">投稿</a>
           </div>
         </div>
       </div>

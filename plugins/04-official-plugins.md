@@ -1,4 +1,5 @@
 ---
+status: published
 title: 04 十一个让效率起飞的官方插件
 description: 这是一份 Codex 官方插件入门清单，整理 Canva、Figma、HyperFrames、Remotion、Presentations、Spreadsheets、Documents、BioRender、Windsor AI、Chrome 和 Google Calendar 的适用场景。
 tags: [Codex, 插件, 自动化]

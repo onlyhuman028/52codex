@@ -1,4 +1,5 @@
 ---
+status: published
 title: 06 Codex 界面全览 
 description: 新手快速认识 Codex 桌面 App 界面，理解对话区、项目区、辅助区、扩展区，以及模型、额度、权限、速度和智能等级这些常用设置。
 tags: [Codex, 新手入门]

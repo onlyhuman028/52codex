@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress'
+import { isIndexable, normalizeContentUrl } from './theme/content-policy.mjs'
 
 const siteUrl = 'https://www.52codex.site'
 const siteTitle = '我爱CodeX'
@@ -59,20 +60,7 @@ const siteKeywords = [
   'Codex 模型选择',
 ].join(', ')
 
-const noindexPages = new Set([
-  'coming-soon.md',
-  'resources.md',
-  'resources/comment-admin.md',
-  'write_rules.md',
-  'guide/06-first-project.md',
-  'guide/10-snake-game.md',
-  'guide/11-improve-old-project.md',
-  'guide/13-skill-ppt.md',
-  'guide/15-goal-mode-project.md',
-  'guide/16-publish-project.md',
-  'cases/05-install-openclaw.md',
-  'cases/10-weekly-plan-system.md',
-])
+const excludedRoutes = new Set<string>()
 
 function pagePath(page: string) {
   if (page === 'index.md') return '/'
@@ -110,6 +98,7 @@ export default defineConfig({
   srcExclude: [
     'AGENTS.md',
     'DESIGN.md',
+    'write_rules.md',
     'plugins/01 top-skills.md',
     'plugins/02 content-creator-skills.md',
     'plugins/03 codex-practical-plugins.md',
@@ -129,13 +118,14 @@ export default defineConfig({
     hostname: siteUrl,
     transformItems(items) {
       return items
-        .filter((item) => {
-          const route = item.url.replace(siteUrl, '').replace(/^\//, '')
-          const mdPath = route.endsWith('/') ? `${route}index.md` : `${route}.md`
-          return !noindexPages.has(mdPath)
-        })
+        .filter(item => !excludedRoutes.has(normalizeContentUrl(item.url)))
         .map((item) => ({ ...item, changefreq: 'weekly' }))
     },
+  },
+  transformPageData(pageData) {
+    const url = normalizeContentUrl(pageData.relativePath)
+    if (isIndexable(pageData.frontmatter)) excludedRoutes.delete(url)
+    else excludedRoutes.add(url)
   },
   transformHead({ page, title, description, pageData }) {
     const path = pagePath(page)
@@ -144,11 +134,7 @@ export default defineConfig({
     const image = pageData.frontmatter.image
       ? `${siteUrl}${pageData.frontmatter.image}`
       : defaultImage
-    const shouldNoindex =
-      noindexPages.has(page) ||
-      pageData.frontmatter.hidden ||
-      pageData.frontmatter.noindex ||
-      pageData.frontmatter.title === '即将上线'
+    const shouldNoindex = !isIndexable(pageData.frontmatter)
 
     return [
       ['link', { rel: 'canonical', href: url }],
@@ -164,6 +150,7 @@ export default defineConfig({
     ]
   },
   markdown: {
+    headers: { level: [2, 3] },
     theme: {
       light: 'github-light',
       dark: 'github-dark'

@@ -10,11 +10,11 @@ const historicalGroups = [
     moreHref: 'https://x.com/search?q=Codex%20lang%3Azh&src=typed_query&f=top',
     items: [
       {
-        title: 'Codex 团队的 28 天计划：每天改进或重置额度',
+        title: 'Codex Day 25：Pro 额度翻倍，Pro 200 不再下调',
         author: 'Tibo（@thsottiaux）',
         avatar: '/images/authors/thsottiaux.jpg',
-        meta: 'X 原帖 · 2026-10-04 · 人工精选',
-        href: 'https://x.com/thsottiaux/status/2106845241357824205'
+        meta: 'X 原帖 · 2026-10-30 · 人工精选',
+        href: 'https://x.com/thsottiaux/status/2115850175868727621'
       },
       {
         title: '用 Codex + GPT-6.1 Sol 制作 Motion Video：实操教程',
@@ -147,8 +147,9 @@ export function getFallbackHotGroups(now = Date.now()) {
     : ({
     ...group,
     status: 'fallback',
+    reason: 'source-error',
     keyword: 'Codex · 历史精选',
-    notice: '暂无可用实时热帖，以下为历史精选，未计入本周热度。',
+    notice: '来源暂时无法访问，以下为历史精选，未计入本周热度。',
     moreHref: group.moreHref,
     items: group.items.map((item) => ({ ...item, meta: `${item.meta.replace(/ · (人工精选|历史精选)/g, '')} · 历史精选` }))
   }))
@@ -169,15 +170,25 @@ export function mergeHotGroups(groups, now = Date.now()) {
     // The editorial selection is authoritative, including with an old API/CDN payload.
     if (fallback.status === 'curated') return fallback
     const group = bySource.get(fallback.source)
-    if (!group || group.status !== 'live' || !Array.isArray(group.items)) return fallback
+    if (!group || group.status !== 'live' || !Array.isArray(group.items)) return withFallbackReason(fallback, group?.reason)
     const items = group.items.filter((item) => item
       && typeof item.title === 'string' && /[\u3400-\u9fff]/.test(item.title)
       && typeof item.meta === 'string' && safeHref(item.href) && isRecent(item.publishedAt, now)
       && (item.author === undefined || typeof item.author === 'string')).slice(0, 3)
-    if (!items.length) return fallback
-    return { ...fallback, status: 'live', keyword: typeof group.keyword === 'string' ? group.keyword : 'Codex · 最近 7 天',
+    if (!items.length) return withFallbackReason(fallback, 'no-content')
+    return { ...fallback, status: 'live', reason: '', keyword: typeof group.keyword === 'string' ? group.keyword : 'Codex · 最近 7 天',
       moreHref: safeHref(group.moreHref) ? group.moreHref : fallback.moreHref, notice: '', items }
   })
+}
+
+function withFallbackReason(fallback, reason) {
+  const notices = {
+    'no-content': '最近 7 天没有符合筛选条件的内容',
+    'missing-config': '实时来源尚未配置',
+    'source-error': '来源暂时无法访问'
+  }
+  const value = Object.hasOwn(notices, reason) ? reason : 'source-error'
+  return { ...fallback, reason: value, notice: `${notices[value]}，以下为历史精选，未计入本周热度。` }
 }
 
 // Bound the entire request, including JSON/body reading, and cancel its transport.

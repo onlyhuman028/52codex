@@ -1,4 +1,5 @@
 ---
+status: published
 title: 01 技巧总览
 description: 汇总 Codex 使用中的高频问题和实用技巧，覆盖项目规则、AGENTS.md、额度节省、插件配置、登录验证和设计美感提升。
 ---
@@ -18,23 +19,8 @@ Codex 使用经验库。解决你最常遇到的问题，来自真实使用中�
 
 ## 用法技巧
 
-- [怎么让 Codex 越用越顺手](/tips/02-make-codex-better) — 记忆管理、偏好设置、习惯养成
-- [Codex 如何接入第三方 API](/tips/03-codex-third-party-api) — 接入国产模型、中转站 GPT 或 Claude
-- [ChatGPT/Codex 手机号二次验证怎么办](/tips/07-chatgpt-codex-phone-verification) — 高级账号安全、通行密钥、恢复密钥
-- [Codex 手机验证刷屏了怎么办](/tips/08-sms-verification-platforms) — SMS、WhatsApp、实体 SIM 卡和账号安全
-- [如何让 Codex 不断进化](/tips/09-self-evolution) — 项目复盘、偏好提炼、规则沉淀
-- [如何提升 Codex 的设计美感](/tips/10-improve-codex-design) — DESIGN.md、参考风格、UI 审查清单
-- [Giffgaff 境外卡激活教程](/tips/11-giffgaff-activation) — 实体 SIM、eSIM、充值激活、长期保号
-- [怎么用 ChatGPT 账号给 OpenClaw 配 Codex 模型](/tips/12-openclaw-chatgpt-codex) — OpenClaw、ChatGPT OAuth、Codex 模型和额度提醒
-- [怎么在 Codex 里运行 Claude Code](/tips/13-run-claude-code-in-codex) — 安装 Claude Code、在 Codex 终端启动、排查网络配置
-- [Codex 怎么操控电脑](/tips/14-codex-computer-control) — Computer Use、Chrome 扩展和内置浏览器怎么选
-- [GPT-5.6 Sol 提示词指南](/tips/15-gpt-5-6-sol-prompt-guide) — 官方提示原则、写法拆解和 Codex 可复制案例
-- [这些Pro用户还能享受20x Plus](/tips/16-pro-200-20x-plus) — Pro 200 老用户资格、10 月 29 日截止时间和重订条件
-- [Codex 报错找不到模型怎么办](/tips/17-gemini-model-not-found) — 按用户反馈尝试用 Chrome 插件调整浏览器时区
-- [怎么防止 Codex 乱改代码](/tips/04-agents-md) — 用 AGENTS.md 划定行为边界
+<ContentList section="tips" category="用法技巧" />
 
 ## 工程化
 
-- [AGENTS.md 怎么写](/tips/04-agents-md) — 实战模板 + 逐字段讲解
-- [Codex 的 /goal 怎么用](/tips/05-goals) — 长任务拆解、检查点、停止条件
-- [Codex 额度怎么省](/tips/06-save-quota) — Prompt、上下文、MCP、模型选择
+<ContentList section="tips" category="工程化" />

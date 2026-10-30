@@ -1,4 +1,7 @@
 ---
+status: published
+featured: true
+category: 工程化
 title: 06 Codex 额度怎么省？ 
 description: Codex 额度消耗和模型、上下文大小、任务复杂度、工具调用有关。本文整理 Prompt 写法、上下文压缩、AGENTS.md 精简、MCP 控制、模型选择和用量监控方法。
 tags: [Codex, 新手入门, 提示词, 项目规范]

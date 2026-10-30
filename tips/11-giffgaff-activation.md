@@ -1,4 +1,6 @@
 ---
+status: published
+category: 用法技巧
 title: 11 Giffgaff 境外卡激活教程
 description: 这是一份面向 Codex/OpenAI 电话验证场景的 Giffgaff 境外卡激活教程，整理实体 SIM 与 eSIM 怎么选、App 激活流程、最低充值、查看号码、保号维护和漫游避坑。
 tags: [Codex, 新手入门, 自动化, 提示词]

@@ -1,4 +1,8 @@
 ---
+status: published
+category: 自动化
+featured: true
+featuredOrder: 2
 title: 06 自动搜集公众号热帖
 description: 用 Codex 的 Computer Use 控制微信搜一搜，定时抓取关键词热帖，自动整理成报告。
 tags: [自动化, Computer Use]

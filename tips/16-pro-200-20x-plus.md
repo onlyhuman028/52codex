@@ -1,4 +1,6 @@
 ---
+status: published
+category: 用法技巧
 title: 16 这些Pro用户还能享受20x Plus
 description: 哪些 Pro 200 用户还能保留 20x Plus 的 Codex 额度？本文说明老用户资格窗口、2026 年 10 月 29 日截止时间、取消后重新订阅的条件，以及 Pro 100、200、500 的额度和 Ultrafast 区别，帮助你按自己的订阅情况规划用量。
 tags: [Codex, 新手入门]

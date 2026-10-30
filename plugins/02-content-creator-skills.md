@@ -1,4 +1,5 @@
 ---
+status: published
 title: 02 十个内容创作者必用Skill 
 description: 这是一份面向中文内容创作者的 Codex Skills 推荐清单，覆盖去 AI 味、选题诊断、长文写作、资料研究、正文配图、封面卡片、PPT 和 HTML 海报制作。
 tags: [Codex, Skill, 插件, 内容创作]

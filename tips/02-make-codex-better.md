@@ -1,4 +1,7 @@
 ---
+status: published
+featured: true
+category: 用法技巧
 title: 02 如何让 Codex 越用越顺手
 description: 使用 Codex 一段时间后，如果你总要重复说明偏好和边界，可以通过 AGENTS.md 与 Memories 建立长期记忆系统，让 Codex 更稳定地理解你的习惯、项目规则和执行边界。
 tags: [Codex, AGENTS.md, 新手入门, 项目规范]

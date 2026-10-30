@@ -1,4 +1,5 @@
 ---
+status: published
 title: 07 Codex 插件与技能
 description: 解释 Codex 里插件和 Skill 的区别，带新手认识插件区、技能列表和创建技能入口，帮助你判断什么时候用现成插件，什么时候把重复流程做成自己的 Skill。
 tags: [Codex, 插件, Skill]

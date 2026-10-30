@@ -1,4 +1,6 @@
 ---
+status: improving
+category: 自动化
 title: 08 调用自动化插件搜索小红书
 description: 使用 Codex 自动化能力执行搜索任务，理解插件调用、网页操作和任务边界。
 tags: [Codex, 自动化, 小红书, 实战案例]

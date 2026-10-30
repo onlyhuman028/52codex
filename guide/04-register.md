@@ -1,4 +1,5 @@
 ---
+status: published
 title: 04 GPT注册与订阅
 description: 手把手讲清楚 ChatGPT 账号注册、Plus 订阅方式 
 tags: [Codex, 新手入门]

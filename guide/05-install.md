@@ -1,4 +1,5 @@
 ---
+status: published
 title: 05 Codex 下载安装 
 description: 介绍 Codex 的几种使用方式，说明为什么推荐新手使用官方桌面 App，并手把手完成下载、安装、首次登录和安装后的下一步。
 tags: [Codex, 新手入门]

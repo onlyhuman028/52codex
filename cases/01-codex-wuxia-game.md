@@ -1,4 +1,6 @@
 ---
+status: published
+category: 做网站
 title: 01 用 Codex 做武侠网页游戏
 description: 这个案例演示如何先用 AI 生成武侠网页游戏前端，再交给 Codex 拆解页面、补充人物场景配图和互动逻辑，最后把静态网页发布到公网，适合新手快速验证一个小游戏创意。
 tags: [Codex, Vibe Coding, 做网站, 实战案例]

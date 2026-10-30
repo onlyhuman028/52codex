@@ -1,4 +1,6 @@
 ---
+status: coming-soon
+category: 做网站
 title: 03 用 Codex 完善老项目
 description: 把已有项目交给 Codex 继续完善，理解任务顺序执行、并行处理和修改边界。
 tags: [Codex, 老项目, 实战案例]

@@ -35,7 +35,7 @@ async function groups(env = {}) {
 }
 
 const curatedLinks = [
-  'https://x.com/thsottiaux/status/2106845241357824205',
+  'https://x.com/thsottiaux/status/2115850175868727621',
   'https://x.com/liyue_ai/status/2105937541732200691',
   'https://x.com/miles_mazy/status/2091339513134010554'
 ]
@@ -85,6 +85,25 @@ test('offline non-X fallback is historical and Chinese', async () => {
       assert.match(item.title, /[\u3400-\u9fff]/)
     }
   }
+})
+
+test('fallback distinguishes no qualifying candidates, missing credentials and failed sources', async () => {
+  globalThis.fetch = async () => response({ items: [], data: { result: [], children: [] } })
+  let data = await groups()
+  assert.equal(data.find(group => group.source === 'GitHub').reason, 'no-content')
+  assert.equal(data.find(group => group.source === 'YouTube').reason, 'missing-config')
+  assert.match(data.find(group => group.source === 'GitHub').notice, /没有符合/)
+  globalThis.fetch = async () => { throw new Error('upstream secret details') }
+  data = await groups({ YOUTUBE_API_KEY: 'test-secret' })
+  assert.equal(data.find(group => group.source === 'YouTube').reason, 'source-error')
+  assert.doesNotMatch(JSON.stringify(data), /upstream secret details|test-secret/)
+})
+
+test('cached fallback preserves reason while expired live posts become empty candidates', () => {
+  const groups = mergeHotGroups([{ source: 'YouTube', status: 'fallback', reason: 'missing-config', items: [] }])
+  assert.equal(groups.find(group => group.source === 'YouTube').reason, 'missing-config')
+  const expired = mergeHotGroups([{ source: 'GitHub', status: 'live', items: [{ title: 'Codex 中文教程', meta: '旧记录', href: 'https://github.com/test/repo', publishedAt: '2000-01-01' }] }])
+  assert.equal(expired.find(group => group.source === 'GitHub').reason, 'no-content')
 })
 
 test('Bilibili sorts by heat and rejects stale, future, unrelated and English videos', async () => {

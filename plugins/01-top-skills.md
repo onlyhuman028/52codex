@@ -1,4 +1,5 @@
 ---
+status: published
 title: 01 十个Codex项目规范Skills 
 description: 这是一份面向 Codex 新手和进阶用户的 Skills 推荐清单，整理 10 个常用技能仓库，覆盖工程规范、前端检查、上下文管理、外部工具连接和技能模板。
 tags: [Codex, Skill, 插件]

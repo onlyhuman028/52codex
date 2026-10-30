@@ -1,4 +1,5 @@
 ---
+status: published
 title: 03 八个办公生产力Skill
 description: 这是一份面向 Codex 新手的实用插件选择清单，整理 Presentations、Spreadsheets、Windsor AI、Hyperframes、Remotion、BioRender、Kama 和 Figma 的适用场景。
 tags: [Codex, 插件, Skill,自动化]

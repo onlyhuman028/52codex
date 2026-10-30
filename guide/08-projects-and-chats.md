@@ -1,4 +1,5 @@
 ---
+status: published
 title: 08 Codex 项目与对话
 description: 讲清楚 Codex 里的项目、线程和项目记忆分别是什么，什么时候新建项目，什么时候新开线程，以及删除项目后本地文件是否还在。
 tags: [Codex, 新手入门, 项目规范]

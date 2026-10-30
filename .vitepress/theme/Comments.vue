@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, reactive, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 import { useData, useRoute } from 'vitepress'
 
 type CommentItem = {
@@ -22,6 +22,9 @@ const loading = ref(false)
 const submitting = ref(false)
 const error = ref('')
 const notice = ref('')
+const nextCursor = ref('')
+let loadController: AbortController | undefined
+let submission = 0
 
 const form = reactive({
   name: '',
@@ -44,37 +47,37 @@ function formatDate(value: string) {
   }).format(new Date(value))
 }
 
-async function fetchComments() {
+async function fetchComments(reset = true) {
+  loadController?.abort()
+  const controller = new AbortController()
+  loadController = controller
+  const path = pagePath.value
   loading.value = true
   error.value = ''
-  notice.value = ''
-
+  if (reset) { comments.value = []; nextCursor.value = '' }
   try {
-    const response = await fetch(`/api/comments?path=${encodeURIComponent(pagePath.value)}`)
-    const contentType = response.headers.get('content-type') || ''
-
-    if (!contentType.includes('application/json')) {
-      throw new Error('本地预览未运行留言接口，请用 Cloudflare Pages 预览或上线后测试')
-    }
-
-    const data = await response.json().catch(() => ({}))
-
-    if (!response.ok) {
-      throw new Error(data.error || '留言暂时无法加载')
-    }
-
-    comments.value = Array.isArray(data.comments) ? data.comments : []
+    const params = new URLSearchParams({ path })
+    if (!reset && nextCursor.value) params.set('cursor', nextCursor.value)
+    const response = await fetch(`/api/comments?${params}`, { signal: controller.signal })
+    if (!(response.headers.get('content-type') || '').includes('application/json')) throw new Error('留言接口暂不可用，请稍后重试')
+    const data = await response.json()
+    if (!response.ok) throw new Error(data.error || '留言暂时无法加载')
+    if (controller.signal.aborted || path !== pagePath.value) return
+    const items = Array.isArray(data.comments) ? data.comments : []
+    comments.value = reset ? items : [...new Map([...comments.value, ...items].map(item => [item.id, item])).values()]
+    nextCursor.value = data.nextCursor || ''
   } catch (err) {
-    comments.value = []
-    error.value = err instanceof Error ? err.message : '留言暂时无法加载'
+    if (!controller.signal.aborted && path === pagePath.value) error.value = err instanceof Error ? err.message : '留言暂时无法加载'
   } finally {
-    loading.value = false
+    if (loadController === controller) loading.value = false
   }
 }
 
 async function submitComment() {
   if (!canSubmit.value) return
 
+  const path = pagePath.value
+  const currentSubmission = ++submission
   submitting.value = true
   error.value = ''
   notice.value = ''
@@ -84,7 +87,7 @@ async function submitComment() {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
-        path: pagePath.value,
+        path,
         title: pageTitle.value,
         name: form.name,
         message: form.message,
@@ -103,23 +106,28 @@ async function submitComment() {
       throw new Error(data.error || '留言提交失败')
     }
 
+    if (path !== pagePath.value || currentSubmission !== submission) return
     form.name = ''
     form.message = ''
     form.website = ''
     comments.value = Array.isArray(data.comments) ? data.comments : comments.value
     notice.value = data.message || '留言已发布'
   } catch (err) {
-    error.value = err instanceof Error ? err.message : '留言提交失败'
+    if (path === pagePath.value && currentSubmission === submission) error.value = err instanceof Error ? err.message : '留言提交失败'
   } finally {
-    submitting.value = false
+    if (currentSubmission === submission) submitting.value = false
   }
 }
 
-onMounted(fetchComments)
+onMounted(() => fetchComments())
+onUnmounted(() => { loadController?.abort(); submission++ })
 
 watch(
   () => route.path,
   () => {
+    submission++
+    submitting.value = false
+    notice.value = ''
     form.name = ''
     form.message = ''
     form.website = ''
@@ -165,8 +173,8 @@ watch(
     <p v-if="notice" class="comment-status ok">{{ notice }}</p>
     <p v-if="error" class="comment-status">{{ error }}</p>
 
-    <div v-if="loading" class="comments-empty">正在加载留言...</div>
-    <div v-else-if="!comments.length && !error" class="comments-empty">还没有留言，先写第一条。</div>
+    <div v-if="loading && !comments.length" class="comments-empty">正在加载留言...</div>
+    <div v-else-if="!comments.length && !error && !nextCursor" class="comments-empty">还没有留言，先写第一条。</div>
     <ol v-else class="comment-list">
       <li v-for="comment in comments" :key="comment.id" class="comment-item">
         <div class="comment-meta">
@@ -181,5 +189,7 @@ watch(
         </div>
       </li>
     </ol>
+    <button v-if="nextCursor" type="button" class="list-load-more" :disabled="loading" @click="fetchComments(false)">{{ loading ? '加载中…' : '加载更多留言' }}</button>
+    <button v-else-if="error && !loading" type="button" class="list-load-more" @click="fetchComments()">重试加载</button>
   </section>
 </template>

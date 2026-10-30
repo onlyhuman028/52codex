@@ -1,4 +1,6 @@
 ---
+status: published
+category: 用法技巧
 title: 17 Codex 报错找不到模型怎么办
 description: 使用 Codex 时遇到 "Model not found"（找不到模型），可以尝试检查浏览器时区。 
 tags: [新手入门, 插件]

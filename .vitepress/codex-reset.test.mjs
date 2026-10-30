@@ -106,3 +106,38 @@ test('initial history failure can show recent events without claiming a complete
   assert.equal(result.completeHistory, false)
   assert.equal(result.snapshot.events.length, 1)
 })
+
+test('degraded history is retried after ten minutes and restores complete statistics', async () => {
+  let now = 0
+  let fullAttempts = 0
+  const loader = createResetLoader(async url => {
+    if (url.includes('recent')) return new Response(JSON.stringify(snapshot([event('recent')], { historyFrom: '2026-10-01T00:00:00+08:00' })))
+    if (++fullAttempts === 1) return new Response('', { status: 503 })
+    return new Response(JSON.stringify(snapshot([event('historical'), event('recent')])))
+  }, () => now)
+  assert.equal((await loader.load()).completeHistory, false)
+  await loader.load()
+  assert.equal(fullAttempts, 1)
+  now += 600001
+  const result = await loader.load()
+  assert.equal(result.completeHistory, true)
+  assert.equal(result.snapshot.events.length, 2)
+})
+
+test('a failed full-history retry preserves recent records and retries are throttled', async () => {
+  let now = 0
+  let attempts = 0
+  const loader = createResetLoader(async url => {
+    attempts++
+    if (!url.includes('recent')) throw new Error('full unavailable')
+    return new Response(JSON.stringify(snapshot([event('recent')])), { headers: { ETag: 'recent-tag' } })
+  }, () => now)
+  await loader.load()
+  now += 600001
+  const result = await loader.load()
+  assert.equal(result.snapshot.events[0].id, 'recent')
+  assert.equal(result.completeHistory, false)
+  assert.equal(attempts, 4)
+  await loader.load()
+  assert.equal(attempts, 4)
+})

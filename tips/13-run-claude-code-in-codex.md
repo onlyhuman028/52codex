@@ -1,4 +1,6 @@
 ---
+status: published
+category: 用法技巧
 title: 13 怎么在Codex里运行Claude Code
 description: 本文介绍如何在 Codex 桌面 App 的终端里安装并启动 Claude Code，覆盖 Mac、Linux、Windows 安装命令、版本检查、区域与网络报错排查，以及 Codex 与 Claude Code 的协作分工。
 tags: [Codex, 新手入门, 自动化, 提示词]

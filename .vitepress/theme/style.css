@@ -194,8 +194,6 @@ select {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
-.nav-item:hover .nav-dropdown,
-.nav-item:focus-within .nav-dropdown,
 .nav-item.open .nav-dropdown {
   display: block;
 }
@@ -2162,3 +2160,23 @@ select {
     padding: 0 16px 4px;
   }
 }
+
+/* Shared content state and reading controls */
+.content-status { display: inline-block; margin-left: 8px; padding: 2px 7px; border: 1px solid var(--hairline); border-radius: 9999px; color: var(--ink-mute); background: var(--canvas-soft); font-size: 11px; line-height: 1.5; white-space: nowrap; vertical-align: middle; }
+.content-status-coming-soon { border-style: dashed; }
+.content-state-notice { margin: 20px 0; padding: 14px 18px; border: 1px solid var(--hairline); border-radius: var(--radius-sm); color: var(--ink-mute); font-size: 14px; }
+.content-list li { margin: 16px 0; }
+.content-list li p { margin: 4px 0; color: var(--ink-mute); font-size: 14px; }
+.nav-dropdown-trigger { padding: 0; border: 0; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+.nav-dropdown-trigger:focus-visible, .nav-dropdown a:focus-visible, .mobile-overlay a:focus-visible, .mobile-overlay button:focus-visible, .filter-tag:focus-visible, .list-load-more:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+.case-filters button { font: inherit; cursor: pointer; }
+.case-filter-count { margin: -8px 0 20px; color: var(--ink-mute); font-size: 13px; }
+.article-toc { margin: 24px 0; padding: 18px 22px; background: var(--canvas-soft); border: 1px solid var(--hairline); border-radius: var(--radius-lg); }
+.article-toc summary { cursor: pointer; font-size: 15px; font-weight: 500; }
+.article-toc ol { display: grid; gap: 8px; margin: 16px 0 0; padding: 0; list-style: none; }
+.article-toc a { color: var(--ink-mute); font-size: 14px; }
+.article-toc a:hover { color: var(--ink); text-decoration: underline; }
+.article-toc .toc-child { padding-left: 18px; }
+.list-load-more { margin-top: 20px; padding: 10px 18px; border: 1px solid var(--hairline); border-radius: var(--radius-sm); color: var(--ink); background: var(--canvas); font: inherit; cursor: pointer; }
+button:disabled { cursor: wait; opacity: .6; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .fade-up { animation: none; opacity: 1; transform: none; } }

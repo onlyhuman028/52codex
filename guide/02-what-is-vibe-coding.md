@@ -1,4 +1,5 @@
 ---
+status: published
 title: 02 AI编程是什么？
 description: 什么是 AI 编程、它和传统编程有什么不同，新手如何快速上手？
 tags: [Vibe Coding, Codex, 新手入门]

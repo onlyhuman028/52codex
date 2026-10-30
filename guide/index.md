@@ -1,4 +1,5 @@
 ---
+status: published
 title: 新手指南 — 学习路线图
 description: 为什么做这个网站，以及从 0 开始学习 Codex 的路线图。
 order: 1
@@ -6,6 +7,7 @@ order: 1
 
 <script setup>
 import { guidePages } from '../.vitepress/theme/guidePages'
+import { contentDestination } from '../.vitepress/theme/content-policy.mjs'
 </script>
 
 # 新手指南
@@ -72,7 +74,7 @@ Phase 4  工程化落地      AGENTS.md → DESIGN.md → Goals → 快速发布
     </tr>
     <tr v-for="page in guidePages" :key="page.link">
       <td>{{ String(page.order).padStart(2, '0') }}</td>
-      <td><a :href="page.link">{{ page.text }}</a></td>
+      <td><a :href="contentDestination(page)">{{ page.text }}</a> <span class="content-status" :class="`content-status-${page.status}`">{{ page.statusLabel }}</span></td>
       <td>{{ page.description || '内容正在整理中' }}</td>
     </tr>
   </tbody>

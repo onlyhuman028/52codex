@@ -1,4 +1,5 @@
 ---
+status: published
 title: 09 Codex 怎么连接手机？
 description: Codex 手机远程连接，是让手机连接正在运行 Codex 的电脑。  
 tags: [Codex, 新手入门]

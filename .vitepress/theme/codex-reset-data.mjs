@@ -143,16 +143,18 @@ export function createResetLoader(fetcher = globalThis.fetch, clock = Date.now) 
   async function refresh(signal) {
     lastAttempt = clock()
     try {
-      if (!snapshot) {
+      if (!completeHistory) {
         try {
           const full = await request(RESET_API_URL, signal)
           snapshot = full.snapshot
           completeHistory = true
         } catch (error) {
           if (signal?.aborted) throw error
-          const recent = await request(RESET_RECENT_API_URL, signal)
-          snapshot = recent.snapshot
-          recentEtag = recent.etag
+          const recent = await request(RESET_RECENT_API_URL, signal, recentEtag)
+          if (!recent.unchanged) {
+            snapshot = recent.snapshot
+            recentEtag = recent.etag
+          }
         }
       } else {
         const recent = await request(RESET_RECENT_API_URL, signal, recentEtag)
