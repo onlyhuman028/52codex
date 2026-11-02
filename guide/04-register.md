@@ -5,7 +5,7 @@ description: 手把手讲清楚 ChatGPT 账号注册、Plus 订阅方式
 tags: [Codex, 新手入门]
 order: 4
 level: 2
-date: 2026-10-08
+date: 2026-11-02
 ---
 
 # GPT 注册与订阅：新手怎么开通 ChatGPT Plus
@@ -191,7 +191,8 @@ ChatGPT 和 Codex 都属于 OpenAI 账号体系。你只要注册一个 ChatGPT 
 1. 先验证你购买的卡密
 2. 登录自己的 GPT 账号
 3. 获取 token，地址是 `https://chatgpt.com/api/auth/session`
-注意，要从登录GPT的页面跳转到上面的这个网页，有时候会报错。应该新开一个标签页。
+注意，不要从登录GPT的页面跳转到上面的这个网页，有时候会报错。
+应该新开一个网页，再打开 https://chatgpt.com/api/auth/session
 4. 将 token 粘贴到充值网站的充值框
 5. 核实账号信息
 6. 点击充值
