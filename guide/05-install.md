@@ -5,7 +5,7 @@ description: 介绍 Codex 的几种使用方式，说明为什么推荐新手使
 tags: [Codex, 新手入门]
 order: 5
 level: 2
-date: 2026-10-08
+date: 2026-11-02
 ---
 
 # Codex 下载安装：新手怎么安装 Codex App
@@ -108,6 +108,16 @@ Codex 使用 OpenAI 账号体系。桌面 App 需要通过浏览器完成授权�
 ### 下载入口打不开怎么办
 
 先确认访问的是官方地址：[https://openai.com/codex](https://openai.com/codex)。如果打不开，通常是网络环境问题，可以换浏览器或网络节点再试。
+
+### 登陆Codex要求验收手机短信
+
+升级到plus，95%可以跳过手机短信验证，详见：[Codex 弹出手机短信验证怎么办？](../tips/08-sms-verification-platforms)。
+
+### Codex 使用不稳定
+
+如果遇到故障，可到 [报错查询网站](https://github.com/Avarce/codex-china-guide) — 按报错关键词查找 Codex 问题说明和处理步骤
+
+比如[Codex报错找不到模型怎么办？](https://52codex.site/resources/01-codex-error-lookup)
 
 ## 相关阅读
 
