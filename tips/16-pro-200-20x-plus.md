@@ -1,15 +1,16 @@
 ---
 status: published
 category: 用法技巧
-title: 16 官宣:Pro用户继续享受双倍额度
-description: 哪些 Pro  用户还能保留 双倍 Codex 额度？ tags: [Codex, 新手入门]
+title: 官宣：Pro 用户继续保留双倍 Codex 额度
+description: 哪些 Pro  用户还能保留 双倍 Codex 额度？
+tags: [Codex, 新手入门]
 level: 1
 date: 2026-11-02
 author: 原文整理
 authorLink: https://blog-er7.pages.dev/posts/20261008-oldgptpro/
 ---
 
-# 16  官宣：Pro用户继续享受双倍额度
+# 官宣：Pro 用户继续保留双倍 Codex 额度
 
 2026年10月28日，Codex 在 X 上发了一条。
 
