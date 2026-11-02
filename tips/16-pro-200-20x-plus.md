@@ -17,6 +17,8 @@ authorLink: https://blog-er7.pages.dev/posts/20261008-oldgptpro/
 
 原定的降额，取消。
 
+![Codex 官方宣布 Pro 各档和 Business Premium 使用限额翻倍](./assets/16-pro-200-20x-plus/official-quota-announcement.png){#screenshot}
+
 按照之前的倍数关系，Pro 各档相对 Plus 的额度大概是：
 
 Plus 1x，Pro 100 是 5x，Pro 200 是 10x，Pro 500 是 25x。

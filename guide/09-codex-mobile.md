@@ -56,7 +56,7 @@ date: 2026-10-08
 
 > 为什么我的Codex没办法通过手机连接？
 
-![图 2：codex搞定手机设置](./assets/09-codex-mobile/For example.png){#screenshot}
+![图 2：codex搞定手机设置](./assets/09-codex-mobile/for-example.png){#screenshot}
 
 
 
