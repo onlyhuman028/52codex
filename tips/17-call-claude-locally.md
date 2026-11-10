@@ -1,7 +1,7 @@
 ---
 status: published
 category: 用法技巧
-title: 18 无需 KYC，手把手教你本地调用 Claude 大模型
+title: 17 无需 KYC，手把手教你本地调用 Claude 大模型
 description: 用 Cherry Studio 在电脑上调用 Claude 模型，无需开通 Claude Pro。本文按顺序演示如何安装客户端、注册并充值 OpenRouter、创建 API 密钥、查找模型 ID，以及在 Cherry Studio 中添加模型并测试对话，最后介绍如何接入本地知识库。
 tags: [新手入门, Vibe Coding]
 level: 2
@@ -12,7 +12,9 @@ date: 2026-10-12
 
 好消息是 Claude 新模型上线了，坏消息是，如果账号被要求做真人认证（KYC）却没通过，开通官方 Claude Pro 会员就可能受阻。 [Claude 身份验证说明](https://support.claude.com/en/articles/14328960-identity-verification-on-claude)
 
-Anthropic 在国庆前发布了 Claude Opus 5.5，下图是原文记录的榜单截图。 [榜单来源](https://aihot.news/leaderboard)
+Anthropic 在国庆前发布了 Claude Opus 5.5，今天发布了新模型fable5.2  
+
+下图是榜单截图。 [榜单来源](https://aihot.news/leaderboard)
 
 ![原文记录的 Claude Opus 5.5 榜单](./assets/18-call-claude-locally/opus-leaderboard.png){#screenshot}
 
