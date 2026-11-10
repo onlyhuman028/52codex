@@ -69,7 +69,7 @@ Ultrafast 消耗更快，选模式时要留意剩余额度。
 
 ## 领取步骤（官方推荐路径）
 
-1. 确认你的 ChatGPT Pro 付费订阅已生效满 **7 天**，并用订阅账号登录 [ChatGPT](https://chatgpt.com/)。ChatGPT 和 API 平台必须使用同一个邮箱。
+1. 确认你的 ChatGPT Pro 付费订阅已生效满 **7 天**（过期变为free了，再充值要重新计时），并用订阅账号登录 [ChatGPT](https://chatgpt.com/)。ChatGPT 和 API 平台必须使用同一个邮箱。
 2. 打开 [设置 → 账单](https://chatgpt.com/settings/billing)。
 3. 找到「API 额度权益」或「月度订阅权益」卡片。图中 Pro 200 显示每月可获得 US$200 的 API 额度。
 4. 点击「关联组织」或页面上的领取按钮。
@@ -80,4 +80,4 @@ Ultrafast 消耗更快，选模式时要留意剩余额度。
 6. 打开 [API 平台的账单概览](https://platform.openai.com/settings/organization/billing/overview)，切换到刚关联的组织，查看到账金额和到期时间。
 7. 请勿转移、出售或赠送这笔额度。额度只能用于已关联的组织，违规可能导致额度被撤销或账号被暂停、终止。 [OpenAI 服务额度条款](https://openai.com/policies/service-credit-terms/)
 
-首次领取按当前账期剩余时间折算，未用完的额度在账期结束时失效。此权益不适用于通过 API 密钥调用 Codex，也不增加已登录 Codex 的使用额度。 [OpenAI API 额度官方说明](https://developers.openai.com/api/docs/guides/chatgpt-api-credits)
+首次领取按当前账期剩余时间折算，未用完的额度在账期结束时失效。此权益那是给你用来做项目开发的。不适用于通过 API 密钥调用 Codex，也不增加已登录 Codex 的使用额度。 [OpenAI API 额度官方说明](https://developers.openai.com/api/docs/guides/chatgpt-api-credits)
