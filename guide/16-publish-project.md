@@ -3,7 +3,7 @@ status: published
 title: 10 项目做完怎么快速发布到公网？
 description: 用 Pinme 把 Codex 做好的静态网页、小游戏或前端项目快速发布到公网。适合 HTML、Tailwind、JS、Next 静态导出目录，以及构建后的 dist 或 public 目录。
 tags: [Codex, 做网站, 新手入门]
-order: 16
+order: 10
 level: 1
 date: 2026-06-03
 ---
