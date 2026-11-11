@@ -80,4 +80,31 @@ Ultrafast 消耗更快，选模式时要留意剩余额度。
 6. 打开 [API 平台的账单概览](https://platform.openai.com/settings/organization/billing/overview)，切换到刚关联的组织，查看到账金额和到期时间。
 7. 请勿转移、出售或赠送这笔额度。额度只能用于已关联的组织，违规可能导致额度被撤销或账号被暂停、终止。 [OpenAI 服务额度条款](https://openai.com/policies/service-credit-terms/)
 
-首次领取按当前账期剩余时间折算，未用完的额度在账期结束时失效。此权益那是给你用来做项目开发的。不适用于通过 API 密钥调用 Codex，也不增加已登录 Codex 的使用额度。 [OpenAI API 额度官方说明](https://developers.openai.com/api/docs/guides/chatgpt-api-credits)
+首次领取按当前账期剩余时间折算，未用完的额度在账期结束时失效。此权益那是给你用来做项目开发的。不适用于通过 API 密钥调用 Codex，也不增加已登录 Codex 的使用额度。 [OpenAI API 额度官方说明]
+(https://developers.openai.com/api/docs/guides/chatgpt-api-credits)
+
+## 有效期
+
+**提醒 ChatGPT Pro 用户：赠送的 API 额度，不用就过期！**
+
+OpenAI 给 Pro 用户赠送的 API 额度，并不是永久有效，也不能累计到下个月。
+
+**注意以下三点：**
+
+1. **按订阅周期清零**：不是按自然月，而是按 Pro 订阅账单周期计算。
+2. **中途领取按比例发放**：首次领取时，赠送金额可能根据当前账单周期剩余时间折算。
+3. **过期不结转**：本期没用完的额度，到期自动失效，下个周期重新发放。
+
+**举个例子：**
+
+假设你的 Pro 订阅每月 10 日到期，但你直到 5 日才领取赠送的 API 额度。
+
+那么，这笔额度可能只剩 **5 天有效期**，到 10 日就会失效，而不是从领取当天开始计算 30 天。
+
+**特别提醒：**
+
+刚领取额度的 Pro 用户，建议立即查看额度的实际到期时间，避免白白浪费。
+
+查询地址：https://platform.openai.com/settings/organization/billing/credit-grants
+
+*以上针对 Pro 订阅赠送的 API 额度，不适用于自行充值购买的 API 额度。具体金额与有效期以账户显示为准。*
