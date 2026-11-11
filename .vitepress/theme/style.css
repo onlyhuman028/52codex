@@ -2052,7 +2052,7 @@ select {
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1152px) {
   .nav-links {
     display: none;
   }
