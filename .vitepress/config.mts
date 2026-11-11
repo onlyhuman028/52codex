@@ -58,6 +58,11 @@ const siteKeywords = [
   'Codex 5.6 Luna',
   'Codex GPT-5.6',
   'Codex 模型选择',
+  'codex充值',
+  'gpt充值',
+  'codex额度',
+  'gpt支付宝',
+  'gpt微信',
 ].join(', ')
 
 const excludedRoutes = new Set<string>()
