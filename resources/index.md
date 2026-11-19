@@ -7,18 +7,18 @@ description: 汇总 Codex 官方入口、社区项目、学习资料和推荐工
 
 Codex 相关的优质资源汇总，持续更新。
 
-::: tip 最新消息：GPT-6.1  发布
-OpenAI 已于 2026 年 9月 公开发布 。
- 
- 10月开启28天焕新服务，每天发布一个codex新功能，或者给一次额度重置卡。
+::: tip 最新消息：GPT-6.2 Astra 和 Sol 发布
+OpenAI 已于 2026 年 11 月 17 日发布 GPT-6.2 Astra 和 GPT-6.2 Sol，并在 ChatGPT Work、Codex 和 API 中提供。
 
-来源：[OpenAI 官方 X](https://x.com/OpenAI)。
+Astra 适合要求高、需要深入处理的项目；Sol 适合日常编码、写作和多步骤任务。
+
+来源：[OpenAI GPT-6.2 发布说明](https://learn.chatgpt.com/docs/whats-new/gpt-62-astra-sol)。
 :::
 
 
 ## 官方资源
 
-- [GPT-6  发布消息](https://x.com/OpenAI) — OpenAI 官方 已经发布GPT6  
+- [GPT-6.2 Astra 和 Sol 发布说明](https://openai.com/index/introducing-gpt-6-2-astra-sol/) — OpenAI 官方发布页
 - [Codex 官网](https://openai.com/codex) — 下载、介绍、更新日志
 - [Codex 官方X账号](https://x.com/OpenAIDevs) —  Codex 官方更新
 - [OpenAI cli 开源项目](https://github.com/openai/codex) — Codex cli 仓库

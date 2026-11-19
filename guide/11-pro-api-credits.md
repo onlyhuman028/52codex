@@ -45,8 +45,8 @@ Plus 1x，Pro 100 是 5x，Pro 200 是 10x，Pro 500 是 25x。
 | 套餐 | 月费（美元） | Codex 额度 | Ultrafast |
 | --- | --- | --- | --- |
 | Pro 100 | 100 | 10x Plus | 不含 |
-| Pro 200 | 200 |   20x Plus  | 不含 |
-| Pro 500 | 500 | 50x Plus | 包含 |
+| Pro 200 | 200 | 20x Plus | GPT-6.2 Sol |
+| Pro 500 | 500 | 50x Plus | GPT-6.2 Astra 和 GPT-6.2 Sol |
 
 倍数按原文整理，实际额度以账号后台显示为准。
 
@@ -54,14 +54,18 @@ Plus 1x，Pro 100 是 5x，Pro 200 是 10x，Pro 500 是 25x。
 
 ## Fast 和 Ultrafast 怎么消耗额度
 
-相对同一模型的 Standard 模式：
+相对同一模型的 Standard 模式，GPT-6.2 Astra 和 GPT-6.2 Sol 当前的消耗倍数是：
 
-- **Fast**：按 2.5 倍速率消耗套餐额度。
-- **Ultrafast**：按 8 倍速率消耗套餐额度。
+| 速度 | 订阅内额度 | 购买点数 |
+|---|---|---|
+| Fast | 2 倍 | 2 倍 |
+| Ultrafast | 6 倍 | 2027 年 2 月 28 日前为 3 倍，之后为 6 倍 |
 
 这里说的是额度消耗，不能理解成对应倍数的运行速度。
 
-Ultrafast 消耗更快，选模式时要留意剩余额度。
+GPT-6 Astra、GPT-6.1 Sol 等旧模型的倍数不同。Ultrafast 消耗更快，选模式时要留意剩余额度，并以官方定价页和账号内显示为准。
+
+来源：[OpenAI ChatGPT Work 和 Codex 定价说明](https://learn.chatgpt.com/docs/pricing)。
 
 ::: info 说明
 资格窗口和保留政策以 OpenAI 官方帮助中心为依据，额度倍数按原文整理。具体用量以账号后台实际显示为准。
