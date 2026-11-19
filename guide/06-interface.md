@@ -47,7 +47,7 @@ date: 2026-10-09
 - 设置运行速度
 - 选择权限模式
 
-![](/Users/onlyhuman/Library/Application%20Support/marktext/images/4fdc4aff8520cde00422ce17d266c05a667a8b48.png)
+![](assets/06-interface/f0e6abd9ae4fdf3d7a316ebfedf30da296fbf52a.png)
 
 这些选项会直接影响 Codex 的能力、速度和额度消耗。
 
@@ -66,7 +66,9 @@ Chat 是普通对话入口；ChatGPT Work 与 Codex 共用额度。Work 不提�
 
 Plus 有5小时额度，Pro用户不受5小时额度限制。
 
-![](./assets/06-interface/quota-panel.png){#screenshot}
+![](assets/06-interface/daa8d1398bf67cae077e61fb0e007dc1f23270ad.png)
+
+{#screenshot}
 
 ## 额度使用小诀窍
 
@@ -83,7 +85,7 @@ Plus 有5小时额度，Pro用户不受5小时额度限制。
 
 | 模型          | 适合任务                                           |
 | ------------- | -------------------------------------------------- |
-| GPT-6.2 Sol   | 日常编码、写作和多步骤任务，普通任务优先选它       |
+| GPT-6.2 Sol   | 日常编码、写作和多步骤任务，**普通任务优先选它**   |
 | GPT-6.2 Astra | 跨多个文件或系统的复杂项目，需要深入分析和完整验证 |
 | GPT-6.1 Terra | 理解截图、图表，或操作浏览器和桌面应用             |
 | GPT-6 Luna    | 目标明确的小修改、提取、分类和批量重复任务         |
@@ -97,6 +99,8 @@ Plus 有5小时额度，Pro用户不受5小时额度限制。
 Codex 的权限决定它能不能动你的文件、运行命令、操作电脑。
 
 常见权限模式可以这样理解：
+
+![](assets/06-interface/dbabaf54176905fcc4e8f2b6e897d45e2084a7fd.png)
 
 | 权限模式 | 适合场景                 | 说明                                             |
 | -------- | ------------------------ | ------------------------------------------------ |
