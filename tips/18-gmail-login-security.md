@@ -6,13 +6,9 @@ description: 谷歌账号登录后怎么处理二次验证、恢复邮箱、手�
 tags: [新手入门, Vibe Coding]
 level: 1
 date: 2026-11-25
-author: "赵赵AI小窝"
-authorLink: "https://zzaibox.cn/user/help/article.16"
 ---
 
 # 谷歌账号（Gmail）登录、安全、养号全教程
-
-这篇教程整理自[赵赵AI小窝的原文](https://zzaibox.cn/user/help/article.16)，并按普通用户可执行的登录与安全流程重新编排。
 
 本文只适用于你本人创建、持有或获得合法授权的账号。不要把密码、验证码、备用码或 2FA 密钥交给陌生人，也不要使用所谓的“代过验证”服务。
 
@@ -162,7 +158,6 @@ Google 不会通过电话、邮件或私信索要你的密码和验证码。验�
 
 ## 参考资料
 
-- [原始教程：谷歌账号（Gmail）登录、安全、养号全教程](https://zzaibox.cn/user/help/article.16)
 - [Google：提高账号安全性](https://support.google.com/accounts/answer/46526)
 - [Google：设置账号恢复选项](https://support.google.com/accounts/answer/183723)
 - [Google：开启两步验证](https://support.google.com/accounts/answer/185839)
