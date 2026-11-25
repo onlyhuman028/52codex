@@ -1,0 +1,24 @@
+《ChatGPT绿皮书》源文件审计
+收录正文：51
+重复正文：1
+排除项：4
+本地图片引用：145
+外部图片引用：16
+缺失本地图片：0
+
+章节：
+- 第一篇｜上手指南：11 篇
+- 第二篇｜实用技巧：17 篇
+- 第三篇｜精选案例：12 篇
+- 第四篇｜插件与技能：5 篇
+- 第五篇｜资源与答疑：4 篇
+- 附录：2 篇
+
+重复映射：
+- plugins/05-auto-video-edit.md -> cases/03-auto-video-edit.md
+
+排除项：
+- index.md：首页由 Vue 组件生成，正文内容在各栏目重复；网络热帖明确排除
+- resources.md：旧地址跳转页，内容由 resources/index.md 收录
+- resources/comment-admin.md：留言审核后台，不是读者内容
+- .vitepress/theme/HomePage.vue#hot-posts：网络热帖

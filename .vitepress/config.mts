@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress'
 import { isIndexable, normalizeContentUrl } from './theme/content-policy.mjs'
+import { bookArtifactSrcExcludes } from './source-excludes.mjs'
 
 const siteUrl = 'https://www.52codex.site'
 const siteTitle = '我爱CodeX'
@@ -107,6 +108,7 @@ export default defineConfig({
     'plugins/01 top-skills.md',
     'plugins/02 content-creator-skills.md',
     'plugins/03 codex-practical-plugins.md',
+    ...bookArtifactSrcExcludes,
   ],
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],

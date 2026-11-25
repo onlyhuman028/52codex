@@ -1,0 +1,270 @@
+{
+  "title": "ChatGPT绿皮书",
+  "author": "清风",
+  "sections": [
+    {
+      "key": "guide",
+      "title": "第一篇｜上手指南",
+      "items": [
+        {
+          "path": "guide/index.md",
+          "fingerprint": "7a6d708753a137140227dffe1e15fc3053702e01d155d612a799e79cef178899"
+        },
+        {
+          "path": "guide/02-what-is-vibe-coding.md",
+          "fingerprint": "67d5ac8004d7faa9b90cc05f9446c4c497e31c3fb66449f81118fab9f4e87ea5"
+        },
+        {
+          "path": "guide/03-what-is-codex.md",
+          "fingerprint": "9e7f40abf55e142646d36f4780ac0c12aa32d6436ec0aaa95c188195dbbdbf75"
+        },
+        {
+          "path": "guide/04-register.md",
+          "fingerprint": "3d9040bed08874c251bc8ed9f96be22304e79073412674fdf7d319e6a647e6fa"
+        },
+        {
+          "path": "guide/05-install.md",
+          "fingerprint": "29268b3d61955724ce40aab7861dfa4214e89a967fe3932ad1723cc015dc5351"
+        },
+        {
+          "path": "guide/06-interface.md",
+          "fingerprint": "6809c67593c26196d1063004e339e65a43a9a18b921fbc067a2e99899705796a"
+        },
+        {
+          "path": "guide/07-skills-and-plugins.md",
+          "fingerprint": "dd84db1e1193a553215256a78b796dc74f97c302cee608afe5933db832361b1c"
+        },
+        {
+          "path": "guide/08-projects-and-chats.md",
+          "fingerprint": "3bfb8b8294f504933c4b8a5affca2a2e6834a6619a6ef3536e64715531b38703"
+        },
+        {
+          "path": "guide/09-codex-mobile.md",
+          "fingerprint": "982873ac15097a267bf411c78e21dbda4cef8351f5e37034f93e23d4383c0226"
+        },
+        {
+          "path": "guide/11-pro-api-credits.md",
+          "fingerprint": "b6a5cb0ff78e0d8df5e0b6a4dcbbca13fae1cb09e0e5ee7f6b98d7beef2630ae"
+        },
+        {
+          "path": "guide/16-publish-project.md",
+          "fingerprint": "832d811c02e885b929c70989c1a1b1663a6220a4113f665c7c4b53554be39a98"
+        }
+      ]
+    },
+    {
+      "key": "tips",
+      "title": "第二篇｜实用技巧",
+      "items": [
+        {
+          "path": "tips/01-index.md",
+          "fingerprint": "10477de15a28b951d17ff224a93b9c26f6289e584dadad1478d838f9908cc9f8"
+        },
+        {
+          "path": "tips/02-make-codex-better.md",
+          "fingerprint": "7c4c4d845ae468192f90b2f1746b2ff7b8c610c5b6e06e73a4106ea515df3459"
+        },
+        {
+          "path": "tips/03-codex-third-party-api.md",
+          "fingerprint": "abaa193c7020de9d8f35e78f9ab2f195423ecd7a8cd2f360f92b7fcb0223ff11"
+        },
+        {
+          "path": "tips/04-agents-md.md",
+          "fingerprint": "1087774372e670491a5b26a2681129be8155276b926b52ff10cbd8882e9242e0"
+        },
+        {
+          "path": "tips/05-goals.md",
+          "fingerprint": "1ac4771856a06054bddcb69208cff937ade3b29e45e82c89c3d28cb7fe77eb1c"
+        },
+        {
+          "path": "tips/06-save-quota.md",
+          "fingerprint": "760c01b9bf29f2ba18ca4af74760020f05c9bf389abdf82f2d662ca9cce3cc9d"
+        },
+        {
+          "path": "tips/07-chatgpt-codex-phone-verification.md",
+          "fingerprint": "978998f751d6910f19ea3697ba35e72e0e5e69ce520ada1ae308859873b516f5"
+        },
+        {
+          "path": "tips/08-sms-verification-platforms.md",
+          "fingerprint": "3681209bf92c8ccdb6fc7ea58fbaed2a603e03c13f1db9b7e9b5645847361bdd"
+        },
+        {
+          "path": "tips/09-self-evolution.md",
+          "fingerprint": "54fb04e24c0d6dc29f73442a8bba05b3547867bf169ab70f71207082f7a24cf7"
+        },
+        {
+          "path": "tips/10-improve-codex-design.md",
+          "fingerprint": "f970cb2acde0de940d24836a505bae5ca6115a8a715158a25416e38f62533621"
+        },
+        {
+          "path": "tips/11-giffgaff-activation.md",
+          "fingerprint": "0c69015810877655931daf206563550e622a916442d69526d0daf43f236a2e5f"
+        },
+        {
+          "path": "tips/12-openclaw-chatgpt-codex.md",
+          "fingerprint": "bfb3643c01120b5ddba2a46fb2e284d8d3b4416b5bbc91ac7ca70f26a373a460"
+        },
+        {
+          "path": "tips/13-run-claude-code-in-codex.md",
+          "fingerprint": "44c0d9d0eee17bb2f25b51fcb0caba5d3ebe4eb84d8654a1115ea0fe3d18dd02"
+        },
+        {
+          "path": "tips/14-codex-computer-control.md",
+          "fingerprint": "53192e8e6b05370ffb867916f8011c5d2a53d6d8a972fb4737d6baacec85fc20"
+        },
+        {
+          "path": "tips/15-gpt-5-6-sol-prompt-guide.md",
+          "fingerprint": "4e694c0d0b8ac84ee90540fe2d666aeb9944f47faaaaa56858507e8a9b99fa7e"
+        },
+        {
+          "path": "tips/16-gemini-model-not-found.md",
+          "fingerprint": "dec12a381717bbc60000208e00ebd97ad98f0bb59886be6ad9738fc8c47d6560"
+        },
+        {
+          "path": "tips/17-call-claude-locally.md",
+          "fingerprint": "cc9fc97b75404c188c5f86926bacf645c29978b422a9b8135f9abb8d9ba6946e"
+        }
+      ]
+    },
+    {
+      "key": "cases",
+      "title": "第三篇｜精选案例",
+      "items": [
+        {
+          "path": "cases/index.md",
+          "fingerprint": "6c9cd3f5a71b264082bbae9d3d5e1f5e782b6996b2fe10a30a0f83fdddfcb28b"
+        },
+        {
+          "path": "cases/01-codex-wuxia-game.md",
+          "fingerprint": "a3857bf8ea3c85ef06792a619119d103f95d2c960093fef330feb57becd6a45a"
+        },
+        {
+          "path": "cases/02-snake-game.md",
+          "fingerprint": "db107960da56f99402bcd42c1541ed1c0805bcabe273b8ddeeb05a7ddf363f11"
+        },
+        {
+          "path": "cases/03-auto-video-edit.md",
+          "fingerprint": "4feab54b57d6744585c46f822a99552f600bebe617c5622847f4ce774bb1f031"
+        },
+        {
+          "path": "cases/03-improve-old-project.md",
+          "fingerprint": "bae6cf3d903fb9c97be62b20017e40452e9a50fcb475ca78ebdd2186cd607c87"
+        },
+        {
+          "path": "cases/04-skill-ppt.md",
+          "fingerprint": "f2ff30de36a68511789e199bc800d347aab85cdc830c2d927d762ec8909478dd"
+        },
+        {
+          "path": "cases/05-install-openclaw.md",
+          "fingerprint": "af81695d9197dfe1c5e04186659864cf6a3eb6279ccd4defc5bbedf968ed5a8d"
+        },
+        {
+          "path": "cases/06-auto-collect-posts.md",
+          "fingerprint": "987e9a9510858c216b5080281370bedff83986edf77051c422c44af592d03039"
+        },
+        {
+          "path": "cases/07-codex-control-computer.md",
+          "fingerprint": "9aa24f496b4a7eb1d0e5c28175dc6908fab6800a3531e413c31b8aa2d1ce1e0e"
+        },
+        {
+          "path": "cases/08-auto-xiaohongshu.md",
+          "fingerprint": "0844909d3614cc425c64701a14aed1c58e19a6dc2a055259d1df54a1fffa72d4"
+        },
+        {
+          "path": "cases/09-goal-mode-project.md",
+          "fingerprint": "fac18b35a2b3a86c65fe8d25effb87a13e7536b569a374c638c06504ef1b4efc"
+        },
+        {
+          "path": "cases/10-weekly-plan-system.md",
+          "fingerprint": "698e2e88929f4c2a65804e4e364db6a457a52d7ec8fa64b90e983d27d599cbc0"
+        }
+      ]
+    },
+    {
+      "key": "plugins",
+      "title": "第四篇｜插件与技能",
+      "items": [
+        {
+          "path": "plugins/index.md",
+          "fingerprint": "ad86e16eb69b4c9846823515fcb1e924b7e86ff6f1bf64efb53f0c26bd059675"
+        },
+        {
+          "path": "plugins/01-top-skills.md",
+          "fingerprint": "4e9dc9937fb19bc16783b7cb2c6a5f9807cb87432c5a1ea88dcebf3a1769c780"
+        },
+        {
+          "path": "plugins/02-content-creator-skills.md",
+          "fingerprint": "06379bb74581000ba95dad3838d1cbb4df411e831026b7060314d3dcc4dd23d8"
+        },
+        {
+          "path": "plugins/03-codex-practical-plugins.md",
+          "fingerprint": "5837708ca4198503c29ca49d79f1db00ed886c8e5eca7b7916aa008c632c5cb2"
+        },
+        {
+          "path": "plugins/04-official-plugins.md",
+          "fingerprint": "51b78e5556da8ab724ab1541480ad6aee972e79b545938050ee0582659a91840"
+        }
+      ]
+    },
+    {
+      "key": "resources",
+      "title": "第五篇｜资源与答疑",
+      "items": [
+        {
+          "path": "resources/index.md",
+          "fingerprint": "ccaf91a5b7f8e97dfc4719e050f9f99d6c102a94d5191c35d5458b612963ebb6"
+        },
+        {
+          "path": "resources/01-codex-error-lookup.md",
+          "fingerprint": "a9b1c74a80b137194d8a20446dfe5392c2810d0b00ae563bb6fea06b78c09692"
+        },
+        {
+          "path": "resources/wechat.md",
+          "fingerprint": "6e8aab68de2c08ce00b4a0a2ee58d4081ab315b0afa71031d659e4c4651c909e"
+        },
+        {
+          "path": "faq.md",
+          "fingerprint": "577306b9d067593e34e1a3521a705a0f5012c19ceb0791f3392543712eff209c"
+        }
+      ]
+    },
+    {
+      "key": "appendix",
+      "title": "附录",
+      "items": [
+        {
+          "path": "codex-reset.md",
+          "fingerprint": "f9d3647a81ca090a7ea0612eb053ea2b84e669167052d3f5e8af63f8a94242cd"
+        },
+        {
+          "path": "coming-soon.md",
+          "fingerprint": "2d38fe469d0ff140e54625cc15afde8a383d6cc487b14d16999a2684917eee11"
+        }
+      ]
+    }
+  ],
+  "duplicates": [
+    {
+      "duplicate": "plugins/05-auto-video-edit.md",
+      "canonical": "cases/03-auto-video-edit.md"
+    }
+  ],
+  "excluded": [
+    {
+      "path": "index.md",
+      "reason": "首页由 Vue 组件生成，正文内容在各栏目重复；网络热帖明确排除"
+    },
+    {
+      "path": "resources.md",
+      "reason": "旧地址跳转页，内容由 resources/index.md 收录"
+    },
+    {
+      "path": "resources/comment-admin.md",
+      "reason": "留言审核后台，不是读者内容"
+    },
+    {
+      "path": ".vitepress/theme/HomePage.vue#hot-posts",
+      "reason": "网络热帖"
+    }
+  ]
+}
