@@ -74,7 +74,7 @@ Codex 额度不是只看你发了几条消息。
 
 额度消耗不只看模型新旧，还受模型、推理强度、速度、上下文和工具调用影响。
 
-<img src="assets/06-save-quota/4ce70badc1b44bc5efb0261d274f8106d9d8dcdc.png" title="" alt="" width="471" />
+<img src="./assets/06-save-quota/4ce70badc1b44bc5efb0261d274f8106d9d8dcdc.png" title="" alt="" width="471" />
 
 还有一个坑：不要选work 模式，work模式和codex是共享额度的。非编程，只是咨询或者普通对话，选“聊天”模式就行！如下图：
 

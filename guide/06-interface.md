@@ -47,7 +47,7 @@ date: 2026-10-09
 - 设置运行速度
 - 选择权限模式
 
-<img src="assets/06-interface/f0e6abd9ae4fdf3d7a316ebfedf30da296fbf52a.png" title="" alt="" width="383" />
+<img src="./assets/06-interface/f0e6abd9ae4fdf3d7a316ebfedf30da296fbf52a.png" title="" alt="" width="383" />
 
 这些选项会直接影响 Codex 的能力、速度和额度消耗。
 
@@ -66,7 +66,7 @@ Chat 是普通对话入口；ChatGPT Work 与 Codex 共用额度。Work 不提�
 
 Plus 有5小时额度，Pro用户不受5小时额度限制。
 
-<img src="assets/06-interface/daa8d1398bf67cae077e61fb0e007dc1f23270ad.png" title="" alt="" width="413" />
+<img src="./assets/06-interface/daa8d1398bf67cae077e61fb0e007dc1f23270ad.png" title="" alt="" width="413" />
 
 {#screenshot}
 
@@ -100,7 +100,7 @@ Codex 的权限决定它能不能动你的文件、运行命令、操作电脑�
 
 常见权限模式可以这样理解：
 
-![](assets/06-interface/dbabaf54176905fcc4e8f2b6e897d45e2084a7fd.png)
+![](./assets/06-interface/dbabaf54176905fcc4e8f2b6e897d45e2084a7fd.png)
 
 | 权限模式 | 适合场景                 | 说明                                             |
 | -------- | ------------------------ | ------------------------------------------------ |
@@ -133,7 +133,7 @@ GPT-6.2 Astra 和 GPT-6.2 Sol 使用 Fast 时，订阅内额度和购买点数�
 
 智能等级包括轻、中、高、极高、Max 和 Ultra。可选项取决于模型、套餐和设置。
 
-<img src="assets/06-interface/a013c3142418cdf6ffb2787cc24641b9a850d56b.png" title="" alt="" width="451" />
+<img src="./assets/06-interface/a013c3142418cdf6ffb2787cc24641b9a850d56b.png" title="" alt="" width="451" />
 
 {#screenshot}
 
